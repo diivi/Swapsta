@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: const Color(0xFFF9F6F2),
       ),
       home: const Home(),
     );
@@ -32,41 +33,34 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int currentIndex = 0;
   late final List<Map<String, dynamic>> _pages;
-  int _pageIndex = 0;
+  int _screenIndex = 0;
   void _selectPage(int index) {
     setState(() {
-      _pageIndex = index;
+      _screenIndex = index;
     });
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    _pages = [
-      {'page': const ExploreScreen(), 'title': 'Explore'},
-      {'page': const SwapScreen(), 'title': 'Swap'},
-      {'page': const ProfileScreen(), 'title': 'Profile'},
-    ];
-    super.initState();
-  }
+  final _screens =  [
+    ExploreScreen(),
+    const SwapScreen(),
+    const ProfileScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_pageIndex]['page'],
+      body: _screens[_screenIndex],
+      extendBody: true,
       bottomNavigationBar: DotNavigationBar(
           dotIndicatorColor: Colors.orange,
-          currentIndex: currentIndex,
+          currentIndex: _screenIndex,
           enablePaddingAnimation: false,
-          onTap: (index) {
-            setState(() {
-              currentIndex = index;
-              _pageIndex = index;
-            });
+          onTap: (int index) {
+            _selectPage(index);
           },
           items: [
             DotNavigationBarItem(
-              icon: const Icon(Icons.home),
+              icon: const Icon(Icons.explore),
               selectedColor: Colors.orange,
             ),
             DotNavigationBarItem(
