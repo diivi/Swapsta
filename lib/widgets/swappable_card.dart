@@ -21,10 +21,33 @@ class SwappableCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridTile(
-      child: Image.network(
-        imageUrls[0],
-        fit: BoxFit.cover,
-      ),
-    );
+        child: Container(
+            color: Colors.white,
+            child: Column(children: [
+              Stack(
+                children: [
+                  Image.network(imageUrls[0],
+                      width: double.infinity, height: 100, fit: BoxFit.cover),
+                  Positioned(
+                    bottom: 0,
+                    child: Container(
+                      width: 300,
+                      height: 10,
+                      color: Colors.white70,
+                      padding: const EdgeInsets.all(10),
+                    ),
+                  ),
+                ],
+              ),
+              Text(ownerName),
+            ])));
   }
 }
+
+
+
+
+      // child: Image.network(
+      //   imageUrls[0],
+      //   fit: BoxFit.cover,
+      // ),
