@@ -51,30 +51,41 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _screens[_screenIndex],
-      extendBody: true,
-      bottomNavigationBar: DotNavigationBar(
-          dotIndicatorColor: Colors.orange,
-          currentIndex: _screenIndex,
-          enablePaddingAnimation: false,
-          onTap: (int index) {
-            _selectPage(index);
-          },
-          items: [
-            DotNavigationBarItem(
-              icon: const Icon(Icons.explore),
-              selectedColor: Colors.orange,
-            ),
-            DotNavigationBarItem(
-              icon: const Icon(Icons.swap_horiz),
-              selectedColor: Colors.orange,
-            ),
-            DotNavigationBarItem(
-              icon: const Icon(Icons.account_circle_outlined),
-              selectedColor: Colors.orange,
-            ),
-          ]),
+    return MaterialApp(
+      theme: ThemeData(
+        fontFamily: 'RedHatDisplay',
+        textTheme: ThemeData.light().textTheme.copyWith(
+          subtitle1: const TextStyle(
+            fontFamily: 'RedHatDisplay',
+            // fontWeight: FontWeight.w600,
+          )
+        )
+      ),
+      home: Scaffold(
+        body: _screens[_screenIndex],
+        extendBody: true,
+        bottomNavigationBar: DotNavigationBar(
+            dotIndicatorColor: Colors.orange,
+            currentIndex: _screenIndex,
+            enablePaddingAnimation: false,
+            onTap: (int index) {
+              _selectPage(index);
+            },
+            items: [
+              DotNavigationBarItem(
+                icon: const Icon(Icons.explore),
+                selectedColor: Colors.orange,
+              ),
+              DotNavigationBarItem(
+                icon: const Icon(Icons.swap_horiz),
+                selectedColor: Colors.orange,
+              ),
+              DotNavigationBarItem(
+                icon: const Icon(Icons.account_circle_outlined),
+                selectedColor: Colors.orange,
+              ),
+            ]),
+      ),
     );
   }
 }
