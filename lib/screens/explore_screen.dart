@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:swapsta/widgets/pills.dart';
+import 'package:swapsta/widgets/pill.dart';
 import '../widgets/swappable_card.dart';
 import '../../globals.dart' as globals;
 
@@ -17,15 +16,17 @@ class ExploreScreen extends StatelessWidget {
         child: Column(
           children: [
             Container(
+              margin: const EdgeInsets.only(bottom: 10),
               height: 50,
-              
               child: ListView.builder(
                 itemCount: categories.length,
                 itemBuilder: (ctx, i) {
-                  return Pills(name: categories[i].name, emoji: categories[i].emoji); // return category pill widget here
+                  return Pill(
+                      name: categories[i].name,
+                      emoji: categories[i]
+                          .emoji); // return category pill widget here
                 },
                 scrollDirection: Axis.horizontal,
-                
               ),
             ),
             Expanded(

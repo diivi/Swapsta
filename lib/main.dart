@@ -54,12 +54,6 @@ class _HomeState extends State<Home> {
     return MaterialApp(
       theme: ThemeData(
         fontFamily: 'RedHatDisplay',
-        textTheme: ThemeData.light().textTheme.copyWith(
-          subtitle1: const TextStyle(
-            fontFamily: 'RedHatDisplay',
-            // fontWeight: FontWeight.w600,
-          )
-        )
       ),
       home: Scaffold(
         body: _screens[_screenIndex],

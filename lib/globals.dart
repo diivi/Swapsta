@@ -6,7 +6,7 @@ import 'package:swapsta/models/category.dart';
 final List<Swappable> swappables = [
   Swappable(
       id: '1',
-      name: 'RIFLE PAPER CO. Pocket Book 32 Pages, Unlined',
+      name: 'Rifle Paper Co. Pocket Book 32 Pages, Unlined',
       description:
           'Very nice floral notebook has 32 pages unlined good for journaling, sketching, making notes etc. would prefer to swap with another stationery product.',
       imageUrls: [
