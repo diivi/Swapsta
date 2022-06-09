@@ -9,35 +9,27 @@ class ExploreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: GridView.builder(
+      body: Padding(
+        padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1),
+        child: GridView.builder(
           padding: const EdgeInsets.all(10.0),
           itemCount: swappablesList.length,
           itemBuilder: (ctx, i) => SwappableCard(
             id: swappablesList[i].id,
             name: swappablesList[i].name,
             ownerName: swappablesList[i].ownerName,
+            ownerImageUrl: swappablesList[i].ownerImageUrl,
             imageUrls: swappablesList[i].imageUrls,
             condition: swappablesList[i].condition,
             isWishlisted: swappablesList[i].isWishlisted,
           ),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: 3 / 2,
+              childAspectRatio: 0.7,
               crossAxisSpacing: 10,
               mainAxisSpacing: 10),
         ),
-        floatingActionButton: Padding(
-          padding: const EdgeInsets.only(bottom: 90.0),
-          child: FloatingActionButton(
-            child: Icon(Icons.add),
-            backgroundColor: Colors.orange,
-            onPressed: () {
-              print("fab pressed");
-              Navigator.of(context).pushNamed("/add-item");
-            },
-          ),
-        ),
-        floatingActionButtonLocation:
-            FloatingActionButtonLocation.miniEndFloat);
+      ),
+    );
   }
 }
