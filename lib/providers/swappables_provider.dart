@@ -56,4 +56,17 @@ class Swappables with ChangeNotifier {
   List<Swappable> get swappables {
     return [..._swappables];
   }
+
+  void toggleWishlist(String id) {
+    final swappable = _swappables.firstWhere((swappable) => swappable.id == id);
+    swappable.isWishlisted = !swappable.isWishlisted;
+    notifyListeners();
+  }
+
+  void filterSwappables(String category) {
+    _swappables = _swappables
+        .where((swappable) => swappable.category == category)
+        .toList();
+    notifyListeners();
+  }
 }

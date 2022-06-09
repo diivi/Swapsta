@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/swappables_provider.dart';
 import 'condition.dart';
 
 class SwappableCard extends StatelessWidget {
@@ -37,11 +39,28 @@ class SwappableCard extends StatelessWidget {
               image: NetworkImage(imageUrls[0]),
               height: 160,
             ),
-            const Positioned(
-              bottom: 10,
-              right: 10,
-              child: Icon(Icons.favorite_border, color: Colors.orange),
-            )
+            Positioned(
+                bottom: 0,
+                right: 0,
+                child: isWishlisted
+                    ? IconButton(
+                        splashRadius: 15,
+                        onPressed: () {
+                          Provider.of<Swappables>(context, listen: false)
+                              .toggleWishlist(id);
+                        },
+                        icon: const Icon(Icons.favorite),
+                        color: Colors.orange,
+                      )
+                    : IconButton(
+                        splashRadius: 15,
+                        onPressed: () {
+                          Provider.of<Swappables>(context, listen: false)
+                              .toggleWishlist(id);
+                        },
+                        icon: const Icon(Icons.favorite_border),
+                        color: Colors.orange,
+                      ))
           ]),
           const SizedBox(height: 10),
           Padding(
@@ -84,11 +103,3 @@ class SwappableCard extends StatelessWidget {
     );
   }
 }
-
-
-
-
-      // child: Image.network(
-      //   imageUrls[0],
-      //   fit: BoxFit.cover,
-      // ),

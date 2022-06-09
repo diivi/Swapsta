@@ -28,7 +28,7 @@ class ExploreScreen extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
               ),
             ),
-            Expanded(
+            const Expanded(
               child: SwappablesGrid(),
             ),
           ],
