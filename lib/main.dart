@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFF9F6F2),
       ),
       home: const Home(),
-      routes: {"/add-item": (context) => AddItemScreen()},
+      routes: {"/add-item": (context) => const AddItemScreen()},
     );
   }
 }

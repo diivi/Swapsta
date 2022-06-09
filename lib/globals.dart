@@ -1,6 +1,7 @@
 library swapsta.globals;
 
 import 'package:swapsta/models/Swappable.dart';
+import 'package:swapsta/models/category.dart';
 
 final List<Swappable> swappables = [
   Swappable(
@@ -49,5 +50,23 @@ final List<Swappable> swappables = [
     isWishlisted: false,
     ownerName: 'Aryan Sethia',
     ownerImageUrl: 'https://avatars.githubusercontent.com/u/76778991?v=4',
+  ),
+];
+
+final List<Category> categories = [
+  Category(
+    id: '1',
+    name: 'Stationery',
+    emoji: '📚',
+  ),
+  Category(
+    id: '2',
+    name: 'Clothing',
+    emoji: '👕',
+  ),
+  Category(
+    id: '3',
+    name: 'Electronics',
+    emoji: '📱',
   ),
 ];
