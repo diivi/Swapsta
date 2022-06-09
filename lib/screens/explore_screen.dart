@@ -9,22 +9,26 @@ class ExploreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GridView.builder(
-        padding: const EdgeInsets.all(10.0),
-        itemCount: swappablesList.length,
-        itemBuilder: (ctx, i) => SwappableCard(
-          id: swappablesList[i].id,
-          name: swappablesList[i].name,
-          ownerName: swappablesList[i].ownerName,
-          imageUrls: swappablesList[i].imageUrls,
-          condition: swappablesList[i].condition,
-          isWishlisted: swappablesList[i].isWishlisted,
+      body: Padding(
+        padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1),
+        child: GridView.builder(
+          padding: const EdgeInsets.all(10.0),
+          itemCount: swappablesList.length,
+          itemBuilder: (ctx, i) => SwappableCard(
+            id: swappablesList[i].id,
+            name: swappablesList[i].name,
+            ownerName: swappablesList[i].ownerName,
+            ownerImageUrl: swappablesList[i].ownerImageUrl,
+            imageUrls: swappablesList[i].imageUrls,
+            condition: swappablesList[i].condition,
+            isWishlisted: swappablesList[i].isWishlisted,
+          ),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 0.7,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10),
         ),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 3 / 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10),
       ),
     );
   }
