@@ -58,7 +58,24 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[_screenIndex],
+      body: Stack(children: [
+        Positioned(
+          top: 0,
+          left: -40,
+          child: Container(
+            height: 140,
+            width: 140,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: const AssetImage('assets/img/circle.png'),
+                  fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(
+                      Colors.white.withOpacity(0.3), BlendMode.modulate)),
+            ),
+          ),
+        ),
+        SafeArea(child: _screens[_screenIndex])
+      ]),
       extendBody: true,
       bottomNavigationBar: DotNavigationBar(
           dotIndicatorColor: Colors.orange,

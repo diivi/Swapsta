@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:swapsta/widgets/pill.dart';
 import '../../globals.dart' as globals;
+import '../widgets/home_header.dart';
 import '../widgets/swappables_grid.dart';
 
 class ExploreScreen extends StatelessWidget {
@@ -9,31 +10,28 @@ class ExploreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1),
-        child: Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(bottom: 10),
-              height: 50,
-              child: ListView.builder(
-                itemCount: categories.length,
-                itemBuilder: (ctx, i) {
-                  return Pill(
-                      name: categories[i].name,
-                      emoji: categories[i]
-                          .emoji); // return category pill widget here
-                },
-                scrollDirection: Axis.horizontal,
-              ),
-            ),
-            const Expanded(
-              child: SwappablesGrid(),
-            ),
-          ],
+    return Column(
+      children: [
+        const HomeHeader(),
+        const SizedBox(height: 20),
+        Container(
+          margin: const EdgeInsets.only(bottom: 10),
+          height: 50,
+          child: ListView.builder(
+            itemCount: categories.length,
+            itemBuilder: (ctx, i) {
+              return Pill(
+                  name: categories[i].name,
+                  emoji:
+                      categories[i].emoji); // return category pill widget here
+            },
+            scrollDirection: Axis.horizontal,
+          ),
         ),
-      ),
+        const Expanded(
+          child: SwappablesGrid(),
+        ),
+      ],
     );
   }
 }
