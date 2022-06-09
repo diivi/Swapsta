@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:swapsta/screens/explore_screen.dart';
 import 'package:swapsta/screens/profile_screen.dart';
 import 'package:swapsta/screens/swap_screen.dart';
+import 'package:swapsta/screens/add_item_screen.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 
 void main() {
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFF9F6F2),
       ),
       home: const Home(),
+      routes: {"/add-item": (context) => AddItemScreen()},
     );
   }
 }
@@ -40,10 +42,11 @@ class _HomeState extends State<Home> {
     });
   }
 
-  final _screens =  [
+  final _screens = [
     ExploreScreen(),
     const SwapScreen(),
     const ProfileScreen(),
+    const AddItemScreen(),
   ];
 
   @override
