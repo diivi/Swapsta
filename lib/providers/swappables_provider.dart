@@ -51,6 +51,36 @@ class Swappables with ChangeNotifier {
       ownerName: 'Aryan Sethia',
       ownerImageUrl: 'https://avatars.githubusercontent.com/u/76778991?v=4',
     ),
+    Swappable(
+      id: '4',
+      name: 'Adidas Brazuca',
+      description: 'very good football it goes woosh not swoosh',
+      imageUrls: [
+        'https://m.media-amazon.com/images/I/81DLl205vYL._SL1500_.jpg',
+        'https://m.media-amazon.com/images/I/81FXrcKuX+L._SL1500_.jpg'
+      ],
+      category: 'Sports',
+      condition: 5,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+      isWishlisted: false,
+      ownerName: 'Yathansh Raj Sharma',
+      ownerImageUrl: 'https://avatars.githubusercontent.com/u/88828094?v=4',
+    ),
+    Swappable(
+        id: '5',
+        name: 'Cute Hat',
+        description: 'cute hat',
+        imageUrls: [
+          'https://m.media-amazon.com/images/I/71tKXRvS9IL._UL1500_.jpg',
+        ],
+        category: 'Clothing',
+        condition: 5,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+        isWishlisted: false,
+        ownerName: 'Devina Bhatnagar',
+        ownerImageUrl: 'https://avatars.githubusercontent.com/u/89126339?v=4'),
   ];
 
   List<Swappable> get swappables {

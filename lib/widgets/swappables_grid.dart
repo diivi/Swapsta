@@ -11,7 +11,6 @@ class SwappablesGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     final swappablesData = Provider.of<Swappables>(context);
     final swappablesList = swappablesData.swappables;
-
     final filteredSwappables = filter == 'All Categories'
         ? swappablesList
         : swappablesList

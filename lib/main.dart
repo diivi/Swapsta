@@ -83,6 +83,13 @@ class _HomeState extends State<Home> {
       bottomNavigationBar: DotNavigationBar(
           dotIndicatorColor: Colors.orange,
           currentIndex: _screenIndex,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              spreadRadius: 5,
+            )
+          ],
           enablePaddingAnimation: false,
           onTap: (int index) {
             _selectPage(index);

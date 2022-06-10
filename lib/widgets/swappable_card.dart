@@ -31,7 +31,6 @@ class SwappableCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(children: [
             Ink.image(
@@ -62,41 +61,49 @@ class SwappableCard extends StatelessWidget {
                         color: Colors.orange,
                       ))
           ]),
-          const SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0),
-            child: Text(
-              name,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 10),
+                Text(
+                  name,
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
+                  maxLines: 1,
+                  softWrap: false,
+                  overflow: TextOverflow.fade,
+                ),
+                Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 5, 5, 5),
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 10),
+                        CircleAvatar(
+                          radius: 15,
+                          backgroundImage: NetworkImage(ownerImageUrl),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Text(
+                            ownerName,
+                            style: const TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.w300),
+                            maxLines: 1,
+                            softWrap: false,
+                            overflow: TextOverflow.fade,
+                          ),
+                        ),
+                      ],
+                    )),
+                //condition
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                  child: ConditionStars(condition),
+                )
+              ],
             ),
-          ),
-          Padding(
-              padding: const EdgeInsets.fromLTRB(0, 5, 5, 5),
-              child: Row(
-                children: [
-                  //circle avatar dp
-                  const SizedBox(width: 10),
-                  CircleAvatar(
-                    radius: 15,
-                    backgroundImage: NetworkImage(ownerImageUrl),
-                  ),
-                  //owner name
-                  const SizedBox(width: 10),
-                  Text(
-                    ownerName,
-                    style: const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.w300),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              )),
-          //condition
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-            child: ConditionStars(condition),
           )
         ],
       ),
