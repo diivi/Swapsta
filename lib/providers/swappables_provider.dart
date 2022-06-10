@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:swapsta/models/swappable.dart';
+import 'package:swapsta/providers/swappable.dart';
 
 class Swappables with ChangeNotifier {
   // ignore: prefer_final_fields
   List<Swappable> _swappables = [
     Swappable(
-        id: '1',
-        name: 'Rifle Paper Co. Pocket Book 32 Pages, Unlined',
-        description:
-            'Very nice floral notebook has 32 pages unlined good for journaling, sketching, making notes etc. would prefer to swap with another stationery product.',
-        imageUrls: [
-          'https://images.unsplash.com/photo-1528938102132-4a9276b8e320?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
-        ],
-        category: 'Stationery',
-        condition: 5,
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now(),
-        isWishlisted: false,
-        ownerName: 'Divyansh Singh',
-        ownerImageUrl: 'https://avatars.githubusercontent.com/u/41837037?v=4'),
+      id: '1',
+      name: 'Rifle Paper Co. Pocket Book 32 Pages, Unlined',
+      description:
+          'Very nice floral notebook has 32 pages unlined good for journaling, sketching, making notes etc. would prefer to swap with another stationery product.',
+      imageUrls: [
+        'https://images.unsplash.com/photo-1528938102132-4a9276b8e320?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+      ],
+      category: 'Stationery',
+      condition: 5,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+      ownerName: 'Divyansh Singh',
+      ownerImageUrl: 'https://avatars.githubusercontent.com/u/41837037?v=4',
+    ),
     Swappable(
       id: '2',
       name: 'cet',
@@ -30,7 +30,6 @@ class Swappables with ChangeNotifier {
       condition: 5,
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
-      isWishlisted: true,
       ownerName: 'Shivansh Singh',
       ownerImageUrl:
           'https://instagram.fdel27-5.fna.fbcdn.net/v/t51.2885-19/281339469_3166469946949927_3025707922524716103_n.jpg?stp=dst-jpg_s150x150&_nc_ht=instagram.fdel27-5.fna.fbcdn.net&_nc_cat=107&_nc_ohc=t780l7AHFBQAX_MPozY&tn=2MV9UHARVHI5KVU8&edm=AHG7ALcBAAAA&ccb=7-5&oh=00_AT8YGWqtnIbAUpfVO7WDPztDbvNTPQ5YpxZ0RrlpAmd78w&oe=62A6D660&_nc_sid=5cbaad',
@@ -47,7 +46,6 @@ class Swappables with ChangeNotifier {
       condition: 3.5,
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
-      isWishlisted: false,
       ownerName: 'Aryan Sethia',
       ownerImageUrl: 'https://avatars.githubusercontent.com/u/76778991?v=4',
     ),
@@ -63,7 +61,6 @@ class Swappables with ChangeNotifier {
       condition: 5,
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
-      isWishlisted: false,
       ownerName: 'Yathansh Raj Sharma',
       ownerImageUrl: 'https://avatars.githubusercontent.com/u/88828094?v=4',
     ),
@@ -78,25 +75,11 @@ class Swappables with ChangeNotifier {
         condition: 5,
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
-        isWishlisted: false,
         ownerName: 'Devina Bhatnagar',
         ownerImageUrl: 'https://avatars.githubusercontent.com/u/89126339?v=4'),
   ];
 
   List<Swappable> get swappables {
     return [..._swappables];
-  }
-
-  void toggleWishlist(String id) {
-    final swappable = _swappables.firstWhere((swappable) => swappable.id == id);
-    swappable.isWishlisted = !swappable.isWishlisted;
-    notifyListeners();
-  }
-
-  void filterSwappables(String category) {
-    _swappables = _swappables
-        .where((swappable) => swappable.category == category)
-        .toList();
-    notifyListeners();
   }
 }

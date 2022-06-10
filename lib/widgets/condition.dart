@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 //doesnt display half stars rn
 class ConditionStars extends StatelessWidget {
-  double rating;
-  ConditionStars(this.rating);
+  final double rating;
+  const ConditionStars(this.rating, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

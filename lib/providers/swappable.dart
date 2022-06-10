@@ -1,4 +1,6 @@
-class Swappable {
+import 'package:flutter/material.dart';
+
+class Swappable with ChangeNotifier {
   final String id;
   final String name;
   final List<String> imageUrls;
@@ -24,4 +26,9 @@ class Swappable {
     required this.updatedAt,
     this.isWishlisted = false,
   });
+
+  void toggleWishlist() {
+    isWishlisted = !isWishlisted;
+    notifyListeners();
+  }
 }

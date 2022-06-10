@@ -6,9 +6,23 @@ import 'package:swapsta/screens/swap_screen.dart';
 import 'package:swapsta/screens/add_item_screen.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import './providers/swappables_provider.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      systemStatusBarContrastEnforced: true,
+      systemNavigationBarColor: Colors.transparent,
+      systemNavigationBarDividerColor: Colors.transparent,
+      systemNavigationBarIconBrightness: Brightness.dark,
+      statusBarIconBrightness: Brightness.dark,
+    ),
+  );
+  SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.edgeToEdge,
+    overlays: [SystemUiOverlay.top],
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -61,10 +75,10 @@ class _HomeState extends State<Home> {
       body: Stack(children: [
         Positioned(
           top: 0,
-          left: -40,
+          left: -20,
           child: Container(
-            height: 140,
-            width: 140,
+            height: 100,
+            width: 100,
             decoration: BoxDecoration(
               image: DecorationImage(
                   image: const AssetImage('assets/img/circle.png'),

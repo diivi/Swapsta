@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 // import '../../globals.dart' as globals;
 
 class Pill extends StatelessWidget {
-  // final categories = globals.categories;
   final String name;
   final String emoji;
   final Function handleTap;
@@ -47,8 +46,9 @@ class Pill extends StatelessWidget {
                 overflow: TextOverflow.fade,
                 maxLines: 1,
                 softWrap: false,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 16,
+                  color: active ? Colors.white : Colors.black,
                 ),
               ),
             ),

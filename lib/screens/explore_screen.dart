@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:swapsta/widgets/pill.dart';
 import '../../globals.dart' as globals;
 import '../widgets/home_header.dart';
+import '../widgets/search_box.dart';
+import '../widgets/sort_button.dart';
 import '../widgets/swappables_grid.dart';
 
 class ExploreScreen extends StatefulWidget {
@@ -15,10 +17,17 @@ class _ExploreScreenState extends State<ExploreScreen> {
   final categories = globals.categories;
 
   String selectedFilter = 'All Categories';
+  String searchQuery = '';
 
   void _onFilterChanged(String value) {
     setState(() {
       selectedFilter = value;
+    });
+  }
+
+  void _onSearchQueryChanged(String value) {
+    setState(() {
+      searchQuery = value;
     });
   }
 
@@ -29,9 +38,24 @@ class _ExploreScreenState extends State<ExploreScreen> {
         const HomeHeader(),
         const SizedBox(height: 20),
         Container(
-          margin: const EdgeInsets.only(bottom: 10),
+          margin: const EdgeInsets.only(left: 20, right: 20),
+          child: Row(
+            children: [
+              Flexible(child: SearchBox(
+                handleSearch: (String value) {
+                  _onSearchQueryChanged(value);
+                },
+              )),
+              const SortButton()
+            ],
+          ),
+        ),
+        const SizedBox(height: 20),
+        Container(
+          margin: const EdgeInsets.only(bottom: 10, left: 10),
           height: 50,
           child: ListView.builder(
+            physics: const BouncingScrollPhysics(),
             itemCount: categories.length,
             itemBuilder: (ctx, i) {
               return Pill(
@@ -49,6 +73,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
         Expanded(
           child: SwappablesGrid(
             filter: selectedFilter,
+            searchQuery: searchQuery,
           ),
         ),
       ],
