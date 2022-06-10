@@ -5,7 +5,14 @@ class Pill extends StatelessWidget {
   // final categories = globals.categories;
   final String name;
   final String emoji;
-  const Pill({Key? key, required this.name, required this.emoji})
+  final Function handleTap;
+  final bool active;
+  const Pill(
+      {Key? key,
+      required this.name,
+      required this.emoji,
+      required this.handleTap,
+      required this.active})
       : super(key: key);
 
   @override
@@ -15,33 +22,38 @@ class Pill extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: Colors.white,
+        color: active ? Colors.orange : Colors.white,
       ),
       width: 124,
       alignment: Alignment.center,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.baseline,
-        textBaseline: TextBaseline.alphabetic,
-        children: [
-          Text(
-            emoji,
-            style: const TextStyle(
-              fontSize: 18,
-            ),
-          ),
-          Flexible(
-            child: Text(
-              name,
-              overflow: TextOverflow.fade,
-              maxLines: 1,
-              softWrap: false,
+      child: GestureDetector(
+        onTap: () {
+          handleTap();
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.baseline,
+          textBaseline: TextBaseline.alphabetic,
+          children: [
+            Text(
+              emoji,
               style: const TextStyle(
-                fontSize: 16,
+                fontSize: 18,
               ),
             ),
-          ),
-        ],
+            Flexible(
+              child: Text(
+                name,
+                overflow: TextOverflow.fade,
+                maxLines: 1,
+                softWrap: false,
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -4,6 +4,11 @@ import 'package:swapsta/models/category.dart';
 
 final List<Category> categories = [
   Category(
+    id: '0',
+    name: 'All Categories',
+    emoji: '',
+  ),
+  Category(
     id: '1',
     name: 'Stationery',
     emoji: '📚',

@@ -49,7 +49,7 @@ class _HomeState extends State<Home> {
   }
 
   final _screens = [
-    ExploreScreen(),
+    const ExploreScreen(),
     const SwapScreen(),
     const ProfileScreen(),
     const AddItemScreen(),
@@ -74,7 +74,10 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
-        SafeArea(child: _screens[_screenIndex])
+        SafeArea(
+          child: _screens[_screenIndex],
+          bottom: false,
+        )
       ]),
       extendBody: true,
       bottomNavigationBar: DotNavigationBar(

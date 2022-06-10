@@ -4,9 +4,23 @@ import '../../globals.dart' as globals;
 import '../widgets/home_header.dart';
 import '../widgets/swappables_grid.dart';
 
-class ExploreScreen extends StatelessWidget {
-  ExploreScreen({Key? key}) : super(key: key);
+class ExploreScreen extends StatefulWidget {
+  const ExploreScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ExploreScreen> createState() => _ExploreScreenState();
+}
+
+class _ExploreScreenState extends State<ExploreScreen> {
   final categories = globals.categories;
+
+  String selectedFilter = 'All Categories';
+
+  void _onFilterChanged(String value) {
+    setState(() {
+      selectedFilter = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +35,21 @@ class ExploreScreen extends StatelessWidget {
             itemCount: categories.length,
             itemBuilder: (ctx, i) {
               return Pill(
-                  name: categories[i].name,
-                  emoji:
-                      categories[i].emoji); // return category pill widget here
+                name: categories[i].name,
+                emoji: categories[i].emoji,
+                handleTap: () {
+                  _onFilterChanged(categories[i].name);
+                },
+                active: selectedFilter == categories[i].name,
+              ); // return category pill widget here
             },
             scrollDirection: Axis.horizontal,
           ),
         ),
-        const Expanded(
-          child: SwappablesGrid(),
+        Expanded(
+          child: SwappablesGrid(
+            filter: selectedFilter,
+          ),
         ),
       ],
     );
