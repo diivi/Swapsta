@@ -5,6 +5,7 @@ import 'package:swapsta/screens/profile_screen.dart';
 import 'package:swapsta/screens/swap_screen.dart';
 import 'package:swapsta/screens/add_item_screen.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
+import 'package:swapsta/screens/swappable_screen.dart';
 import './providers/swappables_provider.dart';
 import 'package:flutter/services.dart';
 
@@ -40,7 +41,10 @@ class MyApp extends StatelessWidget {
           fontFamily: 'RedHatDisplay',
         ),
         home: const Home(),
-        routes: {"/add-item": (context) => const AddItemScreen()},
+        routes: {
+          AddItemScreen.routeName: (context) => const AddItemScreen(),
+          SwappableScreen.routeName: (context) => const SwappableScreen(),
+        },
       ),
     );
   }
