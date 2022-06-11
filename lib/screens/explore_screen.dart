@@ -4,6 +4,7 @@ import '../../globals.dart' as globals;
 import '../widgets/home_header.dart';
 import '../widgets/search_box.dart';
 import '../widgets/sort_button.dart';
+import '../widgets/sort_modal.dart';
 import '../widgets/swappables_grid.dart';
 
 class ExploreScreen extends StatefulWidget {
@@ -18,6 +19,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   String selectedFilter = 'All Categories';
   String searchQuery = '';
+  Sort sort = Sort.added;
 
   void _onFilterChanged(String value) {
     setState(() {
@@ -28,6 +30,12 @@ class _ExploreScreenState extends State<ExploreScreen> {
   void _onSearchQueryChanged(String value) {
     setState(() {
       searchQuery = value;
+    });
+  }
+
+  void _onSortChanged(Sort value) {
+    setState(() {
+      sort = value;
     });
   }
 
@@ -46,7 +54,12 @@ class _ExploreScreenState extends State<ExploreScreen> {
                   _onSearchQueryChanged(value);
                 },
               )),
-              const SortButton()
+              SortButton(
+                handleSortSelection: (Sort value) {
+                  _onSortChanged(value);
+                },
+                selectedSort: sort,
+              ),
             ],
           ),
         ),
@@ -74,6 +87,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
           child: SwappablesGrid(
             filter: selectedFilter,
             searchQuery: searchQuery,
+            order: sort,
           ),
         ),
       ],

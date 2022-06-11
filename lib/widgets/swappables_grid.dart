@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swapsta/providers/swappable.dart';
+import 'package:swapsta/widgets/sort_modal.dart';
 import '../providers/swappables_provider.dart';
 import '../widgets/swappable_card.dart';
 import 'package:provider/provider.dart';
@@ -7,8 +8,12 @@ import 'package:provider/provider.dart';
 class SwappablesGrid extends StatelessWidget {
   final String filter;
   final String searchQuery;
+  final Sort order;
   const SwappablesGrid(
-      {Key? key, required this.filter, required this.searchQuery})
+      {Key? key,
+      required this.filter,
+      required this.searchQuery,
+      required this.order})
       : super(key: key);
 
   @override
@@ -30,8 +35,9 @@ class SwappablesGrid extends StatelessWidget {
                 .contains(searchQuery.toLowerCase()))
         .toList();
 
-    // TODO:  sort these keyword included swappables by sort order;
-    final filteredSwappables = keywordIncludedSwappables;
+    final sortedSwappables = sortSwappables(keywordIncludedSwappables, order);
+
+    final filteredSwappables = sortedSwappables;
 
     return GridView.builder(
       physics: const BouncingScrollPhysics(),
@@ -49,4 +55,19 @@ class SwappablesGrid extends StatelessWidget {
       ),
     );
   }
+}
+
+List<Swappable> sortSwappables(List<Swappable> swappables, Sort order) {
+  switch (order) {
+    case Sort.added:
+      swappables.sort((a, b) => -1 * a.createdAt.compareTo(b.createdAt));
+      break;
+    case Sort.updated:
+      swappables.sort((a, b) => -1 * a.createdAt.compareTo(b.createdAt));
+      break;
+    case Sort.condition:
+      swappables.sort((a, b) => -1 * a.condition.compareTo(b.condition));
+      break;
+  }
+  return swappables;
 }
