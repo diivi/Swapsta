@@ -44,11 +44,3 @@ class ConditionStars extends StatelessWidget {
   }
 }
 
-// Widget getWidget(double rating, int starCounter) {
-//   if (rating % 1 == 0.5) {
-//     starCounter++;
-//     return const Icon(Icons.star_half, size: 16, color: Colors.orange);
-//   } else {
-//     return Text('');
-//   }
-// }

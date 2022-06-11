@@ -7,6 +7,7 @@ import 'package:swapsta/screens/swap_screen.dart';
 import 'package:swapsta/screens/add_item_screen.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:swapsta/screens/swappable_screen.dart';
+import 'package:swapsta/widgets/settings_sidebar.dart';
 import './providers/swappables_provider.dart';
 import 'package:flutter/services.dart';
 
@@ -92,7 +93,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    print(Provider.of<Auth>(context).wishlist);
     return Scaffold(
       body: Stack(children: [
         Positioned(
@@ -116,23 +116,6 @@ class _HomeState extends State<Home> {
         )
       ]),
       extendBody: true,
-      endDrawer: Drawer(
-        child: ListView(
-          children: [
-            const DrawerHeader(
-              child: Text('Swapsta'),
-            ),
-            ListTile(
-              title: const Text('Explore'),
-              leading: const Icon(Icons.explore),
-              onTap: () {
-                Navigator.of(context).pop();
-                _selectPage(0);
-              },
-            ),
-          ],
-        ),
-      ),
       bottomNavigationBar: DotNavigationBar(
         dotIndicatorColor: Colors.orange,
         currentIndex: _screenIndex,
@@ -161,6 +144,9 @@ class _HomeState extends State<Home> {
             selectedColor: Colors.orange,
           ),
         ],
+      ),
+      endDrawer: const Drawer(
+        child: SettingsDrawer(),
       ),
     );
   }

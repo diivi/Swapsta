@@ -28,31 +28,33 @@ class SwappableCard extends StatelessWidget {
         },
         child: Column(
           children: [
-            Stack(children: [
-              Hero(
-                tag: 'swappable-${swappable.id}',
-                child: Material(
-                  child: Ink.image(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(swappable.imageUrls[0]),
-                    height: 160,
+            Stack(
+              children: [
+                Hero(
+                  tag: 'swappable-${swappable.id}',
+                  child: Material(
+                    child: Ink.image(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(swappable.imageUrls[0]),
+                      height: 160,
+                    ),
                   ),
                 ),
-              ),
-              Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: IconButton(
-                    splashRadius: 15,
-                    onPressed: () {
-                      user.toggleWishlist(swappable.id);
-                    },
-                    icon: user.wishlist.containsKey(swappable.id)
-                        ? const Icon(Icons.favorite)
-                        : const Icon(Icons.favorite_border),
-                    color: Colors.orange,
-                  ))
-            ]),
+                Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: IconButton(
+                      splashRadius: 15,
+                      onPressed: () {
+                        user.toggleWishlist(swappable.id);
+                      },
+                      icon: user.wishlist.containsKey(swappable.id)
+                          ? const Icon(Icons.favorite)
+                          : const Icon(Icons.favorite_border),
+                      color: Colors.orange,
+                    ))
+              ],
+            ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child: Column(
@@ -68,27 +70,28 @@ class SwappableCard extends StatelessWidget {
                     overflow: TextOverflow.fade,
                   ),
                   Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 5, 5, 5),
-                      child: Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 15,
-                            backgroundImage:
-                                NetworkImage(swappable.ownerImageUrl),
+                    padding: const EdgeInsets.fromLTRB(0, 5, 5, 5),
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 15,
+                          backgroundImage:
+                              NetworkImage(swappable.ownerImageUrl),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Text(
+                            swappable.ownerName,
+                            style: const TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.w300),
+                            maxLines: 1,
+                            softWrap: false,
+                            overflow: TextOverflow.fade,
                           ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: Text(
-                              swappable.ownerName,
-                              style: const TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.w300),
-                              maxLines: 1,
-                              softWrap: false,
-                              overflow: TextOverflow.fade,
-                            ),
-                          ),
-                        ],
-                      )),
+                        ),
+                      ],
+                    ),
+                  ),
                   //condition
                   ConditionStars(swappable.condition),
                 ],
