@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:swapsta/providers/auth_provider.dart';
 import 'package:swapsta/screens/explore_screen.dart';
 import 'package:swapsta/screens/profile_screen.dart';
 import 'package:swapsta/screens/swap_screen.dart';
@@ -30,8 +31,24 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => Swappables(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => Auth(
+            id: '1',
+            fullName: 'Divyansh Singh',
+            email: 'ds192@snu.edu.in',
+            imageUrl: 'https://avatars.githubusercontent.com/u/41837037?v=4',
+            wishlist: {
+              "3": true,
+              "4": true,
+            },
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => Swappables(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
@@ -75,6 +92,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    print(Provider.of<Auth>(context).wishlist);
     return Scaffold(
       body: Stack(children: [
         Positioned(
@@ -98,34 +116,52 @@ class _HomeState extends State<Home> {
         )
       ]),
       extendBody: true,
-      bottomNavigationBar: DotNavigationBar(
-          dotIndicatorColor: Colors.orange,
-          currentIndex: _screenIndex,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 10,
-              spreadRadius: 5,
-            )
+      endDrawer: Drawer(
+        child: ListView(
+          children: [
+            const DrawerHeader(
+              child: Text('Swapsta'),
+            ),
+            ListTile(
+              title: const Text('Explore'),
+              leading: const Icon(Icons.explore),
+              onTap: () {
+                Navigator.of(context).pop();
+                _selectPage(0);
+              },
+            ),
           ],
-          enablePaddingAnimation: false,
-          onTap: (int index) {
-            _selectPage(index);
-          },
-          items: [
-            DotNavigationBarItem(
-              icon: const Icon(Icons.explore),
-              selectedColor: Colors.orange,
-            ),
-            DotNavigationBarItem(
-              icon: const Icon(Icons.swap_horiz),
-              selectedColor: Colors.orange,
-            ),
-            DotNavigationBarItem(
-              icon: const Icon(Icons.account_circle_outlined),
-              selectedColor: Colors.orange,
-            ),
-          ]),
+        ),
+      ),
+      bottomNavigationBar: DotNavigationBar(
+        dotIndicatorColor: Colors.orange,
+        currentIndex: _screenIndex,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            spreadRadius: 5,
+          )
+        ],
+        enablePaddingAnimation: false,
+        onTap: (int index) {
+          _selectPage(index);
+        },
+        items: [
+          DotNavigationBarItem(
+            icon: const Icon(Icons.explore),
+            selectedColor: Colors.orange,
+          ),
+          DotNavigationBarItem(
+            icon: const Icon(Icons.swap_horiz),
+            selectedColor: Colors.orange,
+          ),
+          DotNavigationBarItem(
+            icon: const Icon(Icons.account_circle_outlined),
+            selectedColor: Colors.orange,
+          ),
+        ],
+      ),
     );
   }
 }

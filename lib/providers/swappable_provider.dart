@@ -7,11 +7,11 @@ class Swappable with ChangeNotifier {
   final String description;
   final String category;
   final String ownerName;
+  final String ownerId;
   final String ownerImageUrl;
   final double condition;
   final DateTime createdAt;
   final DateTime updatedAt;
-  bool isWishlisted;
 
   Swappable({
     required this.id,
@@ -20,15 +20,10 @@ class Swappable with ChangeNotifier {
     required this.description,
     required this.category,
     required this.ownerName,
+    required this.ownerId,
     required this.ownerImageUrl,
     required this.condition,
     required this.createdAt,
     required this.updatedAt,
-    this.isWishlisted = false,
   });
-
-  void toggleWishlist() {
-    isWishlisted = !isWishlisted;
-    notifyListeners();
-  }
 }

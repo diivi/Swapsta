@@ -7,8 +7,11 @@ class AddItemScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('add item')),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Add Item'),
+      ),
+      body: const Center(child: Text('add item')),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:swapsta/providers/swappable.dart';
+import 'package:swapsta/providers/swappable_provider.dart';
+import '../providers/auth_provider.dart';
 import '../screens/swappable_screen.dart';
 import 'condition.dart';
 
@@ -12,6 +13,7 @@ class SwappableCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final swappable = Provider.of<Swappable>(context);
+    final user = Provider.of<Auth>(context);
     return Card(
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
@@ -43,9 +45,9 @@ class SwappableCard extends StatelessWidget {
                   child: IconButton(
                     splashRadius: 15,
                     onPressed: () {
-                      swappable.toggleWishlist();
+                      user.toggleWishlist(swappable.id);
                     },
-                    icon: swappable.isWishlisted
+                    icon: user.wishlist.containsKey(swappable.id)
                         ? const Icon(Icons.favorite)
                         : const Icon(Icons.favorite_border),
                     color: Colors.orange,

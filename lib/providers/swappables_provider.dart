@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swapsta/providers/swappable.dart';
+import 'package:swapsta/providers/swappable_provider.dart';
 
 class Swappables with ChangeNotifier {
   // ignore: prefer_final_fields
@@ -17,6 +17,7 @@ class Swappables with ChangeNotifier {
       createdAt: DateTime(2020, 1, 1),
       updatedAt: DateTime(2020, 1, 1),
       ownerName: 'Divyansh Singh',
+      ownerId: '1',
       ownerImageUrl: 'https://avatars.githubusercontent.com/u/41837037?v=4',
     ),
     Swappable(
@@ -31,6 +32,7 @@ class Swappables with ChangeNotifier {
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
       ownerName: 'Shivansh Singh',
+      ownerId: '2',
       ownerImageUrl:
           'https://instagram.fdel27-5.fna.fbcdn.net/v/t51.2885-19/281339469_3166469946949927_3025707922524716103_n.jpg?stp=dst-jpg_s150x150&_nc_ht=instagram.fdel27-5.fna.fbcdn.net&_nc_cat=107&_nc_ohc=t780l7AHFBQAX_MPozY&tn=2MV9UHARVHI5KVU8&edm=AHG7ALcBAAAA&ccb=7-5&oh=00_AT8YGWqtnIbAUpfVO7WDPztDbvNTPQ5YpxZ0RrlpAmd78w&oe=62A6D660&_nc_sid=5cbaad',
     ),
@@ -47,6 +49,7 @@ class Swappables with ChangeNotifier {
       createdAt: DateTime(2021, 1, 1),
       updatedAt: DateTime(2021, 1, 1),
       ownerName: 'Aryan Sethia',
+      ownerId: '3',
       ownerImageUrl: 'https://avatars.githubusercontent.com/u/76778991?v=4',
     ),
     Swappable(
@@ -62,6 +65,7 @@ class Swappables with ChangeNotifier {
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
       ownerName: 'Yathansh Raj Sharma',
+      ownerId: '4',
       ownerImageUrl: 'https://avatars.githubusercontent.com/u/88828094?v=4',
     ),
     Swappable(
@@ -76,6 +80,7 @@ class Swappables with ChangeNotifier {
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
         ownerName: 'Devina Bhatnagar',
+        ownerId: '5',
         ownerImageUrl: 'https://avatars.githubusercontent.com/u/89126339?v=4'),
   ];
 

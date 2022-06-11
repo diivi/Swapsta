@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swapsta/providers/swappable.dart';
+import 'package:swapsta/providers/swappable_provider.dart';
 import 'package:swapsta/widgets/sort_modal.dart';
 import '../providers/swappables_provider.dart';
 import '../widgets/swappable_card.dart';
