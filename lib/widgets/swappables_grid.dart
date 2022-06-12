@@ -47,9 +47,10 @@ class SwappablesGrid extends StatelessWidget {
         value: filteredSwappables[i],
         child: const SwappableCard(),
       ),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 0.67,
+        childAspectRatio: MediaQuery.of(context).size.width /
+            (MediaQuery.of(context).size.height / 1.4),
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
       ),

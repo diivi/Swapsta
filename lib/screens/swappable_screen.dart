@@ -26,7 +26,6 @@ class SwappableScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
       ),
       body: Column(
-        mainAxisSize: MainAxisSize.max,
         children: [
           Hero(
             tag: 'swappable-${swappable.id}',
@@ -73,12 +72,16 @@ class SwappableScreen extends StatelessWidget {
             child: Column(
               children: [
                 //swappable name
-                Container(
+                SizedBox(
                   width: double.infinity,
-                  child: Text(swappable.name,
-                      textAlign: TextAlign.left,
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold)),
+                  child: Text(
+                    swappable.name,
+                    textAlign: TextAlign.left,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
 
                 const SizedBox(height: 20),
@@ -123,7 +126,7 @@ class SwappableScreen extends StatelessWidget {
                 const SizedBox(height: 20),
 
                 //description
-                Container(
+                SizedBox(
                   width: double.infinity,
                   child: Text(swappable.description,
                       textAlign: TextAlign.left,
@@ -137,11 +140,13 @@ class SwappableScreen extends StatelessWidget {
                 //condition
                 Row(
                   children: [
-                    const Text('Condition: ',
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black54)),
+                    const Text(
+                      'Condition: ',
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black54),
+                    ),
                     ConditionStars(swappable.condition)
                   ],
                 ),
@@ -149,85 +154,88 @@ class SwappableScreen extends StatelessWidget {
 
                 //buttons
                 Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      //wishlist button
-                      InkWell(
-                        onTap: () => null,
-                        borderRadius: BorderRadius.circular(30),
-                        child: Container(
-                          width: 150,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            border: Border.all(
-                              color: Colors.orange,
-                              width: 2,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    //wishlist button
+                    InkWell(
+                      onTap: () {},
+                      borderRadius: BorderRadius.circular(30),
+                      child: Container(
+                        width: 150,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          border: Border.all(
+                            color: Colors.orange,
+                            width: 2,
+                          ),
+                        ),
+                        child: Row(
+                          children: const [
+                            Icon(Icons.favorite_outline, color: Colors.black54),
+                            SizedBox(
+                              width: 10,
                             ),
-                          ),
-                          child: Row(
-                            children: const [
-                              Icon(Icons.favorite_outline,
+                            Text(
+                              'Wishlist',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
                                   color: Colors.black54),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                'Wishlist',
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.black54),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
+                    ),
 
-                      //swap button
-                      InkWell(
-                        onTap: () => null,
-                        borderRadius: BorderRadius.circular(30),
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            border: Border.all(
-                              color: Colors.orange,
-                            ),
+                    //swap button
+                    InkWell(
+                      onTap: () {},
+                      borderRadius: BorderRadius.circular(30),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          border: Border.all(
                             color: Colors.orange,
                           ),
-                          child: Row(
-                            children: const [
-                              Icon(Icons.swap_horiz, color: Colors.white),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                'Request Swap',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white),
-                              )
-                            ],
-                          ),
+                          color: Colors.orange,
                         ),
-                      )
-                    ]),
+                        child: Row(
+                          children: const [
+                            Icon(Icons.swap_horiz, color: Colors.white),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              'Request Swap',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white),
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
                 const SizedBox(
                   height: 20,
                 ),
-                Container(
+                SizedBox(
                   width: double.infinity,
-                  child: Text('Last updated at ' + formattedDate,
-                      style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.orange)),
+                  child: Text(
+                    'Last updated at ' + formattedDate,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.orange,
+                    ),
+                  ),
                 ),
               ],
             ),

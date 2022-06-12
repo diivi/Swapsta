@@ -36,7 +36,7 @@ class SwappableCard extends StatelessWidget {
                     child: Ink.image(
                       fit: BoxFit.cover,
                       image: NetworkImage(swappable.imageUrls[0]),
-                      height: 160,
+                      height: MediaQuery.of(context).size.height * .2,
                     ),
                   ),
                 ),
@@ -56,11 +56,12 @@ class SwappableCard extends StatelessWidget {
               ],
             ),
             Container(
+              height: MediaQuery.of(context).size.height * .115,
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const SizedBox(height: 10),
                   Text(
                     swappable.name,
                     style: const TextStyle(
@@ -69,28 +70,24 @@ class SwappableCard extends StatelessWidget {
                     softWrap: false,
                     overflow: TextOverflow.fade,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 5, 5, 5),
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 15,
-                          backgroundImage:
-                              NetworkImage(swappable.ownerImageUrl),
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        radius: MediaQuery.of(context).size.width * .035,
+                        backgroundImage: NetworkImage(swappable.ownerImageUrl),
+                      ),
+                      const SizedBox(width: 5),
+                      Expanded(
+                        child: Text(
+                          swappable.ownerName,
+                          style: const TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.w300),
+                          maxLines: 1,
+                          softWrap: false,
+                          overflow: TextOverflow.fade,
                         ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Text(
-                            swappable.ownerName,
-                            style: const TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.w300),
-                            maxLines: 1,
-                            softWrap: false,
-                            overflow: TextOverflow.fade,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   //condition
                   ConditionStars(swappable.condition),
