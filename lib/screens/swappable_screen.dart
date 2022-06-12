@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:swapsta/widgets/condition.dart';
-// import '../providers/swappable.dart';
+import 'package:provider/provider.dart';
+import '../providers/auth_provider.dart';
 import '../providers/swappable_provider.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
@@ -13,6 +14,7 @@ class SwappableScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<Auth>(context);
     final routeArgs = ModalRoute.of(context)?.settings.arguments;
     final swappable = routeArgs as Swappable;
     //formatting swappable.updatedAt
@@ -95,12 +97,19 @@ class SwappableScreen extends StatelessWidget {
 
                     const SizedBox(width: 10),
                     //ownername
-                    Text(
-                      swappable.ownerName,
-                      textAlign: TextAlign.left,
-                      style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.w500),
-                    ),
+                    (swappable.ownerId == user.id)
+                        ? const Text(
+                            "You",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w500),
+                          )
+                        : Text(
+                            swappable.ownerName,
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w500),
+                          ),
                     const Spacer(),
 
                     //category pill
@@ -150,78 +159,83 @@ class SwappableScreen extends StatelessWidget {
                     ConditionStars(swappable.condition)
                   ],
                 ),
-                const SizedBox(height: 20),
+                // const SizedBox(height: 20),
 
                 //buttons
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    //wishlist button
-                    InkWell(
-                      onTap: () {},
-                      borderRadius: BorderRadius.circular(30),
-                      child: Container(
-                        width: 150,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          border: Border.all(
-                            color: Colors.orange,
-                            width: 2,
-                          ),
-                        ),
-                        child: Row(
-                          children: const [
-                            Icon(Icons.favorite_outline, color: Colors.black54),
-                            SizedBox(
-                              width: 10,
+                Container(
+                  child: (swappable.ownerId != user.id)
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            InkWell(
+                              onTap: () {},
+                              borderRadius: BorderRadius.circular(30),
+                              child: Container(
+                                width: 150,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 10),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  border: Border.all(
+                                    color: Colors.orange,
+                                    width: 2,
+                                  ),
+                                ),
+                                child: Row(
+                                  children: const [
+                                    Icon(Icons.favorite_outline,
+                                        color: Colors.black54),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      'Wishlist',
+                                      textAlign: TextAlign.right,
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black54),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
-                            Text(
-                              'Wishlist',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black54),
+                            // const SizedBox(
+                            //   width: 10,
+                            // ),
+                            InkWell(
+                              onTap: () {},
+                              borderRadius: BorderRadius.circular(30),
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 10),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  border: Border.all(
+                                    color: Colors.orange,
+                                  ),
+                                  color: Colors.orange,
+                                ),
+                                child: Row(
+                                  children: const [
+                                    Icon(Icons.swap_horiz, color: Colors.white),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      'Request Swap',
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.white),
+                                    )
+                                  ],
+                                ),
+                              ),
                             ),
                           ],
-                        ),
-                      ),
-                    ),
-
-                    //swap button
-                    InkWell(
-                      onTap: () {},
-                      borderRadius: BorderRadius.circular(30),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          border: Border.all(
-                            color: Colors.orange,
-                          ),
-                          color: Colors.orange,
-                        ),
-                        child: Row(
-                          children: const [
-                            Icon(Icons.swap_horiz, color: Colors.white),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              'Request Swap',
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white),
-                            )
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
+                        ) : (null)
+                  //swap button
                 ),
                 const SizedBox(
                   height: 20,

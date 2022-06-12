@@ -78,7 +78,17 @@ class SwappableCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 5),
                       Expanded(
-                        child: Text(
+                        child: 
+                        (swappable.ownerId == user.id) ? 
+                        const Text(
+                          "You",
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.w300),
+                          maxLines: 1,
+                          softWrap: false,
+                          overflow: TextOverflow.fade,
+                        ) : 
+                        Text(
                           swappable.ownerName,
                           style: const TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w300),
