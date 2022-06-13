@@ -24,7 +24,7 @@ class SortButton extends StatelessWidget {
         handleSortSelection,
       ),
       splashRadius: 26,
-      splashColor: Colors.orange,
+      splashColor: const Color.fromRGBO(255, 152, 0, 0.3),
     );
   }
 }

@@ -20,7 +20,7 @@ class SwappableCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
       ),
       child: InkWell(
-        splashColor: const Color(0x50FF8E3C),
+        splashColor: const Color.fromRGBO(255, 152, 0, 0.2),
         highlightColor: const Color(0x00ffffff),
         onTap: () {
           Navigator.of(context)
@@ -33,28 +33,38 @@ class SwappableCard extends StatelessWidget {
                 Hero(
                   tag: 'swappable-${swappable.id}',
                   child: Material(
-                    child: Ink.image(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(swappable.imageUrls[0]),
+                    child: Ink(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(swappable.imageUrls[0]),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                       height: MediaQuery.of(context).size.height * .2,
                     ),
                   ),
                 ),
                 Positioned(
-                    bottom: 0,
-                    right: 0,
+                  bottom: 0,
+                  right: 0,
+                  child: Material(
+                    borderRadius: BorderRadius.circular(24),
+                    color: Colors.transparent,
                     child: IconButton(
-                      splashRadius: 15,
+                      splashRadius: 20,
                       onPressed: () {
                         user.toggleWishlist(swappable.id);
                       },
-                      icon: 
-                      (swappable.ownerId == user.id) ? (const Icon(null)) :
-                      user.wishlist.containsKey(swappable.id)
-                          ? const Icon(Icons.favorite)
-                          : const Icon(Icons.favorite_border),
+                      icon: (swappable.ownerId == user.id)
+                          ? (const Icon(null))
+                          : user.wishlist.containsKey(swappable.id)
+                              ? const Icon(Icons.favorite)
+                              : const Icon(Icons.favorite_border),
                       color: Colors.orange,
-                    ))
+                      splashColor: const Color.fromRGBO(255, 152, 0, 0.2),
+                    ),
+                  ),
+                )
               ],
             ),
             Container(
@@ -76,7 +86,8 @@ class SwappableCard extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: MediaQuery.of(context).size.width * .035,
-                        backgroundImage: NetworkImage(swappable.ownerImageUrl),
+                        backgroundImage:
+                            NetworkImage(swappable.ownerImageUrl),
                       ),
                       const SizedBox(width: 5),
                       Expanded(

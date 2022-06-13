@@ -180,32 +180,20 @@ class SwappableScreen extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  InkWell(
-                                    onTap: () {
+                                  buildSwappableButton(
+                                    context: context,
+                                    wishlist: (user.wishlist
+                                            .containsKey(swappable.id))
+                                        ? true
+                                        : false,
+                                    onPressed: () {
                                       user.toggleWishlist(swappable.id);
                                     },
-                                    borderRadius: BorderRadius.circular(30),
-                                    child: (!user.wishlist
-                                            .containsKey(swappable.id))
-                                        ? buildButton(
-                                            context: context,
-                                            wishlist: false,
-                                          )
-                                        : buildButton(
-                                            context: context,
-                                            wishlist: true,
-                                          ),
                                   ),
-                                  InkWell(
-                                    onTap: () {},
-                                    borderRadius: BorderRadius.circular(30),
-                                    child: Container(
+                                  Material(
+                                    child: Ink(
                                       width: MediaQuery.of(context).size.width *
                                           0.45,
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 10,
-                                        vertical: 10,
-                                      ),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(30),
                                         border: Border.all(
@@ -213,20 +201,27 @@ class SwappableScreen extends StatelessWidget {
                                         ),
                                         color: Colors.orange,
                                       ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          const Icon(
-                                            Icons.swap_horiz,
-                                            color: Colors.white,
+                                      child: InkWell(
+                                        splashColor: const Color.fromRGBO(
+                                            255, 255, 255, 0.1),
+                                        borderRadius: BorderRadius.circular(30),
+                                        highlightColor: Colors.transparent,
+                                        onTap: () {},
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 10,
+                                            vertical: 10,
                                           ),
-                                          Expanded(
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Row(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              const Icon(
+                                                Icons.swap_horiz,
+                                                color: Colors.white,
+                                              ),
+                                              Expanded(
+                                                child: Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: const [
@@ -242,11 +237,11 @@ class SwappableScreen extends StatelessWidget {
                                                       ),
                                                     ),
                                                   ],
-                                                )
-                                              ],
-                                            ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -280,14 +275,15 @@ class SwappableScreen extends StatelessWidget {
   }
 }
 
-Widget buildButton({
+Widget buildSwappableButton({
   required BuildContext context,
   required bool wishlist,
+  required Function onPressed,
 }) {
-  return InkWell(
-    child: Container(
+  return Material(
+    color: Colors.transparent,
+    child: Ink(
       width: MediaQuery.of(context).size.width * 0.4,
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
         color: wishlist ? Colors.orange : const Color(0xFFF9F6F2),
         borderRadius: BorderRadius.circular(30),
@@ -297,30 +293,40 @@ Widget buildButton({
         ),
       ),
       child: InkWell(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Icon(
-              wishlist ? Icons.favorite : Icons.favorite_border,
-              color: wishlist ? Colors.white : Colors.orange,
-            ),
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    wishlist ? 'Saved' : 'Wishlist',
-                    overflow: TextOverflow.fade,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: wishlist ? Colors.white : Colors.orange,
-                    ),
-                  ),
-                ],
+        borderRadius: BorderRadius.circular(30),
+        splashColor: const Color.fromRGBO(255, 152, 0, 0.2),
+        highlightColor: Colors.transparent,
+        onTap: (() => onPressed()),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+            vertical: 10,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Icon(
+                wishlist ? Icons.favorite : Icons.favorite_border,
+                color: wishlist ? Colors.white : Colors.orange,
               ),
-            ),
-          ],
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      wishlist ? 'Saved' : 'Wishlist',
+                      overflow: TextOverflow.fade,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: wishlist ? Colors.white : Colors.orange,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     ),

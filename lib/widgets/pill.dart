@@ -16,43 +16,48 @@ class Pill extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(5),
-      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: active ? Colors.orange : Colors.white,
-      ),
-      width: 124,
-      alignment: Alignment.center,
-      child: GestureDetector(
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(30),
+        splashColor: const Color.fromRGBO(255, 152, 0, 0.5),
         onTap: () {
           handleTap();
         },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.baseline,
-          textBaseline: TextBaseline.alphabetic,
-          children: [
-            Text(
-              emoji,
-              style: const TextStyle(
-                fontSize: 18,
-              ),
-            ),
-            Flexible(
-              child: Text(
-                name,
-                overflow: TextOverflow.fade,
-                maxLines: 1,
-                softWrap: false,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: active ? Colors.white : Colors.black,
+        child: Container(
+          margin: const EdgeInsets.all(5),
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: active ? Colors.orange : Colors.white,
+          ),
+          width: 124,
+          alignment: Alignment.center,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.baseline,
+            textBaseline: TextBaseline.alphabetic,
+            children: [
+              Text(
+                emoji,
+                style: const TextStyle(
+                  fontSize: 18,
                 ),
               ),
-            ),
-          ],
+              Flexible(
+                child: Text(
+                  name,
+                  overflow: TextOverflow.fade,
+                  maxLines: 1,
+                  softWrap: false,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: active ? Colors.white : Colors.black,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

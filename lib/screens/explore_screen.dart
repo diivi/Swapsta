@@ -49,11 +49,13 @@ class _ExploreScreenState extends State<ExploreScreen> {
           margin: const EdgeInsets.only(left: 20, right: 20),
           child: Row(
             children: [
-              Flexible(child: SearchBox(
-                handleSearch: (String value) {
-                  _onSearchQueryChanged(value);
-                },
-              )),
+              Flexible(
+                child: SearchBox(
+                  handleSearch: (String value) {
+                    _onSearchQueryChanged(value);
+                  },
+                ),
+              ),
               SortButton(
                 handleSortSelection: (Sort value) {
                   _onSortChanged(value);
