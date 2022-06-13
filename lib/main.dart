@@ -20,7 +20,6 @@ void main() {
       systemNavigationBarDividerColor: Colors.transparent,
       systemNavigationBarIconBrightness: Brightness.dark,
       statusBarIconBrightness: Brightness.dark,
-      
     ),
   );
   SystemChrome.setEnabledSystemUIMode(
