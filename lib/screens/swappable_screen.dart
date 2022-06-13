@@ -87,7 +87,9 @@ class SwappableScreen extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 20),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.01,
+                  ),
                   Row(
                     //avatar
                     children: [
@@ -139,24 +141,30 @@ class SwappableScreen extends StatelessWidget {
                       )
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
 
                   //description
                   SizedBox(
                     width: double.infinity,
-                    child: Text(
-                      swappable.description,
-                      textAlign: TextAlign.left,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black54,
+                    height: MediaQuery.of(context).size.height * 0.15,
+                    child: SingleChildScrollView(
+                      child: Text(
+                        swappable.description,
+                        textAlign: TextAlign.left,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black54,
+                        ),
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  Spacer(),
-
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.01,
+                  ),
+                  const Spacer(),
                   //condition
                   Row(
                     children: [
@@ -203,7 +211,11 @@ class SwappableScreen extends StatelessWidget {
                                       ),
                                       child: InkWell(
                                         splashColor: const Color.fromRGBO(
-                                            255, 255, 255, 0.1),
+                                          255,
+                                          255,
+                                          255,
+                                          0.1,
+                                        ),
                                         borderRadius: BorderRadius.circular(30),
                                         highlightColor: Colors.transparent,
                                         onTap: () {},
@@ -288,7 +300,7 @@ Widget buildSwappableButton({
         color: wishlist ? Colors.orange : const Color(0xFFF9F6F2),
         borderRadius: BorderRadius.circular(30),
         border: Border.all(
-          color: wishlist ? const Color(0xFFF9F6F2) : Colors.orange,
+          color: wishlist ? Colors.transparent : Colors.orange,
           width: 2,
         ),
       ),
