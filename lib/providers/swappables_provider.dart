@@ -24,7 +24,7 @@ class Swappables with ChangeNotifier {
     Swappable(
       id: '2',
       name: 'cet',
-      description: 'very cute cat',
+      description: 'very cute lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.',
       imageUrls: [
         'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
       ],
@@ -35,8 +35,7 @@ class Swappables with ChangeNotifier {
       ownerName: 'Shivansh Singh',
       categoryEmoji: '📚',
       ownerId: '2',
-      ownerImageUrl:
-          'https://instagram.fdel27-5.fna.fbcdn.net/v/t51.2885-19/281339469_3166469946949927_3025707922524716103_n.jpg?stp=dst-jpg_s150x150&_nc_ht=instagram.fdel27-5.fna.fbcdn.net&_nc_cat=107&_nc_ohc=t780l7AHFBQAX_MPozY&tn=2MV9UHARVHI5KVU8&edm=AHG7ALcBAAAA&ccb=7-5&oh=00_AT8YGWqtnIbAUpfVO7WDPztDbvNTPQ5YpxZ0RrlpAmd78w&oe=62A6D660&_nc_sid=5cbaad',
+      ownerImageUrl: 'https://avatars.githubusercontent.com/u/89853707?v=4',
     ),
     Swappable(
       id: '3',

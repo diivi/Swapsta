@@ -48,7 +48,9 @@ class SwappableCard extends StatelessWidget {
                       onPressed: () {
                         user.toggleWishlist(swappable.id);
                       },
-                      icon: user.wishlist.containsKey(swappable.id)
+                      icon: 
+                      (swappable.ownerId == user.id) ? (const Icon(null)) :
+                      user.wishlist.containsKey(swappable.id)
                           ? const Icon(Icons.favorite)
                           : const Icon(Icons.favorite_border),
                       color: Colors.orange,
