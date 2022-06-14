@@ -12,7 +12,6 @@ class _SwapScreenState extends State<SwapScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     TabController _tabController = TabController(length: 3, vsync: this);
-    int _currentIndex = 0;
 
     return Padding(
       padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * .2),
@@ -20,12 +19,13 @@ class _SwapScreenState extends State<SwapScreen> with TickerProviderStateMixin {
         children: [
           Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width * 0.09,
+              horizontal: MediaQuery.of(context).size.width * 0.06,
             ),
             child: TabBar(
+              overlayColor: MaterialStateProperty.all(Colors.transparent),
               splashFactory: NoSplash.splashFactory,
               labelColor: Colors.orange,
-              unselectedLabelColor: const Color.fromRGBO(158, 158, 158, .5),
+              unselectedLabelColor: const Color.fromRGBO(158, 158, 158, .35),
               indicator: const CustomTabIndicator(),
               indicatorPadding: EdgeInsets.symmetric(
                 vertical: MediaQuery.of(context).size.height * 0.035,
@@ -47,6 +47,9 @@ class _SwapScreenState extends State<SwapScreen> with TickerProviderStateMixin {
                         ),
                         const Text(
                           'Sent',
+                          maxLines: 1,
+                          softWrap: false,
+                          overflow: TextOverflow.fade,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -69,6 +72,9 @@ class _SwapScreenState extends State<SwapScreen> with TickerProviderStateMixin {
                         ),
                         Text(
                           'Recieved',
+                          maxLines: 1,
+                          softWrap: false,
+                          overflow: TextOverflow.fade,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -91,6 +97,9 @@ class _SwapScreenState extends State<SwapScreen> with TickerProviderStateMixin {
                         ),
                         Text(
                           'History',
+                          maxLines: 1,
+                          softWrap: false,
+                          overflow: TextOverflow.fade,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,

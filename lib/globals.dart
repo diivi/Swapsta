@@ -2,6 +2,10 @@ library swapsta.globals;
 
 import 'package:swapsta/models/category.dart';
 
+import 'models/swap.dart';
+
+final List<Swap> swaps = [];
+
 final List<Category> categories = [
   Category(
     id: '0',
