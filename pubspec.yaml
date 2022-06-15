@@ -39,6 +39,7 @@ dependencies:
   flutter_inset_box_shadow: ^1.0.8
   dot_navigation_bar:
     path: dot_navigation_bar-1.0.1+4
+  flutter_rating_bar: ^4.0.1
 
 dev_dependencies:
   flutter_test:

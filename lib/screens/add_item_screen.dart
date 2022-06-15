@@ -1,17 +1,290 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import '../../globals.dart' as globals;
 
-class AddItemScreen extends StatelessWidget {
+class AddItemScreen extends StatefulWidget {
   const AddItemScreen({Key? key}) : super(key: key);
 
   static const routeName = '/add-item';
 
   @override
+  State<AddItemScreen> createState() => _AddItemScreenState();
+}
+
+class _AddItemScreenState extends State<AddItemScreen> {
+  final categories = globals.categories;
+  List<DropdownMenuItem<String>> get dropdownItems {
+    List<DropdownMenuItem<String>> menuItems = [
+      DropdownMenuItem(
+          child: Row(children: [
+            Text(categories[1].emoji),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * .05,
+            ),
+            Text(categories[1].name),
+          ]),
+          value: "1"),
+      DropdownMenuItem(
+          child: Row(children: [
+            Text(categories[2].emoji),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * .05,
+            ),
+            Text(categories[2].name),
+          ]),
+          value: "2"),
+      DropdownMenuItem(
+          child: Row(children: [
+            Text(categories[3].emoji),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * .05,
+            ),
+            Text(categories[3].name),
+          ]),
+          value: "3"),
+      DropdownMenuItem(
+          child: Row(children: [
+            Text(categories[4].emoji),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * .05,
+            ),
+            Text(categories[4].name),
+          ]),
+          value: "4"),
+    ];
+    return menuItems;
+  }
+
+  String selectedValue = "1";
+  double rating = 0;
+  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller2 = TextEditingController();
+  void onValueChange() {
+    setState(() {
+      _controller.text;
+      _controller2.text;
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _controller.addListener(onValueChange);
+    _controller2.addListener(onValueChange);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Item'),
+        centerTitle: false,
+        title: const Text(
+          'Add Item',
+          textAlign: TextAlign.left,
+        ),
+        backgroundColor: const Color(0xFFF9F6F2),
+        elevation: 0,
       ),
-      body: const Center(child: Text('add item')),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).size.height * .03),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextField(
+                      maxLength: 50,
+                      controller: _controller,
+                      decoration: InputDecoration(
+                          counterText: "${_controller.text.length} / 50",
+                          labelText: 'Title',
+                          contentPadding: const EdgeInsets.all(8),
+                          filled: true,
+                          fillColor: Colors.white,
+                          enabledBorder: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderSide: BorderSide.none,
+                          ),
+                          focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.orange),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          )),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).size.height * .03),
+                child: Container(
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Images',
+                        // textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(40),
+                        decoration: const BoxDecoration(
+                          color: Color(0XFFFFDDC3),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10)),
+                        ),
+                        child: ElevatedButton(
+                          child: const Icon(
+                            Icons.add_rounded,
+                            color: Colors.orange,
+                          ),
+                          style: ElevatedButton.styleFrom(
+                              primary: Colors.white,
+                              shape: const CircleBorder()),
+                          onPressed: () {},
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                height: 200,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.height * .03),
+                  child: Column(
+                    children: [
+                      TextField(
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
+                        maxLength: 200,
+                        controller: _controller2,
+                        textAlign: TextAlign.start,
+                        decoration: InputDecoration(
+                            counterText: "${_controller2.text.length} / 200",
+                            contentPadding: const EdgeInsets.only(
+                                top:60,bottom: 60, right: 10, left: 10),
+                            labelText: 'Description',
+                            // alignLabelWithHint: true,
+                            filled: true,
+                            fillColor: Colors.white,
+                            enabledBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              borderSide: BorderSide.none,
+                            ),
+                            focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.orange),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            )),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * .5,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Category',
+                          style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        DropdownButtonFormField(
+                          value: selectedValue,
+                          decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.all(8),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.orange),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            filled: true,
+                            fillColor: Colors.white,
+                          ),
+                          icon: const Icon(
+                            Icons.arrow_drop_down_rounded,
+                            color: Colors.orange,
+                          ),
+                          items: dropdownItems,
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              selectedValue = newValue!;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      const Text(
+                        'Condition',
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      RatingBar.builder(
+                        minRating: 1,
+                        itemSize: 25,
+                        allowHalfRating: true,
+                        itemPadding: const EdgeInsets.symmetric(horizontal: 2),
+                        itemBuilder: (context, _) => const Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                        ),
+                        onRatingUpdate: (rating) {
+                          setState(() {
+                            this.rating = rating;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
