@@ -14,33 +14,31 @@ class SearchBox extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(30),
       ),
-      child: Container(
-        child: Row(
-          children: [
-            Icon(
-              Icons.search,
-              size: 24,
-              color: Colors.orange[700],
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: TextField(
-                onChanged: (query) {
-                  handleSearch(query);
-                },
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: 'What are you looking for?',
-                  hintStyle: TextStyle(
-                    fontSize: 18,
-                    color: Colors.orange[700],
-                    fontWeight: FontWeight.w400,
-                  ),
+      child: Row(
+        children: [
+          Icon(
+            Icons.search,
+            size: 24,
+            color: Colors.orange[700],
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: TextField(
+              onChanged: (query) {
+                handleSearch(query);
+              },
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: 'What are you looking for?',
+                hintStyle: TextStyle(
+                  fontSize: 18,
+                  color: Colors.orange[700],
+                  fontWeight: FontWeight.w400,
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -12,7 +12,32 @@ class _SwapScreenState extends State<SwapScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     TabController _tabController = TabController(length: 3, vsync: this);
-
+    List<Map<String, dynamic>> tabsData = [
+      {
+        "child": Transform.rotate(
+          angle: -math.pi / 5,
+          child: const Icon(
+            Icons.send,
+            size: 28,
+          ),
+        ),
+        "text": "Sent",
+      },
+      {
+        "child": const Icon(
+          Icons.inbox,
+          size: 32,
+        ),
+        "text": "Recieved",
+      },
+      {
+        "child": const Icon(
+          Icons.history,
+          size: 32,
+        ),
+        "text": "History",
+      },
+    ];
     return Padding(
       padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * .2),
       child: Column(
@@ -30,86 +55,12 @@ class _SwapScreenState extends State<SwapScreen> with TickerProviderStateMixin {
               indicatorPadding: EdgeInsets.symmetric(
                 vertical: MediaQuery.of(context).size.height * 0.035,
               ),
-              tabs: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.09,
-                  child: Tab(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Transform.rotate(
-                          angle: -math.pi / 5,
-                          child: const Icon(
-                            Icons.send,
-                            size: 28,
-                          ),
-                        ),
-                        const Text(
-                          'Sent',
-                          maxLines: 1,
-                          softWrap: false,
-                          overflow: TextOverflow.fade,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.09,
-                  child: Tab(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
-                        Icon(
-                          Icons.inbox,
-                          size: 32,
-                        ),
-                        Text(
-                          'Recieved',
-                          maxLines: 1,
-                          softWrap: false,
-                          overflow: TextOverflow.fade,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.09,
-                  child: Tab(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
-                        Icon(
-                          Icons.history,
-                          size: 32,
-                        ),
-                        Text(
-                          'History',
-                          maxLines: 1,
-                          softWrap: false,
-                          overflow: TextOverflow.fade,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+              tabs: tabsData
+                  .map((tabData) => _buildIcons(
+                      context: context,
+                      child: tabData["child"],
+                      text: tabData["text"]))
+                  .toList(),
               controller: _tabController,
             ),
           ),
@@ -127,6 +78,31 @@ class _SwapScreenState extends State<SwapScreen> with TickerProviderStateMixin {
       ),
     );
   }
+}
+
+Widget _buildIcons({
+  required BuildContext context,
+  required Widget child,
+  required String text,
+}) {
+  return SizedBox(
+    height: MediaQuery.of(context).size.height * 0.09,
+    child: Tab(
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        child,
+        Text(
+          text,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    )),
+  );
 }
 
 class CustomTabIndicator extends Decoration {
