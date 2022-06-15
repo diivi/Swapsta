@@ -16,7 +16,7 @@ class ExploreScreen extends StatefulWidget {
 
 class _ExploreScreenState extends State<ExploreScreen> {
   final categories = globals.categories;
-  
+
   String selectedFilter = 'All Categories';
   String searchQuery = '';
   Sort sort = Sort.added;

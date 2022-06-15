@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
             imageUrl: 'https://avatars.githubusercontent.com/u/41837037?v=4',
             wishlist: {
               "11": true,
-              "12": true,
+              "2": true,
               "13": true,
               "14": true,
             },

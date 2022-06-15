@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:swapsta/providers/swappable_provider.dart';
+
+import '../models/swappable.dart';
 
 class Swappables with ChangeNotifier {
   // ignore: prefer_final_fields
@@ -97,7 +98,7 @@ class Swappables with ChangeNotifier {
         'https://www.cardio.com/hs-fs/hubfs/human%20heart%20illustration.jpeg?width=900&name=human%20heart%20illustration.jpeg',
       ],
       category: 'Clothing',
-      condition: 5.0,
+      condition: 0.0,
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
       ownerName: 'Gautam Nanda',

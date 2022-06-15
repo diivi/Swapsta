@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:swapsta/widgets/condition.dart';
 import 'package:provider/provider.dart';
+import '../models/swappable.dart';
 import '../providers/auth_provider.dart';
-import '../providers/swappable_provider.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:intl/intl.dart';

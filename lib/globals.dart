@@ -1,9 +1,9 @@
 library swapsta.globals;
 
 import 'package:swapsta/models/category.dart';
-import 'package:swapsta/providers/swappable_provider.dart';
 
 import 'models/swap.dart';
+import 'models/swappable.dart';
 
 final List<Swap> sentSwaps = [];
 
@@ -26,7 +26,7 @@ final List<Swappable> wishlistedSwappables = [
     categoryEmoji: '📚',
   ),
   Swappable(
-    id: '22',
+    id: '2',
     name: 'cet',
     description:
         'very cute lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.',

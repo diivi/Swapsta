@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:swapsta/providers/swappable_provider.dart';
 import 'package:swapsta/widgets/sort_modal.dart';
+import '../models/swappable.dart';
 import '../providers/swappables_provider.dart';
 import '../widgets/swappable_card.dart';
 import 'package:provider/provider.dart';
@@ -18,12 +18,15 @@ class SwappablesGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final swappablesList = Provider.of<Swappables>(context).swappables;
+    final List<Swappable> swappablesList =
+        Provider.of<Swappables>(context).swappables;
+
     final categoryWiseSwappables = filter == 'All Categories'
         ? swappablesList
         : swappablesList
             .where((swappable) => swappable.category == filter)
             .toList();
+
     final keywordIncludedSwappables = categoryWiseSwappables
         .where((swappable) =>
             swappable.name.toLowerCase().contains(searchQuery.toLowerCase()) ||
@@ -35,18 +38,17 @@ class SwappablesGrid extends StatelessWidget {
                 .contains(searchQuery.toLowerCase()))
         .toList();
 
-    final sortedSwappables = sortSwappables(keywordIncludedSwappables, order);
-
-    final filteredSwappables = sortedSwappables;
+    final filteredSwappables = sortSwappables(keywordIncludedSwappables, order);
 
     return GridView.builder(
       physics: const BouncingScrollPhysics(),
       padding: const EdgeInsets.all(10.0),
       itemCount: filteredSwappables.length,
-      itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
-        value: filteredSwappables[i],
-        child: const SwappableCard(),
-      ),
+      itemBuilder: (ctx, i) {
+        return SwappableCard(
+          swappable: filteredSwappables[i],
+        );
+      },
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         childAspectRatio: MediaQuery.of(context).size.width /

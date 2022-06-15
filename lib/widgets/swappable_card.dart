@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:swapsta/providers/swappable_provider.dart';
+import '../models/swappable.dart';
 import '../providers/auth_provider.dart';
 import '../screens/swappable_screen.dart';
 import 'condition.dart';
 
 class SwappableCard extends StatelessWidget {
+  final Swappable swappable;
+
   const SwappableCard({
     Key? key,
+    required this.swappable,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final swappable = Provider.of<Swappable>(context);
     final user = Provider.of<Auth>(context);
     return Card(
       clipBehavior: Clip.antiAlias,
@@ -50,19 +52,19 @@ class SwappableCard extends StatelessWidget {
                   child: Material(
                     borderRadius: BorderRadius.circular(24),
                     color: Colors.transparent,
-                    child: IconButton(
-                      splashRadius: 20,
-                      onPressed: () {
-                        user.toggleWishlist(swappable.id);
-                      },
-                      icon: (swappable.ownerId == user.id)
-                          ? (const Icon(null))
-                          : user.wishlist.containsKey(swappable.id)
-                              ? const Icon(Icons.favorite)
-                              : const Icon(Icons.favorite_border),
-                      color: Colors.orange,
-                      splashColor: const Color.fromRGBO(255, 152, 0, 0.2),
-                    ),
+                    child: (swappable.ownerId != user.id)
+                        ? IconButton(
+                            splashRadius: 20,
+                            onPressed: () {
+                              user.toggleWishlist(swappable.id);
+                            },
+                            icon: user.wishlist.containsKey(swappable.id)
+                                ? const Icon(Icons.favorite)
+                                : const Icon(Icons.favorite_border),
+                            color: Colors.orange,
+                            splashColor: const Color.fromRGBO(255, 152, 0, 0.2),
+                          )
+                        : null,
                   ),
                 )
               ],
@@ -86,8 +88,7 @@ class SwappableCard extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: MediaQuery.of(context).size.width * .035,
-                        backgroundImage:
-                            NetworkImage(swappable.ownerImageUrl),
+                        backgroundImage: NetworkImage(swappable.ownerImageUrl),
                       ),
                       const SizedBox(width: 5),
                       Expanded(
