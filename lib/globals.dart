@@ -96,7 +96,7 @@ final List<Swappable> mySwappables = [
     ownerImageUrl: 'https://avatars.githubusercontent.com/u/41837037?v=4',
     categoryEmoji: '📚',
   ),
-]
+];
 
 final List<Category> categories = [
   Category(

@@ -24,7 +24,8 @@ class Swappables with ChangeNotifier {
     Swappable(
       id: '2',
       name: 'cet',
-      description: 'very cute lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.',
+      description:
+          'very cute lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.',
       imageUrls: [
         'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
       ],
@@ -72,20 +73,38 @@ class Swappables with ChangeNotifier {
       ownerImageUrl: 'https://avatars.githubusercontent.com/u/88828094?v=4',
     ),
     Swappable(
-        id: '5',
-        name: 'Cute Hat',
-        description: 'cute hat',
-        imageUrls: [
-          'https://m.media-amazon.com/images/I/71tKXRvS9IL._UL1500_.jpg',
-        ],
-        category: 'Clothing',
-        condition: 1.5,
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now(),
-        ownerName: 'Devina Bhatnagar',
-        categoryEmoji: '👕',
-        ownerId: '5',
-        ownerImageUrl: 'https://avatars.githubusercontent.com/u/89126339?v=4'),
+      id: '5',
+      name: 'Cute Hat',
+      description: 'cute hat',
+      imageUrls: [
+        'https://m.media-amazon.com/images/I/71tKXRvS9IL._UL1500_.jpg',
+      ],
+      category: 'Clothing',
+      condition: 1.5,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+      ownerName: 'Devina Bhatnagar',
+      categoryEmoji: '👕',
+      ownerId: '5',
+      ownerImageUrl: 'https://avatars.githubusercontent.com/u/89126339?v=4',
+    ),
+    Swappable(
+      id: '6',
+      name: 'My Heart',
+      description:
+          'Long lasting, delicate and tender. My heart is ideal for serious relationships. I am fat, will have high BP, will die at 50. You get to keep all my village properties and dahej wala fridge. Lets swap hearts',
+      imageUrls: [
+        'https://www.cardio.com/hs-fs/hubfs/human%20heart%20illustration.jpeg?width=900&name=human%20heart%20illustration.jpeg',
+      ],
+      category: 'Clothing',
+      condition: 5.0,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+      ownerName: 'Gautam Nanda',
+      categoryEmoji: '👕',
+      ownerId: '6',
+      ownerImageUrl: 'https://avatars.githubusercontent.com/u/76778991?v=4',
+    ),
   ];
 
   List<Swappable> get swappables {

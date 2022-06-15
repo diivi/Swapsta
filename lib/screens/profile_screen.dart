@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:swapsta/screens/swap_screen.dart';
 import '../providers/auth_provider.dart';
+import '../globals.dart' as globals;
+import '../widgets/swappable_card.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -15,6 +17,7 @@ class _ProfileScreenState extends State<ProfileScreen>
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<Auth>(context);
+    final wishlistedSwappables = globals.wishlistedSwappables;
 
     TabController _tabController = TabController(length: 2, vsync: this);
     List<Map<String, dynamic>> tabsData = [
@@ -86,8 +89,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                           ),
                           child: InkWell(
                             borderRadius: BorderRadius.circular(30),
-                            splashColor:
-                                const Color.fromRGBO(255, 152, 0, 0.2),
+                            splashColor: const Color.fromRGBO(255, 152, 0, 0.2),
                             highlightColor: Colors.transparent,
                             onTap: (() {}),
                             child: Padding(
@@ -165,12 +167,27 @@ class _ProfileScreenState extends State<ProfileScreen>
         Expanded(
           child: TabBarView(
             controller: _tabController,
-            children: const [
-              Center(child: Text('My Items')),
-              Center(child: Text('Favorites')),
+            children: [
+              const Center(child: Text('My Items')),
+              GridView.builder(
+                physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsets.all(10.0),
+                itemCount: wishlistedSwappables.length,
+                itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
+                  value: wishlistedSwappables[i],
+                  child: const SwappableCard(),
+                ),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: MediaQuery.of(context).size.width /
+                      (MediaQuery.of(context).size.height / 1.4),
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                ),
+              ),
             ],
           ),
-        )
+        ),
       ],
     );
   }
