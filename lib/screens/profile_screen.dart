@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:swapsta/screens/swap_screen.dart';
 import '../providers/auth_provider.dart';
-import 'dart:math' as math;
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
