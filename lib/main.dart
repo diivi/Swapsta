@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:swapsta/providers/auth_provider.dart';
+import 'package:swapsta/providers/bottom_nav_visibility_provider.dart';
 import 'package:swapsta/screens/explore_screen.dart';
 import 'package:swapsta/screens/profile_screen.dart';
 import 'package:swapsta/screens/swap_screen.dart';
@@ -50,6 +51,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => Swappables(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => BottomBarVisibilityProvider(),
         ),
       ],
       child: MaterialApp(
@@ -118,34 +122,40 @@ class _HomeState extends State<Home> {
         )
       ]),
       extendBody: true,
-      bottomNavigationBar: DotNavigationBar(
-        dotIndicatorColor: Colors.orange,
-        currentIndex: _screenIndex,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            spreadRadius: 5,
-          )
-        ],
-        enablePaddingAnimation: false,
-        onTap: (int index) {
-          _selectPage(index);
-        },
-        items: [
-          DotNavigationBarItem(
-            icon: const Icon(Icons.explore),
-            selectedColor: Colors.orange,
+      bottomNavigationBar: Consumer<BottomBarVisibilityProvider>(
+        builder: (context, bottomBarVisibilityProvider, _) => AnimatedOpacity(
+          opacity: bottomBarVisibilityProvider.isVisible ? 1 : 0,
+          duration: const Duration(milliseconds: 200),
+          child: DotNavigationBar(
+            dotIndicatorColor: Colors.orange,
+            currentIndex: _screenIndex,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 10,
+                spreadRadius: 5,
+              )
+            ],
+            enablePaddingAnimation: false,
+            onTap: (int index) {
+              _selectPage(index);
+            },
+            items: [
+              DotNavigationBarItem(
+                icon: const Icon(Icons.explore),
+                selectedColor: Colors.orange,
+              ),
+              DotNavigationBarItem(
+                icon: const Icon(Icons.swap_horiz),
+                selectedColor: Colors.orange,
+              ),
+              DotNavigationBarItem(
+                icon: const Icon(Icons.account_circle_outlined),
+                selectedColor: Colors.orange,
+              ),
+            ],
           ),
-          DotNavigationBarItem(
-            icon: const Icon(Icons.swap_horiz),
-            selectedColor: Colors.orange,
-          ),
-          DotNavigationBarItem(
-            icon: const Icon(Icons.account_circle_outlined),
-            selectedColor: Colors.orange,
-          ),
-        ],
+        ),
       ),
       endDrawer: const Drawer(
         child: SettingsDrawer(),

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:swapsta/screens/swap_screen.dart';
-import '../providers/auth_provider.dart';
 import '../globals.dart' as globals;
 import '../widgets/profile_header.dart';
-import '../widgets/swappable_card.dart';
+import '../widgets/wishlist_tab.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -66,23 +64,7 @@ class _ProfileScreenState extends State<ProfileScreen>
             controller: _tabController,
             children: [
               const Center(child: Text('My Items')),
-              GridView.builder(
-                physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.all(10.0),
-                itemCount: wishlistedSwappables.length,
-                itemBuilder: (ctx, i) {
-                  return SwappableCard(
-                    swappable: wishlistedSwappables[i],
-                  );
-                },
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: MediaQuery.of(context).size.width /
-                      (MediaQuery.of(context).size.height / 1.4),
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                ),
-              ),
+              WishlistTab(wishlistedSwappables: wishlistedSwappables),
             ],
           ),
         ),

@@ -13,6 +13,7 @@ class Swappable with ChangeNotifier {
   final DateTime createdAt;
   final DateTime updatedAt;
   final String categoryEmoji;
+  final DateTime? swappedAt;
 
   Swappable({
     required this.id,
@@ -27,5 +28,6 @@ class Swappable with ChangeNotifier {
     required this.createdAt,
     required this.updatedAt,
     required this.categoryEmoji,
+    this.swappedAt,
   });
 }
