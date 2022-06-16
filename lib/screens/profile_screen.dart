@@ -63,13 +63,24 @@ class _ProfileScreenState extends State<ProfileScreen>
           child: TabBarView(
             controller: _tabController,
             children: [
-              const Center(child: Text('My Items')),
+              const MyItems(),
               WishlistTab(wishlistedSwappables: wishlistedSwappables),
             ],
           ),
         ),
       ],
     );
+  }
+}
+
+class MyItems extends StatelessWidget {
+  const MyItems({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: Text('My Items'));
   }
 }
 

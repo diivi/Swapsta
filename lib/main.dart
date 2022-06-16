@@ -84,6 +84,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int currentIndex = 0;
   int _screenIndex = 0;
+  bool _visiblity = true;
   void _selectPage(int index) {
     setState(() {
       _screenIndex = index;
@@ -126,34 +127,37 @@ class _HomeState extends State<Home> {
         builder: (context, bottomBarVisibilityProvider, _) => AnimatedOpacity(
           opacity: bottomBarVisibilityProvider.isVisible ? 1 : 0,
           duration: const Duration(milliseconds: 200),
-          child: DotNavigationBar(
-            dotIndicatorColor: Colors.orange,
-            currentIndex: _screenIndex,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                blurRadius: 10,
-                spreadRadius: 5,
-              )
-            ],
-            enablePaddingAnimation: false,
-            onTap: (int index) {
-              _selectPage(index);
-            },
-            items: [
-              DotNavigationBarItem(
-                icon: const Icon(Icons.explore),
-                selectedColor: Colors.orange,
-              ),
-              DotNavigationBarItem(
-                icon: const Icon(Icons.swap_horiz),
-                selectedColor: Colors.orange,
-              ),
-              DotNavigationBarItem(
-                icon: const Icon(Icons.account_circle_outlined),
-                selectedColor: Colors.orange,
-              ),
-            ],
+          child: IgnorePointer(
+            ignoring: !bottomBarVisibilityProvider.isVisible,
+            child: DotNavigationBar(
+              dotIndicatorColor: Colors.orange,
+              currentIndex: _screenIndex,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 10,
+                  spreadRadius: 5,
+                )
+              ],
+              enablePaddingAnimation: false,
+              onTap: (int index) {
+                _selectPage(index);
+              },
+              items: [
+                DotNavigationBarItem(
+                  icon: const Icon(Icons.explore),
+                  selectedColor: Colors.orange,
+                ),
+                DotNavigationBarItem(
+                  icon: const Icon(Icons.swap_horiz),
+                  selectedColor: Colors.orange,
+                ),
+                DotNavigationBarItem(
+                  icon: const Icon(Icons.account_circle_outlined),
+                  selectedColor: Colors.orange,
+                ),
+              ],
+            ),
           ),
         ),
       ),
