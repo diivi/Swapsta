@@ -94,7 +94,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
             children: [
               Padding(
                 padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).size.height * .03),
+                    bottom: MediaQuery.of(context).size.height * .01),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -145,8 +145,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                         padding: const EdgeInsets.all(40),
                         decoration: const BoxDecoration(
                           color: Color(0XFFFFDDC3),
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(10)),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
                         ),
                         child: ElevatedButton(
                           child: const Icon(
@@ -163,41 +162,35 @@ class _AddItemScreenState extends State<AddItemScreen> {
                   ),
                 ),
               ),
-              Container(
-                height: 200,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).size.height * .03),
-                  child: Column(
-                    children: [
-                      TextField(
-                        keyboardType: TextInputType.multiline,
-                        maxLines: null,
-                        maxLength: 200,
-                        controller: _controller2,
-                        textAlign: TextAlign.start,
-                        decoration: InputDecoration(
-                            counterText: "${_controller2.text.length} / 200",
-                            contentPadding: const EdgeInsets.only(
-                                top:60,bottom: 60, right: 10, left: 10),
-                            labelText: 'Description',
-                            // alignLabelWithHint: true,
-                            filled: true,
-                            fillColor: Colors.white,
-                            enabledBorder: const OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                              borderSide: BorderSide.none,
-                            ),
-                            focusedBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.orange),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                            )),
-                      ),
-                    ],
+              Column(
+                children: [
+                  TextField(
+                    keyboardType: TextInputType.multiline,
+                    maxLines: null,
+                    maxLength: 200,
+                    controller: _controller2,
+                    textAlign: TextAlign.start,
+                    decoration: InputDecoration(
+                        counterText: "${_controller2.text.length} / 200",
+                        // contentPadding: const EdgeInsets.only(
+                        // top: -50, bottom: 60, right: 10, left: 10),
+                        labelText: 'Description',
+                        // alignLabelWithHint: true,
+                        filled: true,
+                        fillColor: Colors.white,
+                        enabledBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          borderSide: BorderSide.none,
+                        ),
+                        focusedBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.orange),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        )),
                   ),
-                ),
+                  const SizedBox(
+                    height: 25,
+                  )
+                ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -260,11 +253,11 @@ class _AddItemScreenState extends State<AddItemScreen> {
                         ),
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 22,
                       ),
                       RatingBar.builder(
                         minRating: 1,
-                        itemSize: 25,
+                        itemSize: 22,
                         allowHalfRating: true,
                         itemPadding: const EdgeInsets.symmetric(horizontal: 2),
                         itemBuilder: (context, _) => const Icon(
@@ -280,6 +273,55 @@ class _AddItemScreenState extends State<AddItemScreen> {
                     ],
                   ),
                 ],
+              ),
+              const SizedBox(height: 40),
+              Ink(
+                width: MediaQuery.of(context).size.width * 0.45,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  border: Border.all(
+                    color: Colors.orange,
+                  ),
+                  color: Colors.orange,
+                ),
+                child: InkWell(
+                  splashColor: const Color.fromRGBO(
+                    255,
+                    255,
+                    255,
+                    0.1,
+                  ),
+                  borderRadius: BorderRadius.circular(30),
+                  highlightColor: Colors.transparent,
+                  onTap: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 10,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text(
+                                'Submit',
+                                overflow: TextOverflow.fade,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
