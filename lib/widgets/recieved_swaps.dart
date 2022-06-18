@@ -4,8 +4,8 @@ import '../../globals.dart' as globals;
 import '../models/swap.dart';
 import '../models/swappable.dart';
 
-class SwapHistory extends StatelessWidget {
-  const SwapHistory({Key? key}) : super(key: key);
+class SwapsRecieved extends StatelessWidget {
+  const SwapsRecieved({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -72,11 +72,50 @@ class SwapHistory extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8),
-                    child: Text(
-                      ' Swapped 19th June 2022',
-                      style: TextStyle(color: Colors.orange),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          radius: 20,
+                          backgroundColor: Colors.red[400],
+                          child: IconButton(
+                            splashRadius: 22,
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.close,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: CircleAvatar(
+                            radius: 20,
+                            backgroundColor: Colors.orange[400],
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.contacts,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                        CircleAvatar(
+                          radius: 20,
+                          backgroundColor: Colors.green[400],
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.check,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   )
                 ],
@@ -86,9 +125,9 @@ class SwapHistory extends StatelessWidget {
           Positioned(
             left: 0,
             right: 0,
-            bottom: 50,
+            bottom: 80,
             child: Image.asset(
-              'assets/img/done.png',
+              'assets/img/swap_arrow.png',
               height: 35,
             ),
           )
