@@ -3,6 +3,7 @@ import 'package:swapsta/screens/swap_screen.dart';
 import '../globals.dart' as globals;
 import '../widgets/profile_header.dart';
 import '../widgets/wishlist_tab.dart';
+import '../widgets/my_items_tab.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -16,6 +17,7 @@ class _ProfileScreenState extends State<ProfileScreen>
   @override
   Widget build(BuildContext context) {
     final wishlistedSwappables = globals.wishlistedSwappables;
+    final mySwappables = globals.mySwappables;
 
     TabController _tabController = TabController(length: 2, vsync: this);
     List<Map<String, dynamic>> tabsData = [
@@ -63,24 +65,13 @@ class _ProfileScreenState extends State<ProfileScreen>
           child: TabBarView(
             controller: _tabController,
             children: [
-              const MyItems(),
+              MyItems(mySwappables: mySwappables),
               WishlistTab(wishlistedSwappables: wishlistedSwappables),
             ],
           ),
         ),
       ],
     );
-  }
-}
-
-class MyItems extends StatelessWidget {
-  const MyItems({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('My Items'));
   }
 }
 

@@ -57,19 +57,23 @@ class _SwapScreenState extends State<SwapScreen> with TickerProviderStateMixin {
                 vertical: MediaQuery.of(context).size.height * 0.035,
               ),
               tabs: tabsData
-                  .map((tabData) => _buildIcons(
-                      context: context,
-                      child: tabData["child"],
-                      text: tabData["text"]))
+                  .map(
+                    (tabData) => _buildIcons(
+                        context: context,
+                        child: tabData["child"],
+                        text: tabData["text"]),
+                  )
                   .toList(),
               controller: _tabController,
             ),
           ),
+          SizedBox(height: 10),
           Expanded(
             child: TabBarView(
               controller: _tabController,
               children: const [
-                SingleChildScrollView(child: Padding(
+                SingleChildScrollView(
+                    child: Padding(
                   padding: EdgeInsets.all(8.0),
                   child: SentSwap(),
                 )),

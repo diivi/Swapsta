@@ -110,10 +110,13 @@ class _HomeState extends State<Home> {
             width: 100,
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: const AssetImage('assets/img/circle.png'),
-                  fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(
-                      Colors.white.withOpacity(0.3), BlendMode.modulate)),
+                image: const AssetImage('assets/img/circle.png'),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  Colors.white.withOpacity(0.3),
+                  BlendMode.modulate,
+                ),
+              ),
             ),
           ),
         ),

@@ -117,6 +117,7 @@ final List<Swappable> mySwappables = [
     ownerId: '1',
     ownerImageUrl: 'https://avatars.githubusercontent.com/u/41837037?v=4',
     categoryEmoji: '📚',
+    swapRequests: 3,
   ),
 ];
 
