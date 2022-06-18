@@ -7,28 +7,29 @@ class Swappables with ChangeNotifier {
   List<Swappable> _swappables = [
     Swappable(
       id: '1',
-      name: 'Rifle Paper Co. Pocket Book 32 Pages, Unlined',
+      name: 'Rain-Jacket',
       description:
-          'Very nice floral notebook has 32 pages unlined good for journaling, sketching, making notes etc. would prefer to swap with another stationery product.',
+          'High Quality Nylon Polyester Blend Fabric with Water Resistance, Hood is rolled into the Collar of the Jacket.',
       imageUrls: [
-        'https://images.unsplash.com/photo-1528938102132-4a9276b8e320?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+        'https://www.gearnride.in/wp-content/uploads/2019/04/dark-blue-raincoat1.jpg',
       ],
-      category: 'Stationery',
+      category: 'Clothing',
       condition: 5,
       createdAt: DateTime(2020, 1, 1),
       updatedAt: DateTime(2020, 1, 1),
       ownerName: 'Divyansh Singh',
       ownerId: '1',
       ownerImageUrl: 'https://avatars.githubusercontent.com/u/41837037?v=4',
-      categoryEmoji: '📚',
+      categoryEmoji: '👕',
     ),
     Swappable(
       id: '2',
-      name: 'cet',
+      name: 'Bag',
       description:
-          'very cute lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.',
+          'A perfect pick for daily use. Expandable & Lightweight With 30 L Capcity',
       imageUrls: [
-        'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+        'https://m.media-amazon.com/images/I/51BPWfLZHFL._UX569_.jpg',
+        'https://m.media-amazon.com/images/I/51oGyFoRYPL.jpg'
       ],
       category: 'Other',
       condition: 4,
@@ -75,8 +76,9 @@ class Swappables with ChangeNotifier {
     ),
     Swappable(
       id: '5',
-      name: 'Cute Hat',
-      description: 'cute hat',
+      name: 'Hat',
+      description:
+          'Made by natural-tone handwoven toquilla straw, which is top quality skin-friendly material.',
       imageUrls: [
         'https://m.media-amazon.com/images/I/71tKXRvS9IL._UL1500_.jpg',
       ],
@@ -91,18 +93,17 @@ class Swappables with ChangeNotifier {
     ),
     Swappable(
       id: '6',
-      name: 'My Heart',
-      description:
-          'Long lasting, delicate and tender. My heart is ideal for serious relationships. I am fat, will have high BP, will die at 50. You get to keep all my village properties and dahej wala fridge. Lets swap hearts',
+      name: 'Cosco Skates',
+      description: 'Ideal for kids | material metal base with rubber wheels',
       imageUrls: [
-        'https://www.cardio.com/hs-fs/hubfs/human%20heart%20illustration.jpeg?width=900&name=human%20heart%20illustration.jpeg',
+        'https://m.media-amazon.com/images/I/91OVpIb9g6L._SX522_.jpg',
       ],
       category: 'Clothing',
       condition: 0.0,
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
       ownerName: 'Gautam Nanda',
-      categoryEmoji: '👕',
+      categoryEmoji: '⚽',
       ownerId: '6',
       ownerImageUrl: 'https://avatars.githubusercontent.com/u/76778991?v=4',
     ),

@@ -31,29 +31,13 @@ final List<Swap> sentSwaps = [
 
 final List<Swappable> wishlistedSwappables = [
   Swappable(
-    id: '1',
-    name: 'Rifle Paper Co. Pocket Book 32 Pages, Unlined',
-    description:
-        'Very nice floral notebook has 32 pages unlined good for journaling, sketching, making notes etc. would prefer to swap with another stationery product.',
-    imageUrls: [
-      'https://images.unsplash.com/photo-1528938102132-4a9276b8e320?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
-    ],
-    category: 'Stationery',
-    condition: 5,
-    createdAt: DateTime(2020, 1, 1),
-    updatedAt: DateTime(2020, 1, 1),
-    ownerName: 'Divyansh Singh',
-    ownerId: '1',
-    ownerImageUrl: 'https://avatars.githubusercontent.com/u/41837037?v=4',
-    categoryEmoji: '📚',
-  ),
-  Swappable(
     id: '2',
-    name: 'cet',
+    name: 'Bag',
     description:
-        'very cute lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.',
+        'A perfect pick for daily use. Expandable & Lightweight With 30 L Capcity',
     imageUrls: [
-      'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+      'https://m.media-amazon.com/images/I/51BPWfLZHFL._UX569_.jpg',
+      'https://m.media-amazon.com/images/I/51oGyFoRYPL.jpg'
     ],
     category: 'Other',
     condition: 4,
@@ -65,7 +49,7 @@ final List<Swappable> wishlistedSwappables = [
     ownerImageUrl: 'https://avatars.githubusercontent.com/u/89853707?v=4',
   ),
   Swappable(
-    id: '23',
+    id: '3',
     name: 'Realme buds Q',
     description:
         'realme Buds Q, weighs only 3.6g and is made of light but strong PC+ABS special polymer composite. The ergonomic coracoid structure can perfectly fit',
@@ -82,7 +66,7 @@ final List<Swappable> wishlistedSwappables = [
     ownerImageUrl: 'https://avatars.githubusercontent.com/u/76778991?v=4',
   ),
   Swappable(
-    id: '24',
+    id: '4',
     name: 'Adidas Brazuca',
     description: 'very good football it goes woosh not swoosh',
     imageUrls: [
@@ -103,21 +87,21 @@ final List<Swappable> wishlistedSwappables = [
 final List<Swappable> mySwappables = [
   Swappable(
     id: '1',
-    name: 'Rifle Paper Co. Pocket Book 32 Pages, Unlined',
+    name: 'Rain-Jacket',
     description:
-        'Very nice floral notebook has 32 pages unlined good for journaling, sketching, making notes etc. would prefer to swap with another stationery product.',
+        'High Quality Nylon Polyester Blend Fabric with Water Resistance, Hood is rolled into the Collar of the Jacket.',
     imageUrls: [
-      'https://images.unsplash.com/photo-1528938102132-4a9276b8e320?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+      'https://www.gearnride.in/wp-content/uploads/2019/04/dark-blue-raincoat1.jpg',
     ],
-    category: 'Stationery',
+    category: 'Clothing',
     condition: 5,
     createdAt: DateTime(2020, 1, 1),
     updatedAt: DateTime(2020, 1, 1),
     ownerName: 'Divyansh Singh',
     ownerId: '1',
     ownerImageUrl: 'https://avatars.githubusercontent.com/u/41837037?v=4',
-    categoryEmoji: '📚',
-    swapRequests: 3,
+    categoryEmoji: '👕',
+    swapRequests: 1,
   ),
 ];
 

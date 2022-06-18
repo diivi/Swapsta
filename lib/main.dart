@@ -42,10 +42,9 @@ class MyApp extends StatelessWidget {
             email: 'ds192@snu.edu.in',
             imageUrl: 'https://avatars.githubusercontent.com/u/41837037?v=4',
             wishlist: {
-              "11": true,
               "2": true,
-              "13": true,
-              "14": true,
+              "3": true,
+              "4": true,
             },
           ),
         ),

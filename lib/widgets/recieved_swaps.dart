@@ -32,16 +32,20 @@ class SwapsRecieved extends StatelessWidget {
                           child: SwapSwappableCard(
                             swappable: Swappable(
                               id: '1',
-                              name: 'Swappable 1',
-                              imageUrls: ['https://picsum.photos/200/300'],
+                              name: 'Bag',
+                              imageUrls: [
+                                'https://m.media-amazon.com/images/I/51BPWfLZHFL._UX569_.jpg',
+                                'https://m.media-amazon.com/images/I/51oGyFoRYPL.jpg'
+                              ],
                               description: 'This is a swappable',
-                              category: "Clothing",
-                              categoryEmoji: '👕',
-                              condition: 3.5,
+                              category: "Other",
+                              categoryEmoji: '📚',
+                              condition: 4,
                               createdAt: DateTime.now(),
                               ownerId: "7",
-                              ownerName: "John Doe",
-                              ownerImageUrl: "https://picsum.photos/400/300",
+                              ownerName: "Shivansh Singh",
+                              ownerImageUrl:
+                                  "https://avatars.githubusercontent.com/u/89853707?v=4",
                               updatedAt: DateTime.now(),
                             ),
                           ),
@@ -55,16 +59,20 @@ class SwapsRecieved extends StatelessWidget {
                           child: SwapSwappableCard(
                             swappable: Swappable(
                               id: '1',
-                              name: 'Swappable 1',
-                              imageUrls: ['https://picsum.photos/400/300'],
-                              description: 'This is a swappable',
+                              name: 'Rain-Jacket',
+                              imageUrls: [
+                                'https://www.gearnride.in/wp-content/uploads/2019/04/dark-blue-raincoat1.jpg'
+                              ],
+                              description:
+                                  'High Quality Nylon Polyester Blend Fabric with Water Resistance, Hood is rolled into the Collar of the Jacket.',
                               category: "Clothing",
                               categoryEmoji: '👕',
-                              condition: 3.5,
+                              condition: 5,
                               createdAt: DateTime.now(),
                               ownerId: "7",
-                              ownerName: "John Doe",
-                              ownerImageUrl: "https://picsum.photos/200/300",
+                              ownerName: "You",
+                              ownerImageUrl:
+                                  "https://avatars.githubusercontent.com/u/41837037?v=4",
                               updatedAt: DateTime.now(),
                             ),
                           ),
