@@ -34,44 +34,43 @@ class MyItems extends StatelessWidget {
         }
       });
 
-      return Expanded(
-        child: Stack(
-          children: [
-            GridView.builder(
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.all(10.0),
-              itemCount: mySwappables.length,
-              controller: scrollController,
-              itemBuilder: (ctx, i) {
-                return MyItemsCard(
-                  swappable: mySwappables[i],
-                );
-              },
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: MediaQuery.of(context).size.width /
-                    (MediaQuery.of(context).size.height / 1.4),
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
+      return Stack(
+        fit: StackFit.expand,
+        children: [
+          GridView.builder(
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.all(10.0),
+            itemCount: mySwappables.length,
+            controller: scrollController,
+            itemBuilder: (ctx, i) {
+              return MyItemsCard(
+                swappable: mySwappables[i],
+              );
+            },
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: MediaQuery.of(context).size.width /
+                  (MediaQuery.of(context).size.height / 1.4),
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+            ),
+          ),
+          Positioned(
+            bottom: MediaQuery.of(context).size.height * 0.19,
+            right: 25,
+            child: CircleAvatar(
+              radius: 30,
+              backgroundColor: Colors.orange,
+              child: IconButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(AddItemScreen.routeName);
+                },
+                icon: const Icon(Icons.add),
+                color: Colors.white,
               ),
             ),
-            Positioned(
-              bottom: MediaQuery.of(context).size.height * 0.19,
-              right: 25,
-              child: CircleAvatar(
-                radius: 30,
-                backgroundColor: Colors.orange,
-                child: IconButton(
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(AddItemScreen.routeName);
-                  },
-                  icon: const Icon(Icons.add),
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       );
       // return GridView.builder(
       //   physics: const BouncingScrollPhysics(),

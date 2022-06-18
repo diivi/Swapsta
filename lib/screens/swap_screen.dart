@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import '../widgets/sent_swap.dart';
 import '../widgets/swap_history.dart';
+import '../widgets/swapscreen_header.dart';
 
 class SwapScreen extends StatefulWidget {
   const SwapScreen({Key? key}) : super(key: key);
@@ -40,57 +41,50 @@ class _SwapScreenState extends State<SwapScreen> with TickerProviderStateMixin {
         "text": "History",
       },
     ];
-    return Padding(
-      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * .2),
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width * 0.06,
-            ),
-            child: TabBar(
-              overlayColor: MaterialStateProperty.all(Colors.transparent),
-              splashFactory: NoSplash.splashFactory,
-              labelColor: Colors.orange,
-              unselectedLabelColor: const Color.fromRGBO(158, 158, 158, .35),
-              indicator: const CustomTabIndicator(),
-              indicatorPadding: EdgeInsets.symmetric(
-                vertical: MediaQuery.of(context).size.height * 0.035,
+    return Column(
+      children: [
+        const SwapscreenHeader(),
+        TabBar(
+          overlayColor: MaterialStateProperty.all(Colors.transparent),
+          splashFactory: NoSplash.splashFactory,
+          labelColor: Colors.orange,
+          unselectedLabelColor: const Color.fromRGBO(158, 158, 158, .35),
+          indicator: const CustomTabIndicator(),
+          indicatorPadding: EdgeInsets.symmetric(
+            vertical: MediaQuery.of(context).size.height * 0.035,
+          ),
+          tabs: tabsData
+              .map(
+                (tabData) => _buildIcons(
+                    context: context,
+                    child: tabData["child"],
+                    text: tabData["text"]),
+              )
+              .toList(),
+          controller: _tabController,
+        ),
+        const SizedBox(height: 10),
+        Expanded(
+          child: TabBarView(
+            controller: _tabController,
+            children: const [
+              SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: SentSwap(),
+                ),
               ),
-              tabs: tabsData
-                  .map(
-                    (tabData) => _buildIcons(
-                        context: context,
-                        child: tabData["child"],
-                        text: tabData["text"]),
-                  )
-                  .toList(),
-              controller: _tabController,
-            ),
-          ),
-          const SizedBox(height: 10),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: const [
-                SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: SentSwap(),
-                  ),
+              SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: SwapHistory(),
                 ),
-                SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: SwapHistory(),
-                  ),
-                ),
-                Center(child: Text('Swap Requests')),
-              ],
-            ),
+              ),
+              Center(child: Text('Swap Requests')),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

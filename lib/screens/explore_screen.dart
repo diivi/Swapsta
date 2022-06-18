@@ -53,10 +53,13 @@ class _ExploreScreenState extends State<ExploreScreen> {
             child: Row(
               children: [
                 Flexible(
-                  child: SearchBox(
-                    handleSearch: (String value) {
-                      _onSearchQueryChanged(value);
-                    },
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: SearchBox(
+                      handleSearch: (String value) {
+                        _onSearchQueryChanged(value);
+                      },
+                    ),
                   ),
                 ),
                 SortButton(
