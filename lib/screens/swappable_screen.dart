@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
+import 'package:swapsta/providers/screen_provider.dart';
 import 'package:swapsta/widgets/condition.dart';
 import 'package:provider/provider.dart';
 import '../models/swappable.dart';
@@ -218,7 +219,63 @@ class SwappableScreen extends StatelessWidget {
                                         ),
                                         borderRadius: BorderRadius.circular(30),
                                         highlightColor: Colors.transparent,
-                                        onTap: () {},
+                                        onTap: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  title: Text(
+                                                    'Swap with ${swappable.name}?',
+                                                    style: const TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  content: Text(
+                                                    'Are you sure you want to swap with ${swappable.name}?',
+                                                    style: const TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                  ),
+                                                  actions: [
+                                                    TextButton(
+                                                      child: const Text(
+                                                        'Cancel',
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                    ),
+                                                    TextButton(
+                                                      child: const Text(
+                                                        'Swap',
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                      ),
+                                                      onPressed: () {
+                                                        Provider.of<ScreenProvider>(
+                                                                context,
+                                                                listen: false)
+                                                            .setScreenIndex(1);
+                                                        Navigator.pushNamed(
+                                                            context, '/');
+                                                      },
+                                                    ),
+                                                  ],
+                                                );
+                                              });
+                                        },
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
                                             horizontal: 10,

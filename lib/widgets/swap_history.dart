@@ -14,6 +14,7 @@ class SwapHistory extends StatelessWidget {
       Stack(
         children: [
           Card(
+            shadowColor: Colors.transparent,
             clipBehavior: Clip.antiAlias,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(24),
@@ -34,7 +35,7 @@ class SwapHistory extends StatelessWidget {
                               id: '1',
                               name: 'Rain-Jacket',
                               imageUrls: [
-                                'https://www.gearnride.in/wp-content/uploads/2019/04/dark-blue-raincoat1.jpg'
+                                'https://4.imimg.com/data4/KC/AS/MY-23240069/rain-jackets-500x500.jpg'
                               ],
                               description:
                                   'High Quality Nylon Polyester Blend Fabric with Water Resistance, Hood is rolled into the Collar of the Jacket.',

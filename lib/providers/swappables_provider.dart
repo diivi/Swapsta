@@ -11,7 +11,7 @@ class Swappables with ChangeNotifier {
       description:
           'High Quality Nylon Polyester Blend Fabric with Water Resistance, Hood is rolled into the Collar of the Jacket.',
       imageUrls: [
-        'https://www.gearnride.in/wp-content/uploads/2019/04/dark-blue-raincoat1.jpg',
+        'https://4.imimg.com/data4/KC/AS/MY-23240069/rain-jackets-500x500.jpg',
       ],
       category: 'Clothing',
       condition: 5,

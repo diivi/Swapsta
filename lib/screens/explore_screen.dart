@@ -43,67 +43,65 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          const HomeHeader(),
-          const SizedBox(height: 20),
-          Container(
-            margin: const EdgeInsets.only(left: 20, right: 20),
-            child: Row(
-              children: [
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 20),
-                    child: SearchBox(
-                      handleSearch: (String value) {
-                        _onSearchQueryChanged(value);
-                      },
-                    ),
+    return Column(
+      children: [
+        const HomeHeader(),
+        const SizedBox(height: 20),
+        Container(
+          margin: const EdgeInsets.only(left: 20, right: 20),
+          child: Row(
+            children: [
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: SearchBox(
+                    handleSearch: (String value) {
+                      _onSearchQueryChanged(value);
+                    },
                   ),
                 ),
-                SortButton(
-                  handleSortSelection: (Sort value) {
-                    _onSortChanged(value);
-                  },
-                  selectedSort: sort,
-                ),
-              ],
-            ),
+              ),
+              SortButton(
+                handleSortSelection: (Sort value) {
+                  _onSortChanged(value);
+                },
+                selectedSort: sort,
+              ),
+            ],
           ),
-          const SizedBox(height: 20),
-          Container(
-            margin: const EdgeInsets.only(bottom: 10, left: 10),
-            height: 50,
-            child: ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              itemCount: categories.length,
-              itemBuilder: (ctx, i) {
-                return Pill(
-                  name: categories[i].name,
-                  emoji: categories[i].emoji,
-                  handleTap: () {
-                    _onFilterChanged(categories[i].name);
-                  },
-                  active: selectedFilter == categories[i].name,
-                ); // return category pill widget here
-              },
-              scrollDirection: Axis.horizontal,
-            ),
+        ),
+        const SizedBox(height: 20),
+        Container(
+          margin: const EdgeInsets.only(bottom: 10, left: 10),
+          height: 50,
+          child: ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            itemCount: categories.length,
+            itemBuilder: (ctx, i) {
+              return Pill(
+                name: categories[i].name,
+                emoji: categories[i].emoji,
+                handleTap: () {
+                  _onFilterChanged(categories[i].name);
+                },
+                active: selectedFilter == categories[i].name,
+              ); // return category pill widget here
+            },
+            scrollDirection: Axis.horizontal,
           ),
-          Expanded(
-            child: Stack(
-              children: [
-                SwappablesGrid(
-                  filter: selectedFilter,
-                  searchQuery: searchQuery,
-                  order: sort,
-                ),
-              ],
-            ),
+        ),
+        Expanded(
+          child: Stack(
+            children: [
+              SwappablesGrid(
+                filter: selectedFilter,
+                searchQuery: searchQuery,
+                order: sort,
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -4,12 +4,22 @@ import '../../globals.dart' as globals;
 import '../models/swap.dart';
 import '../models/swappable.dart';
 
-class SwapsRecieved extends StatelessWidget {
-  const SwapsRecieved({Key? key}) : super(key: key);
+class SwapsRecieved extends StatefulWidget {
+  const SwapsRecieved({
+    Key? key,
+    required this.tabSwitcher,
+  }) : super(key: key);
+  final TabController tabSwitcher;
+
+  @override
+  State<SwapsRecieved> createState() => _SwapsRecievedState();
+}
+
+class _SwapsRecievedState extends State<SwapsRecieved> {
+  final Swap swap = globals.sentSwaps[0];
 
   @override
   Widget build(BuildContext context) {
-    final Swap swap = globals.sentSwaps[0];
     return Wrap(children: [
       Stack(
         children: [
@@ -18,6 +28,7 @@ class SwapsRecieved extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(24),
             ),
+            shadowColor: Colors.transparent,
             child: Padding(
               padding: const EdgeInsets.all(5),
               child: Column(
@@ -61,7 +72,7 @@ class SwapsRecieved extends StatelessWidget {
                               id: '1',
                               name: 'Rain-Jacket',
                               imageUrls: [
-                                'https://www.gearnride.in/wp-content/uploads/2019/04/dark-blue-raincoat1.jpg'
+                                'https://4.imimg.com/data4/KC/AS/MY-23240069/rain-jackets-500x500.jpg'
                               ],
                               description:
                                   'High Quality Nylon Polyester Blend Fabric with Water Resistance, Hood is rolled into the Collar of the Jacket.',
@@ -90,13 +101,14 @@ class SwapsRecieved extends StatelessWidget {
                           radius: 20,
                           backgroundColor: Colors.red[400],
                           child: IconButton(
-                            splashRadius: 22,
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.close,
-                              color: Colors.white,
-                            ),
-                          ),
+                              splashRadius: 24,
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.close,
+                                color: Colors.white,
+                              ),
+                              splashColor: Colors.red[400],
+                              highlightColor: Colors.transparent),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -109,6 +121,9 @@ class SwapsRecieved extends StatelessWidget {
                                 Icons.contacts,
                                 color: Colors.white,
                               ),
+                              splashRadius: 24,
+                              splashColor: Colors.orange[400],
+                              highlightColor: Colors.transparent,
                             ),
                           ),
                         ),
@@ -116,12 +131,33 @@ class SwapsRecieved extends StatelessWidget {
                           radius: 20,
                           backgroundColor: Colors.green[400],
                           child: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.check,
-                              color: Colors.white,
-                            ),
-                          ),
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext ctx) {
+                                      return AlertDialog(
+                                        title: const Text('Swap Accepted'),
+                                        content: Text(
+                                            'You have accepted the swap request from ${swap.ownerName}'),
+                                        actions: [
+                                          TextButton(
+                                            child: const Text('OK'),
+                                            onPressed: () {
+                                              Navigator.of(ctx).pop();
+                                              widget.tabSwitcher.animateTo(2);
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    });
+                              },
+                              icon: const Icon(
+                                Icons.check,
+                                color: Colors.white,
+                              ),
+                              splashRadius: 24,
+                              splashColor: Colors.green[400],
+                              highlightColor: Colors.transparent),
                         ),
                       ],
                     ),

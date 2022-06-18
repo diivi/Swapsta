@@ -7,6 +7,7 @@ import '../widgets/swapscreen_header.dart';
 
 class SwapScreen extends StatefulWidget {
   const SwapScreen({Key? key}) : super(key: key);
+  static const routeName = '/swap-screen';
 
   @override
   State<SwapScreen> createState() => _SwapScreenState();
@@ -68,8 +69,8 @@ class _SwapScreenState extends State<SwapScreen> with TickerProviderStateMixin {
         Expanded(
           child: TabBarView(
             controller: _tabController,
-            children: const [
-              SingleChildScrollView(
+            children:  [
+              const SingleChildScrollView(
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
                   child: SentSwap(),
@@ -77,11 +78,11 @@ class _SwapScreenState extends State<SwapScreen> with TickerProviderStateMixin {
               ),
               SingleChildScrollView(
                 child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: SwapsRecieved(),
+                  padding: const EdgeInsets.all(8.0),
+                  child: SwapsRecieved(tabSwitcher: _tabController),
                 ),
               ),
-              SingleChildScrollView(
+             const  SingleChildScrollView(
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
                   child: SwapHistory(),

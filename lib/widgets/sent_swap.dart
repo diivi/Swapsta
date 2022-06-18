@@ -31,6 +31,7 @@ class _SentSwapState extends State<SentSwap> {
               ),
               color: Colors.red,
               clipBehavior: Clip.antiAlias,
+              shadowColor: Colors.transparent,
               child: const Align(
                 alignment: Alignment.centerRight,
                 child: Padding(
@@ -59,6 +60,8 @@ class _SentSwapState extends State<SentSwap> {
               children: [
                 Card(
                   clipBehavior: Clip.antiAlias,
+                  shadowColor: Colors.transparent,
+                  elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(24),
                   ),
@@ -76,7 +79,7 @@ class _SentSwapState extends State<SentSwap> {
                                 id: '1',
                                 name: 'Rain-Jacket',
                                 imageUrls: [
-                                  'https://www.gearnride.in/wp-content/uploads/2019/04/dark-blue-raincoat1.jpg'
+                                  'https://4.imimg.com/data4/KC/AS/MY-23240069/rain-jackets-500x500.jpg'
                                 ],
                                 description:
                                     'High Quality Nylon Polyester Blend Fabric with Water Resistance, Hood is rolled into the Collar of the Jacket.',

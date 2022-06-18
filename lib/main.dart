@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:swapsta/providers/auth_provider.dart';
 import 'package:swapsta/providers/bottom_nav_visibility_provider.dart';
+import 'package:swapsta/providers/screen_provider.dart';
 import 'package:swapsta/screens/explore_screen.dart';
 import 'package:swapsta/screens/profile_screen.dart';
 import 'package:swapsta/screens/swap_screen.dart';
@@ -54,6 +55,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => BottomBarVisibilityProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => ScreenProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -67,6 +71,7 @@ class MyApp extends StatelessWidget {
         routes: {
           AddItemScreen.routeName: (context) => const AddItemScreen(),
           SwappableScreen.routeName: (context) => const SwappableScreen(),
+          SwapScreen.routeName: (context) => const SwapScreen(),
         },
       ),
     );
@@ -81,15 +86,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int currentIndex = 0;
-  int _screenIndex = 0;
-  bool _visiblity = true;
-  void _selectPage(int index) {
-    setState(() {
-      _screenIndex = index;
-    });
-  }
-
   final _screens = [
     const ExploreScreen(),
     const SwapScreen(),
@@ -99,6 +95,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    int screenIndex = Provider.of<ScreenProvider>(context).screenIndex;
+
     return Scaffold(
       body: Stack(children: [
         Positioned(
@@ -120,7 +118,7 @@ class _HomeState extends State<Home> {
           ),
         ),
         SafeArea(
-          child: _screens[_screenIndex],
+          child: _screens[screenIndex],
           bottom: false,
         )
       ]),
@@ -133,7 +131,7 @@ class _HomeState extends State<Home> {
             ignoring: !bottomBarVisibilityProvider.isVisible,
             child: DotNavigationBar(
               dotIndicatorColor: Colors.orange,
-              currentIndex: _screenIndex,
+              currentIndex: screenIndex,
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.1),
@@ -143,7 +141,8 @@ class _HomeState extends State<Home> {
               ],
               enablePaddingAnimation: false,
               onTap: (int index) {
-                _selectPage(index);
+                Provider.of<ScreenProvider>(context, listen: false)
+                    .setScreenIndex(index);
               },
               items: [
                 DotNavigationBarItem(
