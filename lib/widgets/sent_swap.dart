@@ -21,7 +21,7 @@ class _SentSwapState extends State<SentSwap> {
       children: [
         AnimatedContainer(
           duration: const Duration(milliseconds: 50),
-          height: _dismissed ? 0 : MediaQuery.of(context).size.height * 0.32,
+          height: _dismissed ? 0 : MediaQuery.of(context).size.height * 0.315,
           child: SizedBox(
             height: MediaQuery.of(context).size.height * .35,
             width: MediaQuery.of(context).size.width,
@@ -54,7 +54,7 @@ class _SentSwapState extends State<SentSwap> {
           direction: DismissDirection.endToStart,
           key: Key(swap.id),
           child: SizedBox(
-            height: MediaQuery.of(context).size.height * .32,
+            height: MediaQuery.of(context).size.height * .315,
             child: Stack(
               children: [
                 Card(
@@ -83,7 +83,7 @@ class _SentSwapState extends State<SentSwap> {
                                 createdAt: DateTime.now(),
                                 ownerId: "7",
                                 ownerName: "John Doe",
-                                ownerImageUrl: "https://picsum.photos/200/300",
+                                ownerImageUrl: "https://picsum.photos/400/300",
                                 updatedAt: DateTime.now(),
                               ),
                             ),
@@ -98,7 +98,7 @@ class _SentSwapState extends State<SentSwap> {
                               swappable: Swappable(
                                 id: '1',
                                 name: 'Swappable 1',
-                                imageUrls: ['https://picsum.photos/200/300'],
+                                imageUrls: ['https://picsum.photos/400/300'],
                                 description: 'This is a swappable',
                                 category: "Clothing",
                                 categoryEmoji: '👕',
@@ -122,7 +122,7 @@ class _SentSwapState extends State<SentSwap> {
                   bottom: 25,
                   child: Image.asset(
                     'assets/img/swap_arrow.png',
-                    height: 30,
+                    height: 35,
                   ),
                 )
               ],

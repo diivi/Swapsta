@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import '../widgets/sent_swap.dart';
+import '../widgets/swap_history.dart';
 
 class SwapScreen extends StatefulWidget {
   const SwapScreen({Key? key}) : super(key: key);
@@ -67,17 +68,23 @@ class _SwapScreenState extends State<SwapScreen> with TickerProviderStateMixin {
               controller: _tabController,
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Expanded(
             child: TabBarView(
               controller: _tabController,
               children: const [
                 SingleChildScrollView(
-                    child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: SentSwap(),
-                )),
-                Center(child: Text('Swap History')),
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: SentSwap(),
+                  ),
+                ),
+                SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: SwapHistory(),
+                  ),
+                ),
                 Center(child: Text('Swap Requests')),
               ],
             ),
@@ -96,20 +103,21 @@ Widget _buildIcons({
   return SizedBox(
     height: MediaQuery.of(context).size.height * 0.09,
     child: Tab(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        child,
-        Text(
-          text,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          child,
+          Text(
+            text,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
-      ],
-    )),
+        ],
+      ),
+    ),
   );
 }
 
