@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import '../widgets/sent_swap.dart';
+import '../widgets/recieved_swaps.dart';
 import '../widgets/swap_history.dart';
 
 class SwapScreen extends StatefulWidget {
@@ -82,10 +83,15 @@ class _SwapScreenState extends State<SwapScreen> with TickerProviderStateMixin {
                 SingleChildScrollView(
                   child: Padding(
                     padding: EdgeInsets.all(8.0),
+                    child: SwapsRecieved(),
+                  ),
+                ),
+                SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: SwapHistory(),
                   ),
                 ),
-                Center(child: Text('Swap Requests')),
               ],
             ),
           ),
