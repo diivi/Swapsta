@@ -7,6 +7,7 @@ import '../providers/auth_provider.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:intl/intl.dart';
+import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
 
 class SwappableScreen extends StatelessWidget {
   static const routeName = '/swappable';
@@ -35,40 +36,44 @@ class SwappableScreen extends StatelessWidget {
           children: [
             Hero(
               tag: 'swappable-${swappable.id}',
-              child: ImageSlideshow(
-                width: double.infinity,
-                height: MediaQuery.of(context).size.height * 0.4,
-                initialPage: 0,
-                indicatorColor: Colors.orange,
-                isLoop: swappable.imageUrls.length > 1,
-                autoPlayInterval: 4000,
-                children: swappable.imageUrls
-                    .map(
-                      (url) => Stack(
-                        children: [
-                          Image.network(
-                            url,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                            height: MediaQuery.of(context).size.height * 0.4,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.7),
-                                  blurRadius: 30,
-                                  spreadRadius: 0,
-                                  offset: const Offset(0, -30),
-                                  inset: true,
+              child: FullScreenWidget(
+                child: Center(
+                  child: ImageSlideshow(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height * 0.4,
+                    initialPage: 0,
+                    indicatorColor: Colors.orange,
+                    isLoop: swappable.imageUrls.length > 1,
+                    autoPlayInterval: 4000,
+                    children: swappable.imageUrls
+                        .map(
+                          (url) => Stack(
+                            children: [
+                              Image.network(
+                                url,
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                                height: MediaQuery.of(context).size.height * 0.4,
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.7),
+                                      blurRadius: 30,
+                                      spreadRadius: 0,
+                                      offset: const Offset(0, -30),
+                                      inset: true,
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    )
-                    .toList(),
+                        )
+                        .toList(),
+                  ),
+                ),
               ),
             ),
             Container(
