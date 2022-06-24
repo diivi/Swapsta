@@ -83,22 +83,23 @@ Widget _buildIcons({
   return SizedBox(
     height: MediaQuery.of(context).size.height * 0.09,
     child: Tab(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Icon(
-          icon,
-          size: 28,
-        ),
-        Text(
-          text,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(
+            icon,
+            size: 28,
           ),
-        ),
-      ],
-    )),
+          Text(
+            text,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    ),
   );
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 import 'package:swapsta/providers/auth_provider.dart';
 import 'package:swapsta/providers/bottom_nav_visibility_provider.dart';
@@ -13,7 +14,9 @@ import 'package:swapsta/widgets/settings_sidebar.dart';
 import './providers/swappables_provider.dart';
 import 'package:flutter/services.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.removeAfter(initialization);
   runApp(const MyApp());
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
@@ -27,6 +30,12 @@ void main() {
   SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.edgeToEdge,
     overlays: [SystemUiOverlay.top],
+  );
+}
+
+Future initialization(BuildContext? context) async {
+  await Future.delayed(
+    Duration(seconds: 1),
   );
 }
 
