@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:swapsta/providers/screen_provider.dart';
+import 'package:swapsta/screens/image_screen.dart';
 import 'package:swapsta/widgets/condition.dart';
 import 'package:provider/provider.dart';
 import '../models/swappable.dart';
@@ -36,44 +37,52 @@ class SwappableScreen extends StatelessWidget {
           children: [
             Hero(
               tag: 'swappable-${swappable.id}',
-              child: FullScreenWidget(
-                child: Center(
-                  child: ImageSlideshow(
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.height * 0.4,
-                    initialPage: 0,
-                    indicatorColor: Colors.orange,
-                    isLoop: swappable.imageUrls.length > 1,
-                    autoPlayInterval: 4000,
-                    children: swappable.imageUrls
-                        .map(
-                          (url) => Stack(
-                            children: [
-                              Image.network(
-                                url,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                                height: MediaQuery.of(context).size.height * 0.4,
+              child: ImageSlideshow(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height * 0.4,
+                initialPage: 0,
+                indicatorColor: Colors.orange,
+                isLoop: swappable.imageUrls.length > 1,
+                autoPlayInterval: 4000,
+                children: swappable.imageUrls
+                    .map(
+                      (url) => GestureDetector(
+                        onTap: () {
+                          Navigator.push<Widget>(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ImageScreen(
+                                url: swappable.imageUrls,
                               ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.7),
-                                      blurRadius: 30,
-                                      spreadRadius: 0,
-                                      offset: const Offset(0, -30),
-                                      inset: true,
-                                    ),
-                                  ],
-                                ),
+                            ),
+                          );
+                        },
+                        child: Stack(
+                          children: [
+                            Image.network(
+                              url,
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                              height: MediaQuery.of(context).size.height * 0.4,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.7),
+                                    blurRadius: 30,
+                                    spreadRadius: 0,
+                                    offset: const Offset(0, -30),
+                                    inset: true,
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        )
-                        .toList(),
-                  ),
-                ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                    .toList(),
               ),
             ),
             Container(
