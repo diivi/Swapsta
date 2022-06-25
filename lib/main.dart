@@ -10,6 +10,7 @@ import 'package:swapsta/screens/swap_screen.dart';
 import 'package:swapsta/screens/add_item_screen.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:swapsta/screens/swappable_screen.dart';
+import 'package:swapsta/icons/swapcons_icons.dart';
 import 'package:swapsta/widgets/settings_sidebar.dart';
 import './providers/swappables_provider.dart';
 import 'package:flutter/services.dart';
@@ -110,13 +111,13 @@ class _HomeState extends State<Home> {
       body: Stack(children: [
         Positioned(
           top: 0,
-          left: -20,
+          left: 0,
           child: Container(
-            height: 100,
-            width: 100,
+            height: 180,
+            width: 180,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: const AssetImage('assets/img/circle.png'),
+                image: const AssetImage('assets/img/swap_straight.png'),
                 fit: BoxFit.cover,
                 colorFilter: ColorFilter.mode(
                   Colors.white.withOpacity(0.3),
@@ -159,7 +160,7 @@ class _HomeState extends State<Home> {
                   selectedColor: Colors.orange,
                 ),
                 DotNavigationBarItem(
-                  icon: const Icon(Icons.swap_horiz),
+                  icon: const Icon(Swapcons.swap),
                   selectedColor: Colors.orange,
                 ),
                 DotNavigationBarItem(
