@@ -46,30 +46,34 @@ class _SwapScreenState extends State<SwapScreen> with TickerProviderStateMixin {
     return Column(
       children: [
         const SwapscreenHeader(),
-        TabBar(
-          overlayColor: MaterialStateProperty.all(Colors.transparent),
-          splashFactory: NoSplash.splashFactory,
-          labelColor: Colors.orange,
-          unselectedLabelColor: const Color.fromRGBO(158, 158, 158, .35),
-          indicator: const CustomTabIndicator(),
-          indicatorPadding: EdgeInsets.symmetric(
-            vertical: MediaQuery.of(context).size.height * 0.035,
+        Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: MediaQuery.of(context).size.width * 0.05),
+          child: TabBar(
+            overlayColor: MaterialStateProperty.all(Colors.transparent),
+            splashFactory: NoSplash.splashFactory,
+            labelColor: Colors.orange,
+            unselectedLabelColor: const Color.fromRGBO(158, 158, 158, .35),
+            indicator: const CustomTabIndicator(),
+            indicatorPadding: EdgeInsets.symmetric(
+              vertical: MediaQuery.of(context).size.height * 0.035,
+            ),
+            tabs: tabsData
+                .map(
+                  (tabData) => _buildIcons(
+                      context: context,
+                      child: tabData["child"],
+                      text: tabData["text"]),
+                )
+                .toList(),
+            controller: _tabController,
           ),
-          tabs: tabsData
-              .map(
-                (tabData) => _buildIcons(
-                    context: context,
-                    child: tabData["child"],
-                    text: tabData["text"]),
-              )
-              .toList(),
-          controller: _tabController,
         ),
         const SizedBox(height: 10),
         Expanded(
           child: TabBarView(
             controller: _tabController,
-            children:  [
+            children: [
               const SingleChildScrollView(
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
@@ -82,7 +86,7 @@ class _SwapScreenState extends State<SwapScreen> with TickerProviderStateMixin {
                   child: SwapsRecieved(tabSwitcher: _tabController),
                 ),
               ),
-             const  SingleChildScrollView(
+              const SingleChildScrollView(
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
                   child: SwapHistory(),

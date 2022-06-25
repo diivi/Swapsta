@@ -16,7 +16,7 @@ import 'package:flutter/services.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.removeAfter(initialization);
+  FlutterNativeSplash.remove();
   runApp(const MyApp());
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(

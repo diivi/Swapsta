@@ -31,7 +31,7 @@ class ProfileHeader extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                padding: const EdgeInsets.symmetric(vertical: 8.00),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -53,18 +53,18 @@ class ProfileHeader extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
+                    SizedBox(height: 5),
                     const Spacer(),
                     Material(
                       color: Colors.transparent,
                       child: Ink(
-                        width: MediaQuery.of(context).size.width * 0.32,
-                        // width: 150,
+                        width: MediaQuery.of(context).size.width * 0.28,
                         decoration: BoxDecoration(
                           color: Colors.transparent,
                           borderRadius: BorderRadius.circular(30),
                           border: Border.all(
                             color: Colors.orange,
-                            width: 2,
+                            width: 1.5,
                           ),
                         ),
                         child: InkWell(
@@ -74,7 +74,7 @@ class ProfileHeader extends StatelessWidget {
                           onTap: (() {}),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 5,
+                              // horizontal: 5,
                               vertical: 3,
                             ),
                             child: Row(
@@ -88,7 +88,7 @@ class ProfileHeader extends StatelessWidget {
                                         'Edit Profile',
                                         overflow: TextOverflow.fade,
                                         style: TextStyle(
-                                          fontSize: 15,
+                                          fontSize: 12,
                                           fontWeight: FontWeight.w400,
                                           color: Colors.orange,
                                         ),
