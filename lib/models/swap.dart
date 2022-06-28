@@ -12,12 +12,22 @@ class Swap {
   //item details
   String requesterItemId;
   String requesterItemName;
-  String requesterItemCover;
+  List<String> requesterItemImages;
+  String requesterItemDescription;
+  String requesterItemCategory;
+  DateTime requesterItemCreatedAt;
+  DateTime requesterItemUpdatedAt;
   double requesterItemCondition;
+  String requesterItemCategoryEmoji;
   String ownerItemId;
   String ownerItemName;
-  String ownerItemCover;
+  List<String> ownerItemImages;
+  String ownerItemDescription;
+  String ownerItemCategory;
+  DateTime ownerItemCreatedAt;
+  DateTime ownerItemUpdatedAt;
   double ownerItemCondition;
+  String ownerItemCategoryEmoji;
   //swap details
   bool? isAccepted = false;
   DateTime? createdAt = DateTime.now();
@@ -36,12 +46,22 @@ class Swap {
     this.ownerPhone,
     required this.requesterItemId,
     required this.requesterItemName,
-    required this.requesterItemCover,
+    required this.requesterItemImages,
+    required this.requesterItemDescription,
+    required this.requesterItemCategory,
+    required this.requesterItemCreatedAt,
+    required this.requesterItemUpdatedAt,
     required this.requesterItemCondition,
+    required this.requesterItemCategoryEmoji,
     required this.ownerItemId,
     required this.ownerItemName,
-    required this.ownerItemCover,
+    required this.ownerItemImages,
+    required this.ownerItemDescription,
+    required this.ownerItemCategory,
+    required this.ownerItemCreatedAt,
+    required this.ownerItemUpdatedAt,
     required this.ownerItemCondition,
+    required this.ownerItemCategoryEmoji,
     this.isAccepted,
     this.createdAt,
     this.interactedAt,

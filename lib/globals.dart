@@ -18,15 +18,28 @@ final List<Swap> sentSwaps = [
     ownerPhone: "123456789",
     requesterItemId: "1",
     requesterItemName: "Rifle Paper Co. Pocket Book 32 Pages, Unlined",
-    requesterItemCover:
-        "https://images.unsplash.com/photo-1528938102132-4a9276b8e320?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+    requesterItemCategory: 'Stationery',
+    requesterItemCategoryEmoji: '📚',
+    requesterItemCreatedAt: DateTime.now(),
+    requesterItemUpdatedAt: DateTime.now(),
+    requesterItemDescription:
+        'A book with 32 pages. It is a pocket book with a cover. It is unlined.',
+    requesterItemImages: [
+      "https://images.unsplash.com/photo-1528938102132-4a9276b8e320?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+    ],
     requesterItemCondition: 2.5,
     ownerItemId: "5",
     ownerItemName: "cet",
-    ownerItemCover:
-        "https://images.unsplash.com/photo-1528938102132-4a9276b8e320?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+    ownerItemImages: [
+      "https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+    ],
+    ownerItemCategory: 'Other',
+    ownerItemCategoryEmoji: '💬',
     ownerItemCondition: 4,
-  ),
+    ownerItemCreatedAt: DateTime.now(),
+    ownerItemUpdatedAt: DateTime.now(),
+    ownerItemDescription: 'A cat',
+  )
 ];
 
 final List<Swappable> wishlistedSwappables = [

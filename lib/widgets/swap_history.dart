@@ -32,22 +32,18 @@ class SwapHistory extends StatelessWidget {
                           // currently creating swappables on the go, will give id and fetch it on swappable screen later.
                           child: SwapSwappableCard(
                             swappable: Swappable(
-                              id: '1',
-                              name: 'Rain-Jacket',
-                              imageUrls: [
-                                'https://4.imimg.com/data4/KC/AS/MY-23240069/rain-jackets-500x500.jpg'
-                              ],
-                              description:
-                                  'High Quality Nylon Polyester Blend Fabric with Water Resistance, Hood is rolled into the Collar of the Jacket.',
-                              category: "Clothing",
-                              categoryEmoji: '👕',
-                              condition: 5,
-                              createdAt: DateTime.now(),
-                              ownerId: "7",
-                              ownerName: "You",
-                              ownerImageUrl:
-                                  "https://avatars.githubusercontent.com/u/41837037?v=4",
-                              updatedAt: DateTime.now(),
+                              id: swap.requesterItemId,
+                              name: swap.requesterItemName,
+                              imageUrls: swap.requesterItemImages,
+                              description: swap.requesterItemDescription,
+                              category: swap.requesterItemCategory,
+                              categoryEmoji: swap.requesterItemCategoryEmoji,
+                              condition: swap.requesterItemCondition,
+                              createdAt: swap.requesterItemCreatedAt,
+                              updatedAt: swap.requesterItemUpdatedAt,
+                              ownerId: swap.requesterId,
+                              ownerName: swap.requesterName,
+                              ownerImageUrl: swap.requesterImage,
                             ),
                           ),
                         ),
@@ -59,22 +55,18 @@ class SwapHistory extends StatelessWidget {
                           // currently creating swappables on the go, will give id and fetch it on swappable screen later.
                           child: SwapSwappableCard(
                             swappable: Swappable(
-                              id: '1',
-                              name: 'Bag',
-                              imageUrls: [
-                                'https://m.media-amazon.com/images/I/51BPWfLZHFL._UX569_.jpg',
-                                'https://m.media-amazon.com/images/I/51oGyFoRYPL.jpg'
-                              ],
-                              description: 'This is a swappable',
-                              category: "Other",
-                              categoryEmoji: '📚',
-                              condition: 4,
-                              createdAt: DateTime.now(),
-                              ownerId: "7",
-                              ownerName: "Shivansh Singh",
-                              ownerImageUrl:
-                                  "https://avatars.githubusercontent.com/u/89853707?v=4",
-                              updatedAt: DateTime.now(),
+                              id: swap.ownerItemId,
+                              name: swap.ownerItemName,
+                              imageUrls: swap.ownerItemImages,
+                              description: swap.ownerItemDescription,
+                              category: swap.ownerItemCategory,
+                              categoryEmoji: swap.ownerItemCategoryEmoji,
+                              condition: swap.ownerItemCondition,
+                              createdAt: swap.ownerItemCreatedAt,
+                              updatedAt: swap.ownerItemUpdatedAt,
+                              ownerId: swap.ownerId,
+                              ownerName: swap.ownerName,
+                              ownerImageUrl: swap.ownerImage,
                             ),
                           ),
                         ),

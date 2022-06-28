@@ -110,11 +110,11 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: Stack(children: [
         Positioned(
-          top: 0,
+          top: 20,
           left: 0,
           child: Container(
-            height: 180,
-            width: 180,
+            height: 150,
+            width: 150,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: const AssetImage('assets/img/swap_straight.png'),
