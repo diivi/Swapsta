@@ -13,69 +13,38 @@ class AddItemScreen extends StatefulWidget {
 
 class _AddItemScreenState extends State<AddItemScreen> {
   final categories = globals.categories;
-  List<DropdownMenuItem<String>> get dropdownItems {
-    List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(
-          child: Row(children: [
-            Text(categories[1].emoji),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * .05,
-            ),
-            Text(categories[1].name),
-          ]),
-          value: "1"),
-      DropdownMenuItem(
-          child: Row(children: [
-            Text(categories[2].emoji),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * .05,
-            ),
-            Text(categories[2].name),
-          ]),
-          value: "2"),
-      DropdownMenuItem(
-          child: Row(children: [
-            Text(categories[3].emoji),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * .05,
-            ),
-            Text(categories[3].name),
-          ]),
-          value: "3"),
-      DropdownMenuItem(
-          child: Row(children: [
-            Text(categories[4].emoji),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * .05,
-            ),
-            Text(categories[4].name),
-          ]),
-          value: "4"),
-    ];
-    return menuItems;
-  }
-
+  late List<Map<String, dynamic>> dropdownItems = [];
   String selectedValue = "1";
   double rating = 0;
-  final TextEditingController _controller = TextEditingController();
-  final TextEditingController _controller2 = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
   void onValueChange() {
     setState(() {
-      _controller.text;
-      _controller2.text;
+      _titleController.text;
+      _descriptionController.text;
     });
   }
 
   @override
   void initState() {
     // TODO: implement initState
-    _controller.addListener(onValueChange);
-    _controller2.addListener(onValueChange);
+    _titleController.addListener(onValueChange);
+    _descriptionController.addListener(onValueChange);
+    categories.asMap().forEach((index  , value) => {
+      if(index != 0) {
+      dropdownItems.add({
+        "text" : value.name,
+        "emoji" : value.emoji,
+        "value" : value.id,
+      }),
+      }
+    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -103,9 +72,9 @@ class _AddItemScreenState extends State<AddItemScreen> {
                     ),
                     TextField(
                       maxLength: 50,
-                      controller: _controller,
+                      controller: _titleController,
                       decoration: InputDecoration(
-                          counterText: "${_controller.text.length} / 50",
+                          counterText: "${_titleController.text.length} / 50",
                           labelText: 'Title',
                           contentPadding: const EdgeInsets.all(8),
                           filled: true,
@@ -132,7 +101,6 @@ class _AddItemScreenState extends State<AddItemScreen> {
                     children: [
                       const Text(
                         'Images',
-                        // textAlign: TextAlign.left,
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
@@ -168,14 +136,11 @@ class _AddItemScreenState extends State<AddItemScreen> {
                     keyboardType: TextInputType.multiline,
                     maxLines: null,
                     maxLength: 200,
-                    controller: _controller2,
+                    controller: _descriptionController,
                     textAlign: TextAlign.start,
                     decoration: InputDecoration(
-                        counterText: "${_controller2.text.length} / 200",
-                        // contentPadding: const EdgeInsets.only(
-                        // top: -50, bottom: 60, right: 10, left: 10),
+                        counterText: "${_descriptionController.text.length} / 200",
                         labelText: 'Description',
-                        // alignLabelWithHint: true,
                         filled: true,
                         fillColor: Colors.white,
                         enabledBorder: const OutlineInputBorder(
@@ -211,7 +176,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        DropdownButtonFormField(
+                        DropdownButtonFormField<String>(
                           value: selectedValue,
                           decoration: const InputDecoration(
                             contentPadding: EdgeInsets.all(8),
@@ -232,7 +197,21 @@ class _AddItemScreenState extends State<AddItemScreen> {
                             Icons.arrow_drop_down_rounded,
                             color: Colors.orange,
                           ),
-                          items: dropdownItems,
+                          items: dropdownItems.map((e) {
+                            return DropdownMenuItem<String>(
+                              child: Row(
+                                children: [
+                                  Text(e['emoji']),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width * .05,
+                                  ),
+                                  Text(e['text']),
+                                ],
+                              ),
+                              value: e['value'],
+                            );
+                          }).toList(),
                           onChanged: (String? newValue) {
                             setState(() {
                               selectedValue = newValue!;
