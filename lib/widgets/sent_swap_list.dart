@@ -6,22 +6,22 @@ import 'package:swapsta/providers/bottom_nav_visibility_provider.dart';
 import 'package:swapsta/providers/sent_swaps_provider.dart';
 import 'package:swapsta/widgets/swap_swappable_row.dart';
 
-class SentSwapGrid extends StatefulWidget {
+class sentswapslist extends StatefulWidget {
   final String searchQuery;
 
-  const SentSwapGrid({Key? key, required this.searchQuery}) : super(key: key);
+  const sentswapslist({Key? key, required this.searchQuery}) : super(key: key);
 
   @override
-  State<SentSwapGrid> createState() => _SentSwapGridState();
+  State<sentswapslist> createState() => _sentswapslistState();
 }
 
-class _SentSwapGridState extends State<SentSwapGrid> {
+class _sentswapslistState extends State<sentswapslist> {
   bool _dismissed = false;
   @override
   Widget build(BuildContext context) {
     final List<Swap> sentSwapList = Provider.of<SentSwap>(context).sentSwaps;
 
-    final keywordIncludedSwappables = sentSwapList
+    final keywordIncludedSwaps = sentSwapList
         .where((sentSwap) =>
             sentSwap.ownerItemDescription
                 .contains(widget.searchQuery.toLowerCase()) ||
@@ -74,7 +74,7 @@ class _SentSwapGridState extends State<SentSwapGrid> {
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.all(10.0),
-          itemCount: keywordIncludedSwappables.length,
+          itemCount: keywordIncludedSwaps.length,
           controller: scrollController,
           itemBuilder: (ctx, i) {
             return Stack(
@@ -115,7 +115,7 @@ class _SentSwapGridState extends State<SentSwapGrid> {
                     });
                   },
                   direction: DismissDirection.endToStart,
-                  key: Key(keywordIncludedSwappables[i].id),
+                  key: Key(keywordIncludedSwaps[i].id),
                   child: SizedBox(
                     height: MediaQuery.of(context).size.height * .315,
                     child: Stack(
@@ -130,7 +130,7 @@ class _SentSwapGridState extends State<SentSwapGrid> {
                           child: Padding(
                             padding: const EdgeInsets.all(5),
                             child: SwapSwappableRow(
-                                swap: keywordIncludedSwappables[i]),
+                                swap: keywordIncludedSwaps[i]),
                           ),
                         ),
                         Positioned(

@@ -6,23 +6,23 @@ import 'package:swapsta/providers/bottom_nav_visibility_provider.dart';
 import 'package:swapsta/providers/swap_history_provider.dart';
 import 'package:swapsta/widgets/swap_swappable_row.dart';
 
-class SwapHistoryGrid extends StatefulWidget {
+class swaphistorylist extends StatefulWidget {
   final String searchQuery;
 
-  const SwapHistoryGrid({Key? key, required this.searchQuery})
+  const swaphistorylist({Key? key, required this.searchQuery})
       : super(key: key);
 
   @override
-  State<SwapHistoryGrid> createState() => _SwapHistoryGridState();
+  State<swaphistorylist> createState() => _swaphistorylistState();
 }
 
-class _SwapHistoryGridState extends State<SwapHistoryGrid> {
+class _swaphistorylistState extends State<swaphistorylist> {
   @override
   Widget build(BuildContext context) {
     final List<Swap> swapHistoryList =
         Provider.of<SwapHistory>(context).swapHistory;
 
-    final keywordIncludedSwappables = swapHistoryList
+    final keywordIncludedSwaps = swapHistoryList
         .where((sentSwap) =>
             sentSwap.ownerItemDescription
                 .contains(widget.searchQuery.toLowerCase()) ||
@@ -75,7 +75,7 @@ class _SwapHistoryGridState extends State<SwapHistoryGrid> {
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.all(10.0),
-          itemCount: keywordIncludedSwappables.length,
+          itemCount: keywordIncludedSwaps.length,
           controller: scrollController,
           itemBuilder: (ctx, i) {
             return Wrap(children: [
@@ -92,7 +92,7 @@ class _SwapHistoryGridState extends State<SwapHistoryGrid> {
                       child: Column(
                         children: [
                           SwapSwappableRow(
-                            swap: keywordIncludedSwappables[i],
+                            swap: keywordIncludedSwaps[i],
                           ),
                           const Padding(
                             padding: EdgeInsets.symmetric(vertical: 8),

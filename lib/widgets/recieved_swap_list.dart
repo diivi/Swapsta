@@ -6,25 +6,25 @@ import 'package:swapsta/providers/bottom_nav_visibility_provider.dart';
 import 'package:swapsta/providers/recieved_swap_provider.dart';
 import 'package:swapsta/widgets/swap_swappable_row.dart';
 
-class RecievedSwapGrid extends StatefulWidget {
+class recievedswapslist extends StatefulWidget {
   final String searchQuery;
   final TabController tabSwitcher;
 
 
-  const RecievedSwapGrid({Key? key, required this.searchQuery, required this.tabSwitcher})
+  const recievedswapslist({Key? key, required this.searchQuery, required this.tabSwitcher})
       : super(key: key);
 
   @override
-  State<RecievedSwapGrid> createState() => _RecievedSwapGridState();
+  State<recievedswapslist> createState() => _recievedswapslistState();
 }
 
-class _RecievedSwapGridState extends State<RecievedSwapGrid> {
+class _recievedswapslistState extends State<recievedswapslist> {
   @override
   Widget build(BuildContext context) {
     final List<Swap> recievedSwapList =
         Provider.of<RecievedSwap>(context).recievedSwaps;
 
-    final keywordIncludedSwappables = recievedSwapList
+    final keywordIncludedSwaps = recievedSwapList
         .where((recievedSwap) =>
             recievedSwap.ownerItemDescription
                 .contains(widget.searchQuery.toLowerCase()) ||
@@ -77,7 +77,7 @@ class _RecievedSwapGridState extends State<RecievedSwapGrid> {
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.all(10.0),
-          itemCount: keywordIncludedSwappables.length,
+          itemCount: keywordIncludedSwaps.length,
           controller: scrollController,
           itemBuilder: (ctx, i) {
             return Wrap(children: [
@@ -93,7 +93,7 @@ class _RecievedSwapGridState extends State<RecievedSwapGrid> {
                       padding: const EdgeInsets.all(5),
                       child: Column(
                         children: [
-                          SwapSwappableRow(swap: keywordIncludedSwappables[i]),
+                          SwapSwappableRow(swap: keywordIncludedSwaps[i]),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: Row(
@@ -143,7 +143,7 @@ class _RecievedSwapGridState extends State<RecievedSwapGrid> {
                                                 title:
                                                     const Text('Swap Accepted'),
                                                 content: Text(
-                                                    'You have accepted the swap request from ${keywordIncludedSwappables[i].ownerName}'),
+                                                    'You have accepted the swap request from ${keywordIncludedSwaps[i].ownerName}'),
                                                 actions: [
                                                   TextButton(
                                                     child: const Text('OK'),
