@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:swapsta/widgets/pill.dart';
 import '../../globals.dart' as globals;
-import '../providers/bottom_nav_visibility_provider.dart';
 import '../widgets/home_header.dart';
 import '../widgets/search_box.dart';
 import '../widgets/sort_button.dart';

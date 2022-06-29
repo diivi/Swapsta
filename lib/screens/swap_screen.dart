@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:swapsta/widgets/recieved_swap_grid.dart';
+import 'package:swapsta/widgets/sent_swap_grid.dart';
+import 'package:swapsta/widgets/swap_history_grid.dart';
 import 'dart:math' as math;
-import '../widgets/sent_swap.dart';
-import '../widgets/recieved_swaps.dart';
-import '../widgets/swap_history.dart';
 import '../widgets/swapscreen_header.dart';
 
 class SwapScreen extends StatefulWidget {
@@ -14,6 +14,14 @@ class SwapScreen extends StatefulWidget {
 }
 
 class _SwapScreenState extends State<SwapScreen> with TickerProviderStateMixin {
+  String searchQuery = '';
+
+  void _onSearchQueryChanged(String value) {
+    setState(() {
+      searchQuery = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     TabController _tabController = TabController(length: 3, vsync: this);
@@ -45,7 +53,9 @@ class _SwapScreenState extends State<SwapScreen> with TickerProviderStateMixin {
     ];
     return Column(
       children: [
-        const SwapscreenHeader(),
+        SwapscreenHeader(
+          handleSearch: _onSearchQueryChanged,
+        ),
         Padding(
           padding: EdgeInsets.symmetric(
               horizontal: MediaQuery.of(context).size.width * 0.05),
@@ -74,22 +84,26 @@ class _SwapScreenState extends State<SwapScreen> with TickerProviderStateMixin {
           child: TabBarView(
             controller: _tabController,
             children: [
-              const SingleChildScrollView(
+              SingleChildScrollView(
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: SentSwap(),
+                  child: SentSwapGrid(
+                    searchQuery: searchQuery,
+                  ),
                 ),
               ),
               SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: SwapsRecieved(tabSwitcher: _tabController),
+                  child: RecievedSwapGrid(searchQuery: searchQuery, tabSwitcher: _tabController),
                 ),
               ),
-              const SingleChildScrollView(
+              SingleChildScrollView(
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: SwapHistory(),
+                  child: SwapHistoryGrid(
+                    searchQuery: searchQuery,
+                  ),
                 ),
               ),
             ],

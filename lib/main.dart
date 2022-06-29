@@ -3,7 +3,10 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 import 'package:swapsta/providers/auth_provider.dart';
 import 'package:swapsta/providers/bottom_nav_visibility_provider.dart';
+import 'package:swapsta/providers/recieved_swap_provider.dart';
 import 'package:swapsta/providers/screen_provider.dart';
+import 'package:swapsta/providers/sent_swaps_provider.dart';
+import 'package:swapsta/providers/swap_history_provider.dart';
 import 'package:swapsta/screens/explore_screen.dart';
 import 'package:swapsta/screens/profile_screen.dart';
 import 'package:swapsta/screens/swap_screen.dart';
@@ -67,6 +70,15 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => ScreenProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => SentSwap(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => SwapHistory(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => RecievedSwap(),
         ),
       ],
       child: MaterialApp(

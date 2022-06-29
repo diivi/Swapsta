@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import '../models/swappable.dart';
 import '../providers/auth_provider.dart';
 import '../screens/swappable_screen.dart';
-import 'dart:convert';
 import 'condition.dart';
 
 class MyItemsCard extends StatelessWidget {

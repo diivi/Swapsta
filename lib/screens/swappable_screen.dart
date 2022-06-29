@@ -8,7 +8,6 @@ import '../providers/auth_provider.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:intl/intl.dart';
-import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
 
 class SwappableScreen extends StatelessWidget {
   static const routeName = '/swappable';
