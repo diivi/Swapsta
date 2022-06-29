@@ -5,6 +5,7 @@ import 'package:swapsta/providers/auth_provider.dart';
 import 'package:swapsta/providers/bottom_nav_visibility_provider.dart';
 import 'package:swapsta/providers/screen_provider.dart';
 import 'package:swapsta/screens/explore_screen.dart';
+import 'package:swapsta/screens/feedback_screen.dart';
 import 'package:swapsta/screens/profile_screen.dart';
 import 'package:swapsta/screens/swap_screen.dart';
 import 'package:swapsta/screens/add_item_screen.dart';
@@ -82,6 +83,7 @@ class MyApp extends StatelessWidget {
           AddItemScreen.routeName: (context) => const AddItemScreen(),
           SwappableScreen.routeName: (context) => const SwappableScreen(),
           SwapScreen.routeName: (context) => const SwapScreen(),
+          FeedbackScreen.routeName: (context) => const FeedbackScreen(),
         },
       ),
     );
