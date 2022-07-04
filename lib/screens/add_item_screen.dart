@@ -30,28 +30,35 @@ class _AddItemScreenState extends State<AddItemScreen> {
     // TODO: implement initState
     _titleController.addListener(onValueChange);
     _descriptionController.addListener(onValueChange);
-    categories.asMap().forEach((index  , value) => {
-      if(index != 0) {
-      dropdownItems.add({
-        "text" : value.name,
-        "emoji" : value.emoji,
-        "value" : value.id,
-      }),
-      }
-    });
+    categories.asMap().forEach((index, value) => {
+          if (index != 0)
+            {
+              dropdownItems.add({
+                "text": value.name,
+                "emoji": value.emoji,
+                "value": value.id,
+              }),
+            }
+        });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    
+    final arguments = (ModalRoute.of(context)?.settings.arguments ??
+        <String, dynamic>{}) as Map;
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: const Text(
-          'Add Item',
-          textAlign: TextAlign.left,
-        ),
+        title: (arguments['header'] != null)
+            ? Text(
+                arguments['header'],
+                textAlign: TextAlign.left,
+              )
+            : Text(
+                'Add Item',
+                textAlign: TextAlign.left,
+              ),
         backgroundColor: const Color(0xFFF9F6F2),
         elevation: 0,
       ),
@@ -72,7 +79,10 @@ class _AddItemScreenState extends State<AddItemScreen> {
                     ),
                     TextField(
                       maxLength: 50,
-                      controller: _titleController,
+                      controller: _titleController
+                        ..text = (arguments['title'] != null)
+                            ? arguments['title']
+                            : null,
                       decoration: InputDecoration(
                           counterText: "${_titleController.text.length} / 50",
                           labelText: 'Title',
@@ -136,10 +146,14 @@ class _AddItemScreenState extends State<AddItemScreen> {
                     keyboardType: TextInputType.multiline,
                     maxLines: null,
                     maxLength: 200,
-                    controller: _descriptionController,
+                    controller: _descriptionController
+                      ..text = (arguments['description'] != null)
+                          ? arguments['description']
+                          : null,
                     textAlign: TextAlign.start,
                     decoration: InputDecoration(
-                        counterText: "${_descriptionController.text.length} / 200",
+                        counterText:
+                            "${_descriptionController.text.length} / 200",
                         labelText: 'Description',
                         filled: true,
                         fillColor: Colors.white,
