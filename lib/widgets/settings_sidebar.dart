@@ -65,12 +65,15 @@ class _SettingsDrawerState extends State<SettingsDrawer>
                 color: Colors.orange,
               ),
             ),
-            const ListTile(
+            ListTile(
               title: Text('Feedback'),
               leading: Icon(
                 Icons.feedback_rounded,
                 color: Colors.orange,
               ),
+              onTap: () {
+                Navigator.pushNamed(context, '/feedback_screen');
+              },
             ),
             Expanded(
               child: Align(
