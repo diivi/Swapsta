@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import '../models/swappable.dart';
 import '../providers/auth_provider.dart';
 import '../screens/swappable_screen.dart';
-import 'dart:convert';
 import 'condition.dart';
 
 class MyItemsCard extends StatelessWidget {
@@ -50,10 +49,31 @@ class MyItemsCard extends StatelessWidget {
                 Positioned(
                   top: 10,
                   right: 10,
-                  child: Material(
-                    borderRadius: BorderRadius.circular(24),
-                    color: Colors.transparent,
-                    child: const Icon(Icons.edit),
+                  child: Container(
+                    height: 40,
+                    width: 40,
+                    child: Material(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.orange.withAlpha(70),
+                      child: IconButton(
+                        splashColor: Colors.orange.withAlpha(50),
+                        highlightColor: Colors.transparent,
+                        splashRadius: 24,
+                        icon: Icon(
+                          Icons.edit,
+                          size: 20,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/add-item', arguments: {
+                            'title': swappable.name,
+                            'description': swappable.description,
+                            'header': 'Edit Item',
+                            'condition': swappable.condition,
+                          });
+                        },
+                      ),
+                    ),
                   ),
                 ),
                 Positioned(

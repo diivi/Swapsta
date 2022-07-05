@@ -2,13 +2,13 @@ import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:swapsta/providers/screen_provider.dart';
 import 'package:swapsta/screens/image_screen.dart';
 import 'package:swapsta/widgets/condition.dart';
+import 'package:swapsta/widgets/swap_dialog.dart';
 import 'package:provider/provider.dart';
 import '../models/swappable.dart';
 import '../providers/auth_provider.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:intl/intl.dart';
-import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
 
 class SwappableScreen extends StatelessWidget {
   static const routeName = '/swappable';
@@ -236,59 +236,8 @@ class SwappableScreen extends StatelessWidget {
                                         onTap: () {
                                           showDialog(
                                               context: context,
-                                              builder: (BuildContext context) {
-                                                return AlertDialog(
-                                                  title: Text(
-                                                    'Swap with ${swappable.name}?',
-                                                    style: const TextStyle(
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                  content: Text(
-                                                    'Are you sure you want to swap with ${swappable.name}?',
-                                                    style: const TextStyle(
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                                  ),
-                                                  actions: [
-                                                    TextButton(
-                                                      child: const Text(
-                                                        'Cancel',
-                                                        style: TextStyle(
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                      ),
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                      },
-                                                    ),
-                                                    TextButton(
-                                                      child: const Text(
-                                                        'Swap',
-                                                        style: TextStyle(
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                      ),
-                                                      onPressed: () {
-                                                        Provider.of<ScreenProvider>(
-                                                                context,
-                                                                listen: false)
-                                                            .setScreenIndex(1);
-                                                        Navigator.pushNamed(
-                                                            context, '/');
-                                                      },
-                                                    ),
-                                                  ],
-                                                );
-                                              });
+                                              builder: (context) =>
+                                                  SwapDialog());
                                         },
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(

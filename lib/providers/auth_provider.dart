@@ -5,6 +5,7 @@ class Auth with ChangeNotifier {
   String fullName;
   String email;
   String imageUrl;
+  bool loggedIn;
   Map<String, bool> wishlist;
 
   Auth({
@@ -13,6 +14,7 @@ class Auth with ChangeNotifier {
     required this.email,
     required this.imageUrl,
     required this.wishlist,
+    required this.loggedIn,
   });
 
   void toggleWishlist(String id) {
@@ -22,6 +24,11 @@ class Auth with ChangeNotifier {
     } else {
       wishlist[id] = true;
     }
+    notifyListeners();
+  }
+
+  void toggleAuthState(bool value) {
+    loggedIn = value;
     notifyListeners();
   }
 }
