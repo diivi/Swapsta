@@ -158,10 +158,9 @@ class _SwapsRecievedState extends State<SwapsRecieved> {
               ),
             ),
           ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 80,
+          Container(
+            margin: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * .44,
+                MediaQuery.of(context).size.height * .24, 0, 0),
             child: Image.asset(
               'assets/img/swap_arrow.png',
               height: 35,

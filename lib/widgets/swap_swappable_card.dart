@@ -98,7 +98,6 @@ class SwapSwappableCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    //condition
                   ],
                 ),
               )

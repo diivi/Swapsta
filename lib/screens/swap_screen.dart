@@ -48,7 +48,8 @@ class _SwapScreenState extends State<SwapScreen> with TickerProviderStateMixin {
         const SwapscreenHeader(),
         Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width * 0.05),
+            horizontal: MediaQuery.of(context).size.width * 0.05,
+          ),
           child: TabBar(
             overlayColor: MaterialStateProperty.all(Colors.transparent),
             splashFactory: NoSplash.splashFactory,
@@ -108,6 +109,7 @@ Widget _buildIcons({
   return SizedBox(
     height: MediaQuery.of(context).size.height * 0.09,
     child: Tab(
+      
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
