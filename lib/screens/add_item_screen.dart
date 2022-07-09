@@ -64,15 +64,6 @@ class _AddItemScreenState extends State<AddItemScreen> {
       appBar: AppBar(
         centerTitle: false,
         title: _buildAppBar(arguments['header']),
-        // title: (arguments['header'] != null)
-        //     ? Text(
-        //         arguments['header'],
-        //         textAlign: TextAlign.left,
-        //       )
-        //     : Text(
-        //         'Add Item',
-        //         textAlign: TextAlign.left,
-        //       ),
         backgroundColor: const Color(0xFFF9F6F2),
         elevation: 0,
       ),
