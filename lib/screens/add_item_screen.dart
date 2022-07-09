@@ -43,22 +43,36 @@ class _AddItemScreenState extends State<AddItemScreen> {
     super.initState();
   }
 
+  void dispose() {
+    print("dispose");
+    // This is the line that breaks when called inside setState() of onPressed() method
+    _titleController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
+    var initialValue;
+    if (arguments['title'] == null) {
+      initialValue = '';
+    } else {
+      initialValue = arguments['title'];
+    }
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: (arguments['header'] != null)
-            ? Text(
-                arguments['header'],
-                textAlign: TextAlign.left,
-              )
-            : Text(
-                'Add Item',
-                textAlign: TextAlign.left,
-              ),
+        title: _buildAppBar(arguments['header']),
+        // title: (arguments['header'] != null)
+        //     ? Text(
+        //         arguments['header'],
+        //         textAlign: TextAlign.left,
+        //       )
+        //     : Text(
+        //         'Add Item',
+        //         textAlign: TextAlign.left,
+        //       ),
         backgroundColor: const Color(0xFFF9F6F2),
         elevation: 0,
       ),
@@ -82,7 +96,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                       controller: _titleController
                         ..text = (arguments['title'] != null)
                             ? arguments['title']
-                            : null,
+                            : '',
                       decoration: InputDecoration(
                           counterText: "${_titleController.text.length} / 50",
                           labelText: 'Title',
@@ -149,7 +163,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                     controller: _descriptionController
                       ..text = (arguments['description'] != null)
                           ? arguments['description']
-                          : null,
+                          : '',
                     textAlign: TextAlign.start,
                     decoration: InputDecoration(
                         counterText:
@@ -322,4 +336,17 @@ class _AddItemScreenState extends State<AddItemScreen> {
       ),
     );
   }
+}
+
+Widget _buildAppBar(String? header) {
+  if (header == null) {
+    return Text(
+      'Add Item',
+      textAlign: TextAlign.left,
+    );
+  }
+  return Text(
+    'Edit Item',
+    textAlign: TextAlign.left,
+  );
 }
