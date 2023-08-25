@@ -1,26 +1,35 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
+import 'package:swapsta/providers/Auth/google_sign_in.dart';
 import 'package:swapsta/providers/auth_provider.dart';
 import 'package:swapsta/providers/bottom_nav_visibility_provider.dart';
 import 'package:swapsta/providers/screen_provider.dart';
 import 'package:swapsta/screens/auth_screen.dart';
-import 'package:swapsta/screens/explore_screen.dart';
+// import 'package:swapsta/screens/explore_screen.dart';
 import 'package:swapsta/screens/home_screen.dart';
 import 'package:swapsta/screens/feedback_screen.dart';
-import 'package:swapsta/screens/profile_screen.dart';
+// import 'package:swapsta/screens/profile_screen.dart';
 import 'package:swapsta/screens/swap_screen.dart';
 import 'package:swapsta/screens/add_item_screen.dart';
-import 'package:dot_navigation_bar/dot_navigation_bar.dart';
+// import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:swapsta/screens/swappable_screen.dart';
-import 'package:swapsta/icons/swapcons_icons.dart';
-import 'package:swapsta/widgets/settings_sidebar.dart';
+// import 'package:swapsta/icons/swapcons_icons.dart';
+// import 'package:swapsta/widgets/settings_sidebar.dart';
 import './providers/swappables_provider.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-Future main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.remove();
+  await dotenv.load();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
@@ -72,6 +81,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => ScreenProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => GoogleSignInProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -86,7 +98,7 @@ class MyApp extends StatelessWidget {
           AddItemScreen.routeName: (context) => const AddItemScreen(),
           SwappableScreen.routeName: (context) => const SwappableScreen(),
           SwapScreen.routeName: (context) => const SwapScreen(),
-          HomeScreen.routeName:(context) => const HomeScreen(),
+          HomeScreen.routeName: (context) => const HomeScreen(),
           FeedbackScreen.routeName: (context) => const FeedbackScreen(),
         },
       ),
@@ -102,18 +114,33 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final _screens = [
-    const ExploreScreen(),
-    const SwapScreen(),
-    const ProfileScreen(),
-    const AddItemScreen(),
-  ];
+  // final _screens = [
+  //   const ExploreScreen(),
+  //   const SwapScreen(),
+  //   const ProfileScreen(),
+  //   const AddItemScreen(),
+  // ];
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<Auth>(context);
-    
-    return (user.loggedIn == false) ? AuthScreen() : HomeScreen();
-    
+    return Scaffold(
+      body: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasData) {
+            return HomeScreen();
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('Somethng went wrong'),
+            );
+          }
+          return AuthScreen();
+        },
+      ),
+    );
   }
 }

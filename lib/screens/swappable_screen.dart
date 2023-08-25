@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
-import 'package:swapsta/providers/screen_provider.dart';
 import 'package:swapsta/screens/image_screen.dart';
 import 'package:swapsta/widgets/condition.dart';
 import 'package:swapsta/widgets/swap_dialog.dart';

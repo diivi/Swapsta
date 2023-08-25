@@ -38,10 +38,14 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_image_slideshow: any
   flutter_inset_box_shadow: ^1.0.8
-  dot_navigation_bar:
-    path: dot_navigation_bar-1.0.1+4
   flutter_rating_bar: ^4.0.1
   full_screen_image_null_safe: ^2.0.0
+  firebase_core: ^2.15.1
+  firebase_auth: ^4.8.0
+  google_sign_in: ^6.1.4
+  dot_navigation_bar: ^1.0.2
+  cloud_firestore: ^4.9.0
+  flutter_dotenv: ^5.1.0
 
 dev_dependencies:
   flutter_test:
@@ -77,6 +81,7 @@ flutter:
     - assets/img/swap_straight.png
     - assets/img/login_screen.png
     - assets/img/google_icon.png
+    - .env
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
