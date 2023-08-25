@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:swapsta/providers/auth_provider.dart';
+import 'package:swapsta/providers/Auth/google_sign_in.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -12,7 +12,6 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<Auth>(context);
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(
@@ -98,11 +97,16 @@ class _AuthScreenState extends State<AuthScreen> {
                   width: MediaQuery.of(context).size.width * .57,
                   child: ElevatedButton(
                     onPressed: () {
-                      user.toggleAuthState(true);
+                      final provider = Provider.of<GoogleSignInProvider>(
+                        context,
+                        listen: false,
+                      );
+                      provider.GoogleLogin();
+                      // user.toggleAuthState(true);
                       // Navigator.pushNamed(context, '/home');
                     },
                     style: ElevatedButton.styleFrom(
-                        primary: Colors.white,
+                        backgroundColor: Colors.white,
                         elevation: 2.0,
                         padding: EdgeInsets.all(7)),
                     child: Row(

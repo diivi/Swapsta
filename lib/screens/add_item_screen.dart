@@ -27,7 +27,6 @@ class _AddItemScreenState extends State<AddItemScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     _titleController.addListener(onValueChange);
     _descriptionController.addListener(onValueChange);
     categories.asMap().forEach((index, value) => {
@@ -136,7 +135,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                             color: Colors.orange,
                           ),
                           style: ElevatedButton.styleFrom(
-                              primary: Colors.white,
+                              backgroundColor: Colors.white,
                               shape: const CircleBorder()),
                           onPressed: () {},
                         ),

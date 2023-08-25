@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../models/swappable.dart';
-import '../providers/auth_provider.dart';
-import '../screens/swappable_screen.dart';
-import 'dart:convert';
 import 'condition.dart';
 
 class SelectItemCard extends StatelessWidget {
@@ -21,7 +17,7 @@ class SelectItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<Auth>(context);
+    // final user = Provider.of<Auth>(context);
     return Card(
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(

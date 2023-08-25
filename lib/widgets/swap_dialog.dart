@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 import '../globals.dart' as globals;
-import 'package:provider/provider.dart';
-import '../models/swappable.dart';
-import '../providers/bottom_nav_visibility_provider.dart';
-import '../screens/add_item_screen.dart';
-import 'myitems_card.dart';
 import '../widgets/swap_dialog_card.dart';
 
 class SwapDialog extends StatefulWidget {
@@ -91,8 +86,7 @@ class _SwapDialog extends State<SwapDialog> {
               alignment: Alignment.bottomCenter,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    onPrimary: Colors.white,
-                    padding: const EdgeInsets.symmetric(
+                    foregroundColor: Colors.white, padding: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 10),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20))),
