@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -49,8 +50,8 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyB5S2qA2RoK0adRc3v9sr_Hbjje7PFI9Ck',
+  static FirebaseOptions web = FirebaseOptions(
+    apiKey: dotenv.env['WEB_API_KEY']!,
     appId: '1:608149280928:web:34acc7c13d6176104ad1c5',
     messagingSenderId: '608149280928',
     projectId: 'swapsta-6813b',
@@ -59,8 +60,8 @@ class DefaultFirebaseOptions {
     measurementId: 'G-FG6TXZPQYZ',
   );
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyA3FKsZzklzbjIz9yeHLShUBMTSKF2WltY',
+  static FirebaseOptions android = FirebaseOptions(
+    apiKey: dotenv.env['APP_API_KEY']!,
     appId: '1:608149280928:android:f178c4c87eb995ee4ad1c5',
     messagingSenderId: '608149280928',
     projectId: 'swapsta-6813b',
