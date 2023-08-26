@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +17,7 @@ class _SettingsDrawerState extends State<SettingsDrawer>
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<Auth>(context);
+    final authUser = FirebaseAuth.instance.currentUser!;
     return SafeArea(
       top: false,
       child: Drawer(
@@ -26,7 +28,7 @@ class _SettingsDrawerState extends State<SettingsDrawer>
               child: Row(
                 children: [
                   CircleAvatar(
-                    backgroundImage: NetworkImage(user.imageUrl),
+                    backgroundImage: NetworkImage(authUser.photoURL!),
                     radius: 30,
                   ),
                   const SizedBox(width: 20),
@@ -35,14 +37,14 @@ class _SettingsDrawerState extends State<SettingsDrawer>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        user.fullName,
+                        authUser.displayName!,
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
                       Text(
-                        user.email,
+                        authUser.email!,
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,

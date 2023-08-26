@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
@@ -19,12 +20,12 @@ class MyItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<Auth>(context);
+    final authUser = FirebaseAuth.instance.currentUser!;
     final swappableProvider = Provider.of<SwappableProvider>(context);
     final swappables = swappableProvider.swappables;
     final isFetching = swappableProvider.isFetching;
     final filteredSwappables =
-        swappables.where((swappable) => swappable.ownerId == user.id).toList();
+        swappables.where((swappable) => swappable.ownerId == authUser.email).toList();
     return Consumer<BottomBarVisibilityProvider>(
         builder: (context, bottomBarVisibilityProvider, child) {
       scrollController.addListener(() {

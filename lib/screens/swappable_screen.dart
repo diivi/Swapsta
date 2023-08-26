@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:provider/provider.dart';
 import 'package:swapsta/providers/auth_provider.dart';
@@ -33,6 +34,7 @@ class SwappableScreen extends StatelessWidget {
     }
 
     final user = Provider.of<Auth>(context);
+    final authUser = FirebaseAuth.instance.currentUser!;
     final routeArgs = ModalRoute.of(context)?.settings.arguments;
     final swappable = routeArgs as Swappable;
     //formatting swappable.updatedAt
@@ -131,7 +133,7 @@ class SwappableScreen extends StatelessWidget {
                       const SizedBox(width: 10),
                       //ownername
                       Text(
-                        (swappable.ownerId == user.email)
+                        (swappable.ownerId == authUser.email)
                             ? "You"
                             : swappable.ownerName,
                         textAlign: TextAlign.left,
@@ -211,7 +213,7 @@ class SwappableScreen extends StatelessWidget {
                   ),
                   //buttons
                   Container(
-                      child: (swappable.ownerId != user.email)
+                      child: (swappable.ownerId != authUser.email)
                           ? Container(
                               padding: const EdgeInsets.only(top: 20),
                               child: Row(

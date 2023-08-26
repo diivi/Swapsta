@@ -58,10 +58,10 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => Auth(
-            id: user.email!,
-            fullName: user.displayName!,
-            email: user.email!,
-            imageUrl: user.photoURL!,
+            id: '',
+            fullName: '',
+            email: '',
+            imageUrl: '',
             wishlist: {},
             loggedIn: false,
           ),
