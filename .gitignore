@@ -52,4 +52,3 @@ app.*.map.json
 ios/firebase_app_id_file.json
 lib/firebase_options.dart
 android/app/google-services.json
-lib/
