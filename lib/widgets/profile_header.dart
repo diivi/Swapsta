@@ -8,8 +8,7 @@ class ProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
-
+    final authUser = FirebaseAuth.instance.currentUser!;
     return Container(
       margin: const EdgeInsets.only(
         top: 20,
@@ -24,7 +23,7 @@ class ProfileHeader extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 15),
                 child: CircleAvatar(
-                  backgroundImage: NetworkImage(user.photoURL!),
+                  backgroundImage: NetworkImage(authUser.photoURL!),
                   radius: 45,
                 ),
               ),
@@ -34,7 +33,7 @@ class ProfileHeader extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      user.displayName!,
+                      authUser.displayName!,
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
@@ -44,7 +43,7 @@ class ProfileHeader extends StatelessWidget {
                       softWrap: false,
                     ),
                     Text(
-                      user.email!,
+                      authUser.email!,
                       style: const TextStyle(
                         color: Color.fromARGB(131, 0, 0, 0),
                         fontSize: 13,

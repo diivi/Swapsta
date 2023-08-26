@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class Auth with ChangeNotifier {
-  String id;
-  String fullName;
-  String email;
-  String imageUrl;
-  bool loggedIn;
+  String? id;
+  String? fullName;
+  String? email;
+  String? imageUrl;
+  bool? loggedIn;
   Map<String, bool> wishlist;
 
   Auth({

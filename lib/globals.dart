@@ -210,27 +210,27 @@ final List<Swappable> mySwappables = [
 
 final List<Category> categories = [
   Category(
-    id: '0',
+    id: 'All Categories',
     name: 'All Categories',
     emoji: '',
   ),
   Category(
-    id: '1',
+    id: 'Stationery',
     name: 'Stationery',
     emoji: '📚',
   ),
   Category(
-    id: '2',
+    id: 'Clothing',
     name: 'Clothing',
     emoji: '👕',
   ),
   Category(
-    id: '3',
+    id: 'Electronics',
     name: 'Electronics',
     emoji: '📱',
   ),
   Category(
-    id: '4',
+    id: 'Sports',
     name: 'Sports',
     emoji: '⚽',
   ),

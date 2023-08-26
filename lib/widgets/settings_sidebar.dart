@@ -15,7 +15,7 @@ class _SettingsDrawerState extends State<SettingsDrawer>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
+    final authUser = FirebaseAuth.instance.currentUser!;
     return SafeArea(
       top: false,
       child: Drawer(
@@ -26,7 +26,7 @@ class _SettingsDrawerState extends State<SettingsDrawer>
               child: Row(
                 children: [
                   CircleAvatar(
-                    backgroundImage: NetworkImage(user.photoURL!),
+                    backgroundImage: NetworkImage(authUser.photoURL!),
                     radius: 30,
                   ),
                   const SizedBox(width: 20),
@@ -35,16 +35,16 @@ class _SettingsDrawerState extends State<SettingsDrawer>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        user.displayName!,
+                        authUser.displayName!,
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
                       Text(
-                        user.email!,
+                        authUser.email!,
                         style: const TextStyle(
-                          fontSize: 16,
+                          fontSize: 14,
                           fontWeight: FontWeight.w400,
                         ),
                       ),

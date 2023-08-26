@@ -1,7 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../models/swappable.dart';
-import '../providers/auth_provider.dart';
 import '../screens/swappable_screen.dart';
 import 'condition.dart';
 
@@ -15,7 +14,7 @@ class MyItemsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<Auth>(context);
+    final authUser = FirebaseAuth.instance.currentUser!;
     return Card(
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
@@ -110,7 +109,7 @@ class MyItemsCard extends StatelessWidget {
                       const SizedBox(width: 5),
                       Expanded(
                         child: Text(
-                          (swappable.ownerId == user.id)
+                          (swappable.ownerId == authUser.email)
                               ? "You"
                               : swappable.ownerName,
                           style: const TextStyle(

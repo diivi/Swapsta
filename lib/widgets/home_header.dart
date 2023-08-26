@@ -1,15 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../providers/auth_provider.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
+    final authUser = FirebaseAuth.instance.currentUser!;
     return Container(
       margin: const EdgeInsets.only(left: 20, right: 20, top: 15),
       child: Row(
@@ -19,7 +16,7 @@ class HomeHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Hi ${user.displayName?.split(" ")[0]},',
+                'Hi ${authUser.displayName?.split(" ")[0]},',
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w400,
