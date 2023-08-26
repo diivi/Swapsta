@@ -6,6 +6,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:swapsta/models/swappable.dart';
 import 'package:uuid/uuid.dart';
 import '../../globals.dart' as globals;
 
@@ -103,7 +105,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
           'createdAt': DateTime.now(),
           'updatedAt': DateTime.now(),
           'swapRequests': 0,
-          'description' : _descriptionController.text,
+          'description': _descriptionController.text,
         };
         // Update the 'items' array in the user document
         try {
@@ -520,13 +522,12 @@ class _AddItemScreenState extends State<AddItemScreen> {
                         await uploadFile(item);
                       }
                       await addItemToDatabase();
-                      print("hehehehehhe");
                       setState(() {
                         isLoading = false;
                         imageFile.clear();
                         _titleController.clear();
                         _descriptionController.clear();
-                        selectedValue = "1";
+                        selectedValue = "Stationery";
                         rating = 0;
                       });
                     } catch (error) {
@@ -538,6 +539,11 @@ class _AddItemScreenState extends State<AddItemScreen> {
                     setState(() {
                       isLoading = false;
                     });
+                    final swappableProvider = Provider.of<SwappableProvider>(
+                      context,
+                      listen: false,
+                    );
+                    await swappableProvider.fetchSwappables();
                     Navigator.pushNamed(context, '/home');
                   },
                   child: Padding(
