@@ -1,5 +1,12 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
 import '../../globals.dart' as globals;
 
 class AddItemScreen extends StatefulWidget {
@@ -18,17 +25,15 @@ class _AddItemScreenState extends State<AddItemScreen> {
   double rating = 0;
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  void onValueChange() {
-    setState(() {
-      _titleController.text;
-      _descriptionController.text;
-    });
-  }
+  // void onValueChange() {
+  //   setState(() {
+  //     _titleController.text;
+  //     _descriptionController.text;
+  //   });
+  // }
 
   @override
   void initState() {
-    _titleController.addListener(onValueChange);
-    _descriptionController.addListener(onValueChange);
     categories.asMap().forEach((index, value) => {
           if (index != 0)
             {
@@ -49,8 +54,66 @@ class _AddItemScreenState extends State<AddItemScreen> {
     super.dispose();
   }
 
+  List<String> imageUrls = [];
+  List<File> imageFile = [];
+  final picker = ImagePicker();
+  Future selectImageCamera() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+    setState(() {
+      if (pickedFile != null) {
+        imageFile.add(File(pickedFile.path));
+      } else {
+        return;
+      }
+    });
+  }
+
+  Future selectImageGallery() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      if (pickedFile != null) {
+        imageFile.add(File(pickedFile.path));
+      } else {
+        return;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    var item_id = Uuid().v4();
+    Future<void> addItemToDatabase() async {
+      final firestore = FirebaseFirestore.instance;
+      final user = FirebaseAuth.instance.currentUser;
+      print("HIT HERE");
+      print(imageUrls);
+      if (user != null) {
+        final userId = user.email; // Use the user's email as the document ID
+        final userDocument = firestore.collection('users').doc(userId);
+        final itemDocument = firestore.collection('items').doc(item_id);
+
+        final newItem = {
+          'title': _titleController.text,
+          'description': _descriptionController.text,
+          'category': selectedValue,
+          'condition': rating,
+          'dateCreated': FieldValue.serverTimestamp(),
+          'swapped': false,
+          'id':
+              item_id, // You can use a package like 'uuid' to generate a unique ID
+          'imageUrls': imageUrls,
+        };
+        print(newItem);
+        // Update the 'items' array in the user document
+        await userDocument.update({
+          'items': FieldValue.arrayUnion([newItem]),
+        });
+
+        // await itemDocument.set(newItem);
+      }
+      return;
+    }
+
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
     var initialValue;
@@ -59,6 +122,50 @@ class _AddItemScreenState extends State<AddItemScreen> {
     } else {
       initialValue = arguments['title'];
     }
+    bool isLoading = true;
+    Future<void> uploadFile(imagePath) async {
+      File file = imagePath;
+      if (isLoading) {
+        showDialog(
+          // The user CANNOT close this dialog  by pressing outsite it
+          barrierDismissible: false,
+          context: context,
+          builder: (_) {
+            return Dialog(
+              backgroundColor: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    CircularProgressIndicator(),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    // Some text
+                    Text('Loading...')
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      }
+      String imageName =
+          'productImages/${DateTime.now().millisecondsSinceEpoch}';
+      String downloadUrl = '';
+      try {
+        await FirebaseStorage.instance.ref(imageName).putFile(file);
+        downloadUrl =
+            await FirebaseStorage.instance.ref(imageName).getDownloadURL();
+        setState(() {
+          imageUrls.add(downloadUrl);
+        });
+      } catch (e) {
+        print(e);
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -83,24 +190,22 @@ class _AddItemScreenState extends State<AddItemScreen> {
                     ),
                     TextField(
                       maxLength: 50,
-                      controller: _titleController
-                        ..text = (arguments['title'] != null)
-                            ? arguments['title']
-                            : '',
+                      controller: _titleController,
                       decoration: InputDecoration(
-                          counterText: "${_titleController.text.length} / 50",
-                          labelText: 'Title',
-                          contentPadding: const EdgeInsets.all(8),
-                          filled: true,
-                          fillColor: Colors.white,
-                          enabledBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            borderSide: BorderSide.none,
-                          ),
-                          focusedBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.orange),
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                          )),
+                        counterText: "${_titleController.text.length} / 50",
+                        labelText: 'Title',
+                        contentPadding: const EdgeInsets.all(8),
+                        filled: true,
+                        fillColor: Colors.white,
+                        enabledBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          borderSide: BorderSide.none,
+                        ),
+                        focusedBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.orange),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -123,22 +228,136 @@ class _AddItemScreenState extends State<AddItemScreen> {
                       const SizedBox(
                         height: 15,
                       ),
-                      Container(
-                        padding: const EdgeInsets.all(40),
-                        decoration: const BoxDecoration(
-                          color: Color(0XFFFFDDC3),
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        ),
-                        child: ElevatedButton(
-                          child: const Icon(
-                            Icons.add_rounded,
-                            color: Colors.orange,
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(40),
+                            decoration: const BoxDecoration(
+                              color: Color(0XFFFFDDC3),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            child: ElevatedButton(
+                              child: const Icon(
+                                Icons.add_rounded,
+                                color: Colors.orange,
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.white,
+                                  shape: const CircleBorder()),
+                              onPressed: () => showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return StatefulBuilder(
+                                      builder: ((context, setState) {
+                                        return Container(
+                                          padding: const EdgeInsets.only(
+                                            left: 30,
+                                            right: 30,
+                                            top: 25,
+                                            bottom: 40,
+                                          ),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              const Text(
+                                                'Select One Option',
+                                                style: TextStyle(fontSize: 22),
+                                              ),
+                                              const SizedBox(height: 20),
+                                              Column(
+                                                children: [
+                                                  InkWell(
+                                                    onTap: selectImageCamera,
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Icon(
+                                                          Icons
+                                                              .camera_alt_outlined,
+                                                          color: Colors.orange,
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .symmetric(
+                                                            horizontal: 16.0,
+                                                            vertical: 16.0,
+                                                          ),
+                                                          child: Text(
+                                                            'Choose from camera',
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 16,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  InkWell(
+                                                    onTap: selectImageGallery,
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.image_outlined,
+                                                          color: Colors.orange,
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .symmetric(
+                                                            horizontal: 16.0,
+                                                            vertical: 16.0,
+                                                          ),
+                                                          child: Text(
+                                                            'Choose from Gallery',
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 16,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        );
+                                      }),
+                                    );
+                                  }),
+                            ),
                           ),
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              shape: const CircleBorder()),
-                          onPressed: () {},
-                        ),
+                          (imageFile.isNotEmpty)
+                              ? SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.width * .36,
+                                  width:
+                                      MediaQuery.of(context).size.width * .55,
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: imageFile.length,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Image.file(
+                                          imageFile[index],
+                                          fit: BoxFit.cover,
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                )
+                              : const SizedBox(),
+                        ],
                       )
                     ],
                   ),
@@ -150,10 +369,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                     keyboardType: TextInputType.multiline,
                     maxLines: null,
                     maxLength: 200,
-                    controller: _descriptionController
-                      ..text = (arguments['description'] != null)
-                          ? arguments['description']
-                          : '',
+                    controller: _descriptionController,
                     textAlign: TextAlign.start,
                     decoration: InputDecoration(
                         counterText:
@@ -290,7 +506,34 @@ class _AddItemScreenState extends State<AddItemScreen> {
                   ),
                   borderRadius: BorderRadius.circular(30),
                   highlightColor: Colors.transparent,
-                  onTap: () {},
+                  onTap: () async {
+                    setState(() {
+                      isLoading = true;
+                    });
+                    try {
+                      for (File item in imageFile) {
+                        await uploadFile(item);
+                      }
+                      await addItemToDatabase();
+                      print("hehehehehhe");
+                      setState(() {
+                        isLoading = false;
+                        imageFile.clear();
+                        _titleController.clear();
+                        _descriptionController.clear();
+                        selectedValue = "1";
+                        rating = 0;
+                      });
+                    } catch (error) {
+                      setState(() {
+                        isLoading = false;
+                      });
+                    }
+
+                    setState(() {
+                      isLoading = false;
+                    });
+                  },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 10,

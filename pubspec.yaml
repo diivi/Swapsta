@@ -46,6 +46,9 @@ dependencies:
   dot_navigation_bar: ^1.0.2
   cloud_firestore: ^4.9.0
   flutter_dotenv: ^5.1.0
+  image_picker: ^1.0.2
+  firebase_storage: ^11.2.6
+  uuid: ^3.0.7
 
 dev_dependencies:
   flutter_test:
