@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/Auth/google_sign_in.dart';
-import '../providers/auth_provider.dart';
 
 class SettingsDrawer extends StatefulWidget {
   const SettingsDrawer({Key? key}) : super(key: key);
@@ -16,7 +15,6 @@ class _SettingsDrawerState extends State<SettingsDrawer>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<Auth>(context);
     final authUser = FirebaseAuth.instance.currentUser!;
     return SafeArea(
       top: false,

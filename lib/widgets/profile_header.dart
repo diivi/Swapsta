@@ -1,8 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../providers/auth_provider.dart';
 
 class ProfileHeader extends StatelessWidget {
   const ProfileHeader({
@@ -11,7 +8,6 @@ class ProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<Auth>(context);
     final authUser = FirebaseAuth.instance.currentUser!;
     return Container(
       margin: const EdgeInsets.only(

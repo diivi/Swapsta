@@ -1,9 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
 import '../models/swappable.dart';
-import '../providers/auth_provider.dart';
 import '../screens/swappable_screen.dart';
 import 'condition.dart';
 
@@ -16,7 +13,6 @@ class SwapSwappableCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<Auth>(context);
     final authUser = FirebaseAuth.instance.currentUser!;
     return SizedBox(
       child: Card(

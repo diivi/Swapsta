@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import 'package:swapsta/providers/auth_provider.dart';
 
 import '../models/swappable.dart';
 import '../providers/bottom_nav_visibility_provider.dart';
