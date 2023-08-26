@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 import '../../globals.dart' as globals;
@@ -97,7 +98,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
           'description': _descriptionController.text,
           'category': selectedValue,
           'condition': rating,
-          'dateCreated': FieldValue.serverTimestamp(),
+          'dateCreated': DateTime.now(),
           'swapped': false,
           'id':
               item_id, // You can use a package like 'uuid' to generate a unique ID
@@ -105,11 +106,15 @@ class _AddItemScreenState extends State<AddItemScreen> {
         };
         print(newItem);
         // Update the 'items' array in the user document
-        await userDocument.update({
-          'items': FieldValue.arrayUnion([newItem]),
-        });
+        try {
+          await userDocument.update({
+            'items': FieldValue.arrayUnion([newItem]),
+          });
+        } on Exception catch (e) {
+          print(e);
+        }
 
-        // await itemDocument.set(newItem);
+        await itemDocument.set(newItem);
       }
       return;
     }
@@ -533,6 +538,8 @@ class _AddItemScreenState extends State<AddItemScreen> {
                     setState(() {
                       isLoading = false;
                     });
+                    Fluttertoast.showToast(msg: 'Your item has been added');
+                    Navigator.pushNamed(context, '/home');
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
