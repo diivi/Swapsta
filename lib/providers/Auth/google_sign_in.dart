@@ -11,6 +11,7 @@ class GoogleSignInProvider extends ChangeNotifier {
 
   Future GoogleLogin() async {
     try {
+      // add loading indicator
       final googleUser = await googleSignIn.signIn();
       if (googleUser == null) return;
       _user = googleUser;
