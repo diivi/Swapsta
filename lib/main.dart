@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
+import 'package:swapsta/models/swappable.dart';
 import 'package:swapsta/providers/Auth/google_sign_in.dart';
 import 'package:swapsta/providers/auth_provider.dart';
 import 'package:swapsta/providers/bottom_nav_visibility_provider.dart';
@@ -15,8 +16,6 @@ import 'package:swapsta/screens/swap_screen.dart';
 import 'package:swapsta/screens/add_item_screen.dart';
 // import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:swapsta/screens/swappable_screen.dart';
-// import 'package:swapsta/icons/swapcons_icons.dart';
-// import 'package:swapsta/widgets/settings_sidebar.dart';
 import './providers/swappables_provider.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -54,19 +53,16 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
           create: (_) => Auth(
-            id: '1',
-            fullName: 'Divyansh Singh',
-            email: 'ds192@snu.edu.in',
-            imageUrl: 'https://avatars.githubusercontent.com/u/41837037?v=4',
-            wishlist: {
-              "2": true,
-              "3": true,
-              "4": true,
-            },
+            id: user.email!,
+            fullName: user.displayName!,
+            email: user.email!,
+            imageUrl: user.photoURL!,
+            wishlist: {},
             loggedIn: false,
           ),
         ),
@@ -78,6 +74,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => ScreenProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => SwappableProvider(),
         ),
         ChangeNotifierProvider(
           create: (context) => GoogleSignInProvider(),

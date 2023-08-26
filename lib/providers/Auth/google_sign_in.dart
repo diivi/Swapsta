@@ -10,39 +10,49 @@ class GoogleSignInProvider extends ChangeNotifier {
   GoogleSignInAccount get user => _user!;
 
   Future GoogleLogin() async {
-    final googleUser = await googleSignIn.signIn();
-    if (googleUser == null) return;
-    _user = googleUser;
+    try {
+      final googleUser = await googleSignIn.signIn();
+      if (googleUser == null) return;
+      _user = googleUser;
 
-    final googleAuth = await googleUser.authentication;
+      final googleAuth = await googleUser.authentication;
 
-    final credentials = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
+      final credentials = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
 
-    await FirebaseAuth.instance.signInWithCredential(credentials);
+      await FirebaseAuth.instance.signInWithCredential(credentials);
 
-    final usersCollection = FirebaseFirestore.instance.collection('users');
-    final userEmail = googleUser.email;
-    final userName = googleUser.displayName;
-    print(usersCollection);
-    final userDoc = await usersCollection.doc(userEmail).get();
-    if (!userDoc.exists) {
-      // Create an initial user document with email as document ID
-      await usersCollection.doc(userEmail).set({
-        'name': userName,
-        'email': userEmail,
-        'items': [],
-        'sentSwaps': [],
-        'requestedSwaps': [],
-      });
+      final usersCollection = FirebaseFirestore.instance.collection('users');
+      final userEmail = googleUser.email;
+      final userName = googleUser.displayName;
+      print(usersCollection);
+      final userDoc = await usersCollection.doc(userEmail).get();
+      print("jijijiji");
+      print(userDoc);
+      if (!userDoc.exists) {
+        // Create an initial user document with email as document ID
+        await usersCollection.doc(userEmail).set({
+          'name': userName,
+          'email': userEmail,
+          'items': [],
+          'sentSwaps': [],
+          'requestedSwaps': [],
+        });
+      }
+      notifyListeners();
+    } on Exception catch (e) {
+      print(e);
     }
-    notifyListeners();
   }
 
   Future logout() async {
-    await googleSignIn.disconnect();
-    FirebaseAuth.instance.signOut();
+    try {
+      await googleSignIn.disconnect();
+      FirebaseAuth.instance.signOut();
+    } on Exception catch (e) {
+      print(e);
+    }
   }
 }

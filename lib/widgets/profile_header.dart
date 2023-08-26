@@ -1,5 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/auth_provider.dart';
 
 class ProfileHeader extends StatelessWidget {
   const ProfileHeader({
@@ -8,7 +10,7 @@ class ProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
+    final user = Provider.of<Auth>(context);
 
     return Container(
       margin: const EdgeInsets.only(
@@ -24,7 +26,7 @@ class ProfileHeader extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 15),
                 child: CircleAvatar(
-                  backgroundImage: NetworkImage(user.photoURL!),
+                  backgroundImage: NetworkImage(user.imageUrl),
                   radius: 45,
                 ),
               ),
@@ -34,7 +36,7 @@ class ProfileHeader extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      user.displayName!,
+                      user.fullName,
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
@@ -44,7 +46,7 @@ class ProfileHeader extends StatelessWidget {
                       softWrap: false,
                     ),
                     Text(
-                      user.email!,
+                      user.email,
                       style: const TextStyle(
                         color: Color.fromARGB(131, 0, 0, 0),
                         fontSize: 13,

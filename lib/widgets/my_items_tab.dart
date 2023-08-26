@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
+import 'package:swapsta/providers/auth_provider.dart';
 
 import '../models/swappable.dart';
 import '../providers/bottom_nav_visibility_provider.dart';
@@ -18,6 +19,12 @@ class MyItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<Auth>(context);
+    final swappableProvider = Provider.of<SwappableProvider>(context);
+    final swappables = swappableProvider.swappables;
+    final isFetching = swappableProvider.isFetching;
+    final filteredSwappables =
+        swappables.where((swappable) => swappable.ownerId == user.id).toList();
     return Consumer<BottomBarVisibilityProvider>(
         builder: (context, bottomBarVisibilityProvider, child) {
       scrollController.addListener(() {
@@ -34,44 +41,49 @@ class MyItems extends StatelessWidget {
         }
       });
 
-      return Stack(
-        fit: StackFit.expand,
-        children: [
-          GridView.builder(
-            physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.all(10.0),
-            itemCount: mySwappables.length,
-            controller: scrollController,
-            itemBuilder: (ctx, i) {
-              return MyItemsCard(
-                swappable: mySwappables[i],
-              );
-            },
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: MediaQuery.of(context).size.width /
-                  (MediaQuery.of(context).size.height / 1.4),
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-            ),
-          ),
-          Positioned(
-            bottom: MediaQuery.of(context).size.height * 0.19,
-            right: 25,
-            child: CircleAvatar(
-              radius: 30,
-              backgroundColor: Colors.orange,
-              child: IconButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed(AddItemScreen.routeName);
-                },
-                icon: const Icon(Icons.add),
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ],
-      );
+      return (!isFetching)
+          ? Stack(
+              fit: StackFit.expand,
+              children: [
+                GridView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.all(10.0),
+                  itemCount: filteredSwappables.length,
+                  controller: scrollController,
+                  itemBuilder: (ctx, i) {
+                    return MyItemsCard(
+                      swappable: filteredSwappables[i],
+                    );
+                  },
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: MediaQuery.of(context).size.width /
+                        (MediaQuery.of(context).size.height / 1.4),
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                ),
+                Positioned(
+                  bottom: MediaQuery.of(context).size.height * 0.19,
+                  right: 25,
+                  child: CircleAvatar(
+                    radius: 30,
+                    backgroundColor: Colors.orange,
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(AddItemScreen.routeName);
+                      },
+                      icon: const Icon(Icons.add),
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            )
+          : const Center(
+              child: CircularProgressIndicator(),
+            );
       // return GridView.builder(
       //   physics: const BouncingScrollPhysics(),
       //   padding: const EdgeInsets.all(10.0),

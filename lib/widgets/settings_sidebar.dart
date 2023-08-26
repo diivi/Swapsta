@@ -1,8 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/Auth/google_sign_in.dart';
+import '../providers/auth_provider.dart';
 
 class SettingsDrawer extends StatefulWidget {
   const SettingsDrawer({Key? key}) : super(key: key);
@@ -15,7 +15,7 @@ class _SettingsDrawerState extends State<SettingsDrawer>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
+    final user = Provider.of<Auth>(context);
     return SafeArea(
       top: false,
       child: Drawer(
@@ -26,7 +26,7 @@ class _SettingsDrawerState extends State<SettingsDrawer>
               child: Row(
                 children: [
                   CircleAvatar(
-                    backgroundImage: NetworkImage(user.photoURL!),
+                    backgroundImage: NetworkImage(user.imageUrl),
                     radius: 30,
                   ),
                   const SizedBox(width: 20),
@@ -35,16 +35,16 @@ class _SettingsDrawerState extends State<SettingsDrawer>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        user.displayName!,
+                        user.fullName,
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
                       Text(
-                        user.email!,
+                        user.email,
                         style: const TextStyle(
-                          fontSize: 16,
+                          fontSize: 14,
                           fontWeight: FontWeight.w400,
                         ),
                       ),

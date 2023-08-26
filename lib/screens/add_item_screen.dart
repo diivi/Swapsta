@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 import '../../globals.dart' as globals;
@@ -22,7 +21,7 @@ class AddItemScreen extends StatefulWidget {
 class _AddItemScreenState extends State<AddItemScreen> {
   final categories = globals.categories;
   late List<Map<String, dynamic>> dropdownItems = [];
-  String selectedValue = "1";
+  String selectedValue = "Stationery";
   double rating = 0;
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
@@ -92,19 +91,20 @@ class _AddItemScreenState extends State<AddItemScreen> {
         final userId = user.email; // Use the user's email as the document ID
         final userDocument = firestore.collection('users').doc(userId);
         final itemDocument = firestore.collection('items').doc(item_id);
-
         final newItem = {
-          'title': _titleController.text,
-          'description': _descriptionController.text,
-          'category': selectedValue,
-          'condition': rating,
-          'dateCreated': DateTime.now(),
-          'swapped': false,
-          'id':
-              item_id, // You can use a package like 'uuid' to generate a unique ID
+          'id': item_id,
+          'name': _titleController.text,
           'imageUrls': imageUrls,
+          'category': selectedValue,
+          'ownerName': user.displayName,
+          'ownerId': user.email,
+          'ownerImageUrl': user.photoURL,
+          'condition': rating,
+          'createdAt': DateTime.now(),
+          'updatedAt': DateTime.now(),
+          'swapRequests': 0,
+          'description' : _descriptionController.text,
         };
-        print(newItem);
         // Update the 'items' array in the user document
         try {
           await userDocument.update({
@@ -448,7 +448,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                   Text(e['text']),
                                 ],
                               ),
-                              value: e['value'],
+                              value: e['text'],
                             );
                           }).toList(),
                           onChanged: (String? newValue) {
@@ -538,7 +538,6 @@ class _AddItemScreenState extends State<AddItemScreen> {
                     setState(() {
                       isLoading = false;
                     });
-                    Fluttertoast.showToast(msg: 'Your item has been added');
                     Navigator.pushNamed(context, '/home');
                   },
                   child: Padding(

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
+import 'package:provider/provider.dart';
+import 'package:swapsta/providers/auth_provider.dart';
 import 'package:swapsta/screens/image_screen.dart';
 import 'package:swapsta/widgets/condition.dart';
 import 'package:swapsta/widgets/swap_dialog.dart';
-import 'package:provider/provider.dart';
 import '../models/swappable.dart';
-import '../providers/auth_provider.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:intl/intl.dart';
@@ -16,6 +16,22 @@ class SwappableScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String emoji(String category) {
+      switch (category) {
+        case 'Electronics':
+          return '📱';
+        case 'Stationary':
+          return '📚';
+        case 'Clothing':
+          return '👕';
+        case 'Sports':
+          return '⚽';
+        // Add more cases for other categories if needed
+        default:
+          return '';
+      }
+    }
+
     final user = Provider.of<Auth>(context);
     final routeArgs = ModalRoute.of(context)?.settings.arguments;
     final swappable = routeArgs as Swappable;
@@ -115,7 +131,7 @@ class SwappableScreen extends StatelessWidget {
                       const SizedBox(width: 10),
                       //ownername
                       Text(
-                        (swappable.ownerId == user.id)
+                        (swappable.ownerId == user.email)
                             ? "You"
                             : swappable.ownerName,
                         textAlign: TextAlign.left,
@@ -142,7 +158,7 @@ class SwappableScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Text(
-                              swappable.categoryEmoji,
+                              emoji(swappable.category),
                               style: const TextStyle(fontSize: 18),
                             ),
                             const SizedBox(width: 4),
@@ -195,7 +211,7 @@ class SwappableScreen extends StatelessWidget {
                   ),
                   //buttons
                   Container(
-                      child: (swappable.ownerId != user.id)
+                      child: (swappable.ownerId != user.email)
                           ? Container(
                               padding: const EdgeInsets.only(top: 20),
                               child: Row(

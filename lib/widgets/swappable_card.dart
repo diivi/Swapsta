@@ -52,7 +52,7 @@ class SwappableCard extends StatelessWidget {
                   child: Material(
                     borderRadius: BorderRadius.circular(24),
                     color: Colors.transparent,
-                    child: (swappable.ownerId != user.id)
+                    child: (swappable.ownerId != user.email)
                         ? IconButton(
                             splashRadius: 20,
                             onPressed: () {
