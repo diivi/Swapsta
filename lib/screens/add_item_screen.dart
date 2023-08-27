@@ -87,8 +87,6 @@ class _AddItemScreenState extends State<AddItemScreen> {
     Future<void> addItemToDatabase() async {
       final firestore = FirebaseFirestore.instance;
       final user = FirebaseAuth.instance.currentUser;
-      print("HIT HERE");
-      print(imageUrls);
       if (user != null) {
         final itemDocument = firestore.collection('items').doc(item_id);
         final newItem = {
@@ -104,6 +102,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
           'updatedAt': DateTime.now(),
           'swapRequests': 0,
           'description': _descriptionController.text,
+          'swapped' : false
         };
         // Update the 'items' array in the user document
         try {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:swapsta/models/swap.dart';
+import 'package:swapsta/models/swappable.dart';
 import 'package:swapsta/providers/bottom_nav_visibility_provider.dart';
-import 'package:swapsta/providers/swap_history_provider.dart';
 import 'package:swapsta/widgets/swap_swappable_row.dart';
 
 class swaphistorylist extends StatefulWidget {
@@ -19,10 +19,16 @@ class swaphistorylist extends StatefulWidget {
 class _swaphistorylistState extends State<swaphistorylist> {
   @override
   Widget build(BuildContext context) {
-    final List<Swap> swapHistoryList =
-        Provider.of<SwapHistory>(context).swapHistory;
+    String formatDate(String d) {
+      DateTime dt = DateTime.parse(d);
+      String formattedDate = DateFormat('d MMMM, y').format(dt);
+      return formattedDate;
+    }
 
-    final keywordIncludedSwaps = swapHistoryList
+    final swappableProvider = Provider.of<SwappableProvider>(context);
+    final histSwaps = swappableProvider.historySwap;
+
+    final keywordIncludedSwaps = histSwaps
         .where((sentSwap) =>
             sentSwap.ownerName
                 .toLowerCase()
@@ -71,10 +77,10 @@ class _swaphistorylistState extends State<swaphistorylist> {
                           SwapSwappableRow(
                             swap: keywordIncludedSwaps[i],
                           ),
-                          const Padding(
+                          Padding(
                             padding: EdgeInsets.symmetric(vertical: 8),
                             child: Text(
-                              ' Swapped 19th June 2022',
+                              'Completed Swap on ' +  formatDate(keywordIncludedSwaps[i].createdAt.toString()),
                               style: TextStyle(color: Colors.orange),
                             ),
                           )

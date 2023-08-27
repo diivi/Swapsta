@@ -29,6 +29,7 @@ class SwapSwappableRow extends StatelessWidget {
                 ownerId: swap!.requesterId,
                 ownerName: swap!.requesterName,
                 ownerImageUrl: swap!.requesterImage,
+                swapped: swap?.isAccepted
               ),
             ),
           ),
@@ -51,6 +52,7 @@ class SwapSwappableRow extends StatelessWidget {
                 ownerId: swap!.ownerId,
                 ownerName: swap!.ownerName,
                 ownerImageUrl: swap!.ownerImage,
+                swapped: swap?.isAccepted
               ),
             ),
           ),

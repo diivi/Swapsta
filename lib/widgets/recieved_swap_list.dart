@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
+import 'package:swapsta/models/swap.dart';
 import 'package:swapsta/models/swappable.dart';
 import 'package:swapsta/providers/bottom_nav_visibility_provider.dart';
 import 'package:swapsta/widgets/swap_swappable_row.dart';
@@ -22,10 +24,32 @@ class _recievedswapslistState extends State<recievedswapslist> {
   Widget build(BuildContext context) {
     final swappableProvider = Provider.of<SwappableProvider>(context);
     final rSwaps = swappableProvider.recievedSwaps;
+    Future<void> updateSwapData(String item_id, Swap item) async {
+      final firestore = FirebaseFirestore.instance;
+      final swapDocument = firestore.collection('swaps').doc(item_id);
+      final ownerItemDocument =
+          firestore.collection('items').doc(item.ownerItemId);
+      final requesterItemDocument =
+          firestore.collection('items').doc(item.requesterItemId);
+      try {
+        await swapDocument.update({
+          'status': 'swapped',
+          'createdAt': DateTime.now().toIso8601String(),
+        });
+        await ownerItemDocument.update({
+          'swapped': true,
+        });
+        await requesterItemDocument.update({
+          'swapped': true,
+        });
+      } on Exception catch (e) {
+        print(e);
+      }
+    }
 
     final keywordIncludedSwaps = rSwaps
         .where((recievedSwap) =>
-            recievedSwap!.ownerName
+            recievedSwap.ownerName
                 .toLowerCase()
                 .contains(widget.searchQuery.toLowerCase()) ||
             recievedSwap.requesterName
@@ -117,16 +141,66 @@ class _recievedswapslistState extends State<recievedswapslist> {
                                             builder: (BuildContext ctx) {
                                               return AlertDialog(
                                                 title:
-                                                    const Text('Swap Accepted'),
+                                                    const Text('Are you Sure?'),
                                                 content: Text(
-                                                    'You have accepted the swap request from ${keywordIncludedSwaps[i]!.ownerName}'),
+                                                    'Are you sure you want to asccept swap request from ${keywordIncludedSwaps[i].ownerName}'),
                                                 actions: [
                                                   TextButton(
                                                     child: const Text('OK'),
-                                                    onPressed: () {
-                                                      Navigator.of(ctx).pop();
-                                                      widget.tabSwitcher
-                                                          .animateTo(2);
+                                                    onPressed: () async {
+                                                      try {
+                                                        showDialog(
+                                                          context: context,
+                                                          barrierDismissible:
+                                                              false, // Prevent dismissing the dialog by tapping outside
+                                                          builder: (context) {
+                                                            return AlertDialog(
+                                                              content: Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .min,
+                                                                children: [
+                                                                  CircularProgressIndicator(), // Show the circular progress indicator
+                                                                  SizedBox(
+                                                                      height:
+                                                                          16),
+                                                                  Text(
+                                                                    "Storing data...",
+                                                                  ), // Optional: Add a message
+                                                                ],
+                                                              ),
+                                                            );
+                                                          },
+                                                        );
+                                                        await updateSwapData(
+                                                          keywordIncludedSwaps[
+                                                                  i]
+                                                              .id,
+                                                          keywordIncludedSwaps[
+                                                              i],
+                                                        );
+                                                        final swappableProvider =
+                                                            Provider.of<
+                                                                SwappableProvider>(
+                                                          context,
+                                                          listen: false,
+                                                        );
+                                                        await swappableProvider
+                                                            .fetchSwappables();
+                                                        await swappableProvider
+                                                            .fetchSwaps();
+                                                      } on Exception catch (e) {
+                                                        print(e);
+                                                        Navigator.pop(context);
+                                                      }
+                                                      Navigator.pop(context);
+                                                      Navigator.pushNamed(
+                                                        context,
+                                                        '/home',
+                                                      );
+                                                      // Navigator.of(ctx).pop();
+                                                      // widget.tabSwitcher
+                                                      //     .animateTo(2);
                                                     },
                                                   ),
                                                 ],

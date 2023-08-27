@@ -21,6 +21,7 @@ class Swappables with ChangeNotifier {
       ownerId: '1',
       ownerImageUrl: 'https://avatars.githubusercontent.com/u/41837037?v=4',
       categoryEmoji: '👕',
+      swapped: false
     ),
     Swappable(
       id: '2',
@@ -39,6 +40,7 @@ class Swappables with ChangeNotifier {
       categoryEmoji: '📚',
       ownerId: '2',
       ownerImageUrl: 'https://avatars.githubusercontent.com/u/89853707?v=4',
+      swapped: false
     ),
     Swappable(
       id: '3',
@@ -55,6 +57,7 @@ class Swappables with ChangeNotifier {
       ownerName: 'Aryan Sethia',
       categoryEmoji: '📱',
       ownerId: '3',
+      swapped: false,
       ownerImageUrl: 'https://avatars.githubusercontent.com/u/76778991?v=4',
     ),
     Swappable(
@@ -73,6 +76,7 @@ class Swappables with ChangeNotifier {
       categoryEmoji: '⚽',
       ownerId: '4',
       ownerImageUrl: 'https://avatars.githubusercontent.com/u/88828094?v=4',
+      swapped: false
     ),
     Swappable(
       id: '5',
@@ -90,6 +94,7 @@ class Swappables with ChangeNotifier {
       categoryEmoji: '👕',
       ownerId: '5',
       ownerImageUrl: 'https://avatars.githubusercontent.com/u/89126339?v=4',
+      swapped: false
     ),
     Swappable(
       id: '6',
@@ -106,6 +111,7 @@ class Swappables with ChangeNotifier {
       categoryEmoji: '⚽',
       ownerId: '6',
       ownerImageUrl: 'https://avatars.githubusercontent.com/u/76778991?v=4',
+      swapped: false
     ),
   ];
 

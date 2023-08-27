@@ -56,6 +56,7 @@ final List<Swappable> wishlistedSwappables = [
     categoryEmoji: '📚',
     ownerId: '2',
     ownerImageUrl: 'https://avatars.githubusercontent.com/u/89853707?v=4',
+    swapped: false,
   ),
   Swappable(
     id: '3',
@@ -72,6 +73,7 @@ final List<Swappable> wishlistedSwappables = [
     ownerName: 'Aryan Sethia',
     categoryEmoji: '📱',
     ownerId: '3',
+    swapped: false,
     ownerImageUrl: 'https://avatars.githubusercontent.com/u/76778991?v=4',
   ),
   Swappable(
@@ -89,6 +91,7 @@ final List<Swappable> wishlistedSwappables = [
     ownerName: 'Yathansh Raj Sharma',
     categoryEmoji: '⚽',
     ownerId: '4',
+    swapped: false,
     ownerImageUrl: 'https://avatars.githubusercontent.com/u/88828094?v=4',
   ),
 ];
@@ -110,6 +113,7 @@ final List<Swappable> mySwappables = [
     ownerId: '1',
     ownerImageUrl: 'https://avatars.githubusercontent.com/u/41837037?v=4',
     categoryEmoji: '👕',
+    swapped: false,
     swapRequests: 1,
   ),
   Swappable(
@@ -121,6 +125,7 @@ final List<Swappable> mySwappables = [
       'https://4.imimg.com/data4/KC/AS/MY-23240069/rain-jackets-500x500.jpg',
     ],
     category: 'Clothing',
+    swapped: false,
     condition: 5,
     createdAt: DateTime(2020, 1, 1),
     updatedAt: DateTime(2020, 1, 1),
@@ -139,6 +144,7 @@ final List<Swappable> mySwappables = [
       'https://4.imimg.com/data4/KC/AS/MY-23240069/rain-jackets-500x500.jpg',
     ],
     category: 'Clothing',
+    swapped: false,
     condition: 5,
     createdAt: DateTime(2020, 1, 1),
     updatedAt: DateTime(2020, 1, 1),
@@ -157,6 +163,7 @@ final List<Swappable> mySwappables = [
       'https://4.imimg.com/data4/KC/AS/MY-23240069/rain-jackets-500x500.jpg',
     ],
     category: 'Clothing',
+    swapped: false,
     condition: 5,
     createdAt: DateTime(2020, 1, 1),
     updatedAt: DateTime(2020, 1, 1),
@@ -175,6 +182,7 @@ final List<Swappable> mySwappables = [
       'https://4.imimg.com/data4/KC/AS/MY-23240069/rain-jackets-500x500.jpg',
     ],
     category: 'Clothing',
+    swapped: false,
     condition: 5,
     createdAt: DateTime(2020, 1, 1),
     updatedAt: DateTime(2020, 1, 1),
@@ -200,6 +208,7 @@ final List<Swappable> mySwappables = [
     ownerId: '1',
     ownerImageUrl: 'https://avatars.githubusercontent.com/u/41837037?v=4',
     categoryEmoji: '👕',
+    swapped: false,
     swapRequests: 1,
   ),
 ];
