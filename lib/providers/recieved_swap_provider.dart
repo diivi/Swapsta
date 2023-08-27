@@ -9,7 +9,6 @@ class RecievedSwap with ChangeNotifier {
       requesterId: "99",
       requesterName: "Divyansh Singh",
       requesterImage: "https://i.pravatar.cc/300",
-      requesterPhone: "123456789",
       ownerId: "100",
       ownerName: "Kartik Dang",
       ownerImage: "https://i.pravatar.cc/300",

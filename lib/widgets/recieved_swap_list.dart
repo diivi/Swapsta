@@ -25,13 +25,10 @@ class _recievedswapslistState extends State<recievedswapslist> {
 
     final keywordIncludedSwaps = rSwaps
         .where((recievedSwap) =>
-            recievedSwap.ownerName
+            recievedSwap!.ownerName
                 .toLowerCase()
                 .contains(widget.searchQuery.toLowerCase()) ||
             recievedSwap.requesterName
-                .toLowerCase()
-                .contains(widget.searchQuery.toLowerCase()) ||
-            recievedSwap.requesterPhone
                 .toLowerCase()
                 .contains(widget.searchQuery.toLowerCase()))
         .toList();
@@ -122,7 +119,7 @@ class _recievedswapslistState extends State<recievedswapslist> {
                                                 title:
                                                     const Text('Swap Accepted'),
                                                 content: Text(
-                                                    'You have accepted the swap request from ${keywordIncludedSwaps[i].ownerName}'),
+                                                    'You have accepted the swap request from ${keywordIncludedSwaps[i]!.ownerName}'),
                                                 actions: [
                                                   TextButton(
                                                     child: const Text('OK'),

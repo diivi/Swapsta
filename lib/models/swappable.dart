@@ -49,7 +49,15 @@ class SwappableProvider extends ChangeNotifier {
     fetchSwappables();
     fetchSwaps(); // Call the function to fetch data from Firebase
   }
+
+  void clearData() {
+    _swappables = [];
+    _sentSwaps = [];
+    _recievedSwaps = [];
+  }
+
   Future<void> fetchSwappables() async {
+    clearData();
     isFetching = true;
     try {
       final querySnapshot =
@@ -82,117 +90,96 @@ class SwappableProvider extends ChangeNotifier {
   }
 
   Future<void> fetchSwaps() async {
+    clearData();
     try {
       final authUser = FirebaseAuth.instance.currentUser!;
       final querySnapshot =
-          await FirebaseFirestore.instance.collection('users').get();
-      final swappables = querySnapshot.docs.map((doc) {
+          await FirebaseFirestore.instance.collection('swaps').get();
+      final requestSwappables = querySnapshot.docs.map((doc) {
         final data = doc.data();
-        if (data['email'] == authUser.email) {
-          return data['sentSwaps'];
+        if (data['requesterId'] == authUser.email) {
+          return Swap(
+            id: data['id'],
+            requesterId: data['requesterId'],
+            requesterName: data['requesterName'],
+            requesterImage: data['requesterImage'],
+            // requesterPhone: data['requesterPhone'],
+            ownerId: data['ownerId'],
+            ownerName: data['ownerName'],
+            ownerImage: data['ownerImage'],
+            requesterItemId: data['requestItemId'],
+            requesterItemName: data['requesterItemName'],
+            requesterItemImages: List<String>.from(data['requesterItemImages']),
+            requesterItemDescription: data['requesterItemDescription'],
+            requesterItemCategory: data['requesterItemCategory'],
+            requesterItemCreatedAt:
+                DateTime.parse(data['requesterItemCreatedAt']),
+            requesterItemUpdatedAt:
+                DateTime.parse(data['requesterItemUpdatedAt']),
+            requesterItemCondition: data['requesterItemCondition'].toDouble(),
+            // requesterItemCategoryEmoji: entry['requesterItemCategoryEmoji'],
+            ownerItemId: data['ownerItemId'],
+            ownerItemName: data['ownerItemName'],
+            ownerItemImages: List<String>.from(data['ownerItemImages']),
+            ownerItemDescription: data['ownerItemDescription'],
+            ownerItemCategory: data['ownerItemCategory'],
+            ownerItemCreatedAt: DateTime.parse(data['ownerItemCreatedAt']),
+            ownerItemUpdatedAt: DateTime.parse(data['ownerItemUpdatedAt']),
+            ownerItemCondition: data['ownerItemCondition'].toDouble(),
+            // ownerItemCategoryEmoji: entry['ownerItemCategoryEmoji'],
+            isAccepted: data['status'] == 'requested' ? false : true,
+          );
+        } else {
+          return [];
         }
       }).toList();
-      if (swappables[0] == null) {
-        swappables.removeAt(0);
-      }
-      print(swappables);
-      final recievedSwaps = querySnapshot.docs.map((doc) {
+
+      _sentSwaps = requestSwappables.whereType<Swap>().toList();
+
+      final recievedSwappables = querySnapshot.docs.map((doc) {
         final data = doc.data();
-        if (data['email'] == authUser.email) {
-          return data['requestedSwaps'];
+        if (data['ownerId'] == authUser.email) {
+          return Swap(
+            id: data['id'],
+            requesterId: data['requesterId'],
+            requesterName: data['requesterName'],
+            requesterImage: data['requesterImage'],
+            ownerId: data['ownerId'],
+            ownerName: data['ownerName'],
+            ownerImage: data['ownerImage'],
+            requesterItemId: data['requestItemId'],
+            requesterItemName: data['requesterItemName'],
+            requesterItemImages: List<String>.from(data['requesterItemImages']),
+            requesterItemDescription: data['requesterItemDescription'],
+            requesterItemCategory: data['requesterItemCategory'],
+            requesterItemCreatedAt:
+                DateTime.parse(data['requesterItemCreatedAt']),
+            requesterItemUpdatedAt:
+                DateTime.parse(data['requesterItemUpdatedAt']),
+            requesterItemCondition: data['requesterItemCondition'].toDouble(),
+            // requesterItemCategoryEmoji: entry['requesterItemCategoryEmoji'],
+            ownerItemId: data['ownerItemId'],
+            ownerItemName: data['ownerItemName'],
+            ownerItemImages: List<String>.from(data['ownerItemImages']),
+            ownerItemDescription: data['ownerItemDescription'],
+            ownerItemCategory: data['ownerItemCategory'],
+            ownerItemCreatedAt: DateTime.parse(data['ownerItemCreatedAt']),
+            ownerItemUpdatedAt: DateTime.parse(data['ownerItemUpdatedAt']),
+            ownerItemCondition: data['ownerItemCondition'].toDouble(),
+            // ownerItemCategoryEmoji: entry['ownerItemCategoryEmoji'],
+            isAccepted: data['status'] == 'requested' ? false : true,
+          );
+        } else {
+          return [];
         }
       }).toList();
-      if (recievedSwaps[0] == null) {
-        recievedSwaps.removeAt(0);
-      }
-      print(recievedSwaps);
-      List<Swap> swaps = [];
-      if (swappables[0] != null) {
-        for (var entry in swappables[0]) {
-          if (entry != null && entry is Map<dynamic, dynamic>) {
-            swaps.add(Swap(
-              id: entry['id'],
-              requesterId: entry['requesterId'],
-              requesterName: entry['requesterName'],
-              requesterImage: entry['requesterImage'],
-              requesterPhone: entry['requesterPhone'],
-              ownerId: entry['ownerId'],
-              ownerName: entry['ownerName'],
-              ownerImage: entry['ownerImage'],
-              requesterItemId: entry['requestItemId'],
-              requesterItemName: entry['requesterItemName'],
-              requesterItemImages:
-                  List<String>.from(entry['requesterItemImages']),
-              requesterItemDescription: entry['requesterItemDescription'],
-              requesterItemCategory: entry['requesterItemCategory'],
-              requesterItemCreatedAt:
-                  DateTime.parse(entry['requesterItemCreatedAt']),
-              requesterItemUpdatedAt:
-                  DateTime.parse(entry['requesterItemUpdatedAt']),
-              requesterItemCondition:
-                  entry['requesterItemCondition'].toDouble(),
-              // requesterItemCategoryEmoji: entry['requesterItemCategoryEmoji'],
-              ownerItemId: entry['ownerItemId'],
-              ownerItemName: entry['ownerItemName'],
-              ownerItemImages: List<String>.from(entry['ownerItemImages']),
-              ownerItemDescription: entry['ownerItemDescription'],
-              ownerItemCategory: entry['ownerItemCategory'],
-              ownerItemCreatedAt: DateTime.parse(entry['ownerItemCreatedAt']),
-              ownerItemUpdatedAt: DateTime.parse(entry['ownerItemUpdatedAt']),
-              ownerItemCondition: entry['ownerItemCondition'].toDouble(),
-              // ownerItemCategoryEmoji: entry['ownerItemCategoryEmoji'],
-              isAccepted: entry['status'] == 'requested' ? false : true,
-            ));
-          }
-        }
-      }
-      List<Swap> rSwaps = [];
-      if (recievedSwaps[0] != null) {
-        for (var entry in recievedSwaps[0]) {
-          if (entry != null && entry is Map<dynamic, dynamic>) {
-            rSwaps.add(Swap(
-              id: entry['id'],
-              requesterId: entry['requesterId'],
-              requesterName: entry['requesterName'],
-              requesterImage: entry['requesterImage'],
-              requesterPhone: entry['requesterPhone'],
-              ownerId: entry['ownerId'],
-              ownerName: entry['ownerName'],
-              ownerImage: entry['ownerImage'],
-              requesterItemId: entry['requestItemId'],
-              requesterItemName: entry['requesterItemName'],
-              requesterItemImages:
-                  List<String>.from(entry['requesterItemImages']),
-              requesterItemDescription: entry['requesterItemDescription'],
-              requesterItemCategory: entry['requesterItemCategory'],
-              requesterItemCreatedAt:
-                  DateTime.parse(entry['requesterItemCreatedAt']),
-              requesterItemUpdatedAt:
-                  DateTime.parse(entry['requesterItemUpdatedAt']),
-              requesterItemCondition:
-                  entry['requesterItemCondition'].toDouble(),
-              // requesterItemCategoryEmoji: entry['requesterItemCategoryEmoji'],
-              ownerItemId: entry['ownerItemId'],
-              ownerItemName: entry['ownerItemName'],
-              ownerItemImages: List<String>.from(entry['ownerItemImages']),
-              ownerItemDescription: entry['ownerItemDescription'],
-              ownerItemCategory: entry['ownerItemCategory'],
-              ownerItemCreatedAt: DateTime.parse(entry['ownerItemCreatedAt']),
-              ownerItemUpdatedAt: DateTime.parse(entry['ownerItemUpdatedAt']),
-              ownerItemCondition: entry['ownerItemCondition'].toDouble(),
-              // ownerItemCategoryEmoji: entry['ownerItemCategoryEmoji'],
-              isAccepted: entry['status'] == 'requested' ? false : true,
-            ));
-          }
-        }
-      }
-      _recievedSwaps = rSwaps;
-      _sentSwaps = swaps;
+      _recievedSwaps = recievedSwappables.whereType<Swap>().toList();
       print(_recievedSwaps);
       print(_sentSwaps);
       notifyListeners();
     } catch (error) {
       print(error);
     }
+    notifyListeners();
   }
 }

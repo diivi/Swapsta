@@ -90,8 +90,6 @@ class _AddItemScreenState extends State<AddItemScreen> {
       print("HIT HERE");
       print(imageUrls);
       if (user != null) {
-        final userId = user.email; // Use the user's email as the document ID
-        final userDocument = firestore.collection('users').doc(userId);
         final itemDocument = firestore.collection('items').doc(item_id);
         final newItem = {
           'id': item_id,
@@ -109,14 +107,10 @@ class _AddItemScreenState extends State<AddItemScreen> {
         };
         // Update the 'items' array in the user document
         try {
-          await userDocument.update({
-            'items': FieldValue.arrayUnion([newItem]),
-          });
+          await itemDocument.set(newItem);
         } on Exception catch (e) {
           print(e);
         }
-
-        await itemDocument.set(newItem);
       }
       return;
     }

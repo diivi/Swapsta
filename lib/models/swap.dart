@@ -4,7 +4,6 @@ class Swap {
   String requesterId;
   String requesterName;
   String requesterImage;
-  String requesterPhone;
   String ownerId;
   String ownerName;
   String ownerImage;
@@ -36,7 +35,6 @@ class Swap {
     required this.requesterId,
     required this.requesterName,
     required this.requesterImage,
-    required this.requesterPhone,
     required this.ownerId,
     required this.ownerName,
     required this.ownerImage,

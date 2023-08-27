@@ -29,9 +29,6 @@ class _swaphistorylistState extends State<swaphistorylist> {
                 .contains(widget.searchQuery.toLowerCase()) ||
             sentSwap.requesterName
                 .toLowerCase()
-                .contains(widget.searchQuery.toLowerCase()) ||
-            sentSwap.requesterPhone
-                .toLowerCase()
                 .contains(widget.searchQuery.toLowerCase()))
         .toList();
     final ScrollController scrollController = ScrollController();

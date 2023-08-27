@@ -5,7 +5,7 @@ import 'package:swapsta/widgets/swap_swappable_card.dart';
 
 class SwapSwappableRow extends StatelessWidget {
   const SwapSwappableRow({Key? key, required this.swap}) : super(key: key);
-  final Swap swap;
+  final Swap? swap;
 
   @override
   Widget build(BuildContext context) {
@@ -18,17 +18,17 @@ class SwapSwappableRow extends StatelessWidget {
             // currently creating swappables on the go, will give id and fetch it on swappable screen later.
             child: SwapSwappableCard(
               swappable: Swappable(
-                id: swap.requesterItemId,
-                name: swap.requesterItemName,
-                imageUrls: swap.requesterItemImages,
-                description: swap.requesterItemDescription,
-                category: swap.requesterItemCategory,
-                condition: swap.requesterItemCondition,
-                createdAt: swap.requesterItemCreatedAt,
-                updatedAt: swap.requesterItemUpdatedAt,
-                ownerId: swap.requesterId,
-                ownerName: swap.requesterName,
-                ownerImageUrl: swap.requesterImage,
+                id: swap!.requesterItemId,
+                name: swap!.requesterItemName,
+                imageUrls: swap!.requesterItemImages,
+                description: swap!.requesterItemDescription,
+                category: swap!.requesterItemCategory,
+                condition: swap!.requesterItemCondition,
+                createdAt: swap!.requesterItemCreatedAt,
+                updatedAt: swap!.requesterItemUpdatedAt,
+                ownerId: swap!.requesterId,
+                ownerName: swap!.requesterName,
+                ownerImageUrl: swap!.requesterImage,
               ),
             ),
           ),
@@ -40,17 +40,17 @@ class SwapSwappableRow extends StatelessWidget {
             // currently creating swappables on the go, will give id and fetch it on swappable screen later.
             child: SwapSwappableCard(
               swappable: Swappable(
-                id: swap.ownerItemId,
-                name: swap.ownerItemName,
-                imageUrls: swap.ownerItemImages,
-                description: swap.ownerItemDescription,
-                category: swap.ownerItemCategory,
-                condition: swap.ownerItemCondition,
-                createdAt: swap.ownerItemCreatedAt,
-                updatedAt: swap.ownerItemUpdatedAt,
-                ownerId: swap.ownerId,
-                ownerName: swap.ownerName,
-                ownerImageUrl: swap.ownerImage,
+                id: swap!.ownerItemId,
+                name: swap!.ownerItemName,
+                imageUrls: swap!.ownerItemImages,
+                description: swap!.ownerItemDescription,
+                category: swap!.ownerItemCategory,
+                condition: swap!.ownerItemCondition,
+                createdAt: swap!.ownerItemCreatedAt,
+                updatedAt: swap!.ownerItemUpdatedAt,
+                ownerId: swap!.ownerId,
+                ownerName: swap!.ownerName,
+                ownerImageUrl: swap!.ownerImage,
               ),
             ),
           ),

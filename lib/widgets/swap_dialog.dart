@@ -31,13 +31,14 @@ class _SwapDialog extends State<SwapDialog> {
     var item_id = Uuid().v4();
     Future<void> addSwapToDatabase(Swappable requesterItem) async {
       final firestore = FirebaseFirestore.instance;
-      final userId = authUser.email;
-      final userDocument = firestore.collection('users').doc(userId);
+      // final userId = authUser.email;
+      final swapDocument = firestore.collection('swaps').doc(item_id);
+      // final userDocument = firestore.collection('users').doc(userId);
       final ownerItem =
           firestore.collection('items').doc(widget.swappableItem.id);
       final requestItem = firestore.collection('items').doc(requesterItem.id);
-      final ownerDocument =
-          firestore.collection('users').doc(widget.swappableItem.ownerId);
+      // final ownerDocument =
+      //     firestore.collection('users').doc(widget.swappableItem.ownerId);
       final newItem = {
         'id': item_id,
         'requesterId': authUser.email,
@@ -68,32 +69,13 @@ class _SwapDialog extends State<SwapDialog> {
         'ownerItemCondition': widget.swappableItem.condition,
         'ownerItemCategoryEmoji': widget.swappableItem.categoryEmoji,
       };
-      // final newItem = {
-      //   'id': item_id,
-      //   'requesterId': authUser.email,
-      //   'requesterName': authUser.displayName,
-      //   'requesterImage': authUser.photoURL,
-      //   'requesterPhone': authUser.phoneNumber,
-      //   'ownerId': widget.swappableItem.ownerId,
-      //   'ownerName': widget.swappableItem.ownerName,
-      //   'ownerImage': widget.swappableItem.ownerImageUrl,
-      //   'status': 'requested',
-      //   'requestItemId': requesterItem.id,
-      //   'ownerItemId': widget.swappableItem.id,
-      // };
-      // print(newItem);
       try {
-        await userDocument.update({
-          'sentSwaps': FieldValue.arrayUnion([newItem]),
-        });
+        await swapDocument.set(newItem);
         await ownerItem.update({
           'swapRequests': widget.swappableItem.swapRequests! + 1,
         });
         await requestItem.update({
           'swapRequests': requesterItem.swapRequests! + 1,
-        });
-        await ownerDocument.update({
-          'requestedSwaps': FieldValue.arrayUnion([newItem]),
         });
       } on Exception catch (e) {
         print(e);

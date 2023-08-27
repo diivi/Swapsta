@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:swapsta/models/swappable.dart';
 
 class GoogleSignInProvider extends ChangeNotifier {
   final googleSignIn = GoogleSignIn();
@@ -37,12 +38,12 @@ class GoogleSignInProvider extends ChangeNotifier {
         await usersCollection.doc(userEmail).set({
           'name': userName,
           'email': userEmail,
-          'items': [],
-          'sentSwaps': [],
-          'requestedSwaps': [],
         });
       }
       notifyListeners();
+      SwappableProvider swappableProvider = SwappableProvider();
+      await swappableProvider.fetchSwappables();
+      await swappableProvider.fetchSwaps();
     } on Exception catch (e) {
       print(e);
     }
