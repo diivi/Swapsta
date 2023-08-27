@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import 'package:swapsta/models/swap.dart';
+import 'package:swapsta/models/swappable.dart';
 import 'package:swapsta/providers/bottom_nav_visibility_provider.dart';
-import 'package:swapsta/providers/sent_swaps_provider.dart';
 import 'package:swapsta/widgets/swap_swappable_row.dart';
 
 class sentswapslist extends StatefulWidget {
@@ -19,31 +18,14 @@ class _sentswapslistState extends State<sentswapslist> {
   bool _dismissed = false;
   @override
   Widget build(BuildContext context) {
-    final List<Swap> sentSwapList = Provider.of<SentSwap>(context).sentSwaps;
+    final swappableProvider = Provider.of<SwappableProvider>(context);
+    final sentSwaps = swappableProvider.sentSwaps;
 
-    final keywordIncludedSwaps = sentSwapList
+    // final List<Swap> sentSwapList = Provider.of<SentSwap>(context).sentSwaps;
+
+    final keywordIncludedSwaps = sentSwaps
         .where((sentSwap) =>
-            sentSwap.ownerItemDescription
-                .contains(widget.searchQuery.toLowerCase()) ||
-            sentSwap.ownerItemName
-                .toLowerCase()
-                .contains(widget.searchQuery.toLowerCase()) ||
             sentSwap.ownerName
-                .toLowerCase()
-                .contains(widget.searchQuery.toLowerCase()) ||
-            sentSwap.ownerPhone!
-                .toLowerCase()
-                .contains(widget.searchQuery.toLowerCase()) ||
-            sentSwap.ownerItemCategory
-                .toLowerCase()
-                .contains(widget.searchQuery.toLowerCase()) ||
-            sentSwap.requesterItemCategory
-                .toLowerCase()
-                .contains(widget.searchQuery.toLowerCase()) ||
-            sentSwap.requesterItemDescription
-                .toLowerCase()
-                .contains(widget.searchQuery.toLowerCase()) ||
-            sentSwap.requesterItemName
                 .toLowerCase()
                 .contains(widget.searchQuery.toLowerCase()) ||
             sentSwap.requesterName
@@ -70,6 +52,11 @@ class _sentswapslistState extends State<sentswapslist> {
             }
           }
         });
+        // final swappableProvider = Provider.of<SwappableProvider>(
+        //   context,
+        //   listen: false,
+        // );
+        // final sentSwaps = swappableProvider.sentSwaps;
         return ListView.builder(
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(),

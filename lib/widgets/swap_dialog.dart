@@ -1,12 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:swapsta/models/swappable.dart';
+import 'package:uuid/uuid.dart';
 import '../widgets/swap_dialog_card.dart';
 
 class SwapDialog extends StatefulWidget {
-  const SwapDialog({Key? key}) : super(key: key);
-
+  const SwapDialog({
+    Key? key,
+    required this.swappableItem,
+  }) : super(key: key);
+  final Swappable swappableItem;
   @override
   State<SwapDialog> createState() => _SwapDialog();
 }
@@ -23,6 +28,78 @@ class _SwapDialog extends State<SwapDialog> {
   @override
   Widget build(BuildContext context) {
     final authUser = FirebaseAuth.instance.currentUser!;
+    var item_id = Uuid().v4();
+    Future<void> addSwapToDatabase(Swappable requesterItem) async {
+      final firestore = FirebaseFirestore.instance;
+      final userId = authUser.email;
+      final userDocument = firestore.collection('users').doc(userId);
+      final ownerItem =
+          firestore.collection('items').doc(widget.swappableItem.id);
+      final requestItem = firestore.collection('items').doc(requesterItem.id);
+      final ownerDocument =
+          firestore.collection('users').doc(widget.swappableItem.ownerId);
+      final newItem = {
+        'id': item_id,
+        'requesterId': authUser.email,
+        'requesterName': authUser.displayName,
+        'requesterImage': authUser.photoURL,
+        'requesterPhone': authUser.phoneNumber,
+        'ownerId': widget.swappableItem.ownerId,
+        'ownerName': widget.swappableItem.ownerName,
+        'ownerImage': widget.swappableItem.ownerImageUrl,
+        'status': 'requested',
+        'requestItemId': requesterItem.id,
+        'requesterItemId': requesterItem.id, // Add requester item ID
+        'requesterItemName': requesterItem.name,
+        'requesterItemImages': requesterItem.imageUrls,
+        'requesterItemDescription': requesterItem.description,
+        'requesterItemCategory': requesterItem.category,
+        'requesterItemCreatedAt': requesterItem.createdAt.toIso8601String(),
+        'requesterItemUpdatedAt': requesterItem.updatedAt.toIso8601String(),
+        'requesterItemCondition': requesterItem.condition,
+        'requesterItemCategoryEmoji': requesterItem.categoryEmoji,
+        'ownerItemId': widget.swappableItem.id,
+        'ownerItemName': widget.swappableItem.name,
+        'ownerItemImages': widget.swappableItem.imageUrls,
+        'ownerItemDescription': widget.swappableItem.description,
+        'ownerItemCategory': widget.swappableItem.category,
+        'ownerItemCreatedAt': widget.swappableItem.createdAt.toIso8601String(),
+        'ownerItemUpdatedAt': widget.swappableItem.updatedAt.toIso8601String(),
+        'ownerItemCondition': widget.swappableItem.condition,
+        'ownerItemCategoryEmoji': widget.swappableItem.categoryEmoji,
+      };
+      // final newItem = {
+      //   'id': item_id,
+      //   'requesterId': authUser.email,
+      //   'requesterName': authUser.displayName,
+      //   'requesterImage': authUser.photoURL,
+      //   'requesterPhone': authUser.phoneNumber,
+      //   'ownerId': widget.swappableItem.ownerId,
+      //   'ownerName': widget.swappableItem.ownerName,
+      //   'ownerImage': widget.swappableItem.ownerImageUrl,
+      //   'status': 'requested',
+      //   'requestItemId': requesterItem.id,
+      //   'ownerItemId': widget.swappableItem.id,
+      // };
+      // print(newItem);
+      try {
+        await userDocument.update({
+          'sentSwaps': FieldValue.arrayUnion([newItem]),
+        });
+        await ownerItem.update({
+          'swapRequests': widget.swappableItem.swapRequests! + 1,
+        });
+        await requestItem.update({
+          'swapRequests': requesterItem.swapRequests! + 1,
+        });
+        await ownerDocument.update({
+          'requestedSwaps': FieldValue.arrayUnion([newItem]),
+        });
+      } on Exception catch (e) {
+        print(e);
+      }
+    }
+
     final swappableProvider = Provider.of<SwappableProvider>(context);
     final swappables = swappableProvider.swappables;
     final isFetching = swappableProvider.isFetching;
@@ -72,7 +149,12 @@ class _SwapDialog extends State<SwapDialog> {
                             icon: Icon(Icons.add),
                             color: Colors.white,
                             iconSize: 50,
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                context,
+                                '/add-item',
+                              );
+                            },
                           ));
                     }
                     return SelectItemCard(
@@ -107,13 +189,44 @@ class _SwapDialog extends State<SwapDialog> {
                           color: Colors.white,
                         ),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         if (optionSelected != 0) {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text("Swap Request Sent"),
-                            duration: Duration(milliseconds: 1000),
-                          ));
+                          try {
+                            showDialog(
+                              context: context,
+                              barrierDismissible:
+                                  false, // Prevent dismissing the dialog by tapping outside
+                              builder: (context) {
+                                return AlertDialog(
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      CircularProgressIndicator(), // Show the circular progress indicator
+                                      SizedBox(height: 16),
+                                      Text(
+                                        "Storing data...",
+                                      ), // Optional: Add a message
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                            await addSwapToDatabase(
+                              filteredSwappables[optionSelected - 2],
+                            );
+                          } on Exception catch (e) {
+                            print(e);
+                            Navigator.pop(context);
+                          }
                           Navigator.pop(context);
+                          final swappableProvider =
+                              Provider.of<SwappableProvider>(
+                            context,
+                            listen: false,
+                          );
+                          swappableProvider.fetchSwaps();
+                          Navigator.popAndPushNamed(context, '/home');
+                          // print(filteredSwappables[optionSelected - 2]);
                         } else {
                           null;
                         }

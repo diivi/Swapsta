@@ -50,8 +50,10 @@ class GoogleSignInProvider extends ChangeNotifier {
 
   Future logout() async {
     try {
+      print('i am logging out');
       await googleSignIn.disconnect();
-      FirebaseAuth.instance.signOut();
+      await FirebaseAuth.instance.signOut();
+      print('i have logged out');
     } on Exception catch (e) {
       print(e);
     }

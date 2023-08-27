@@ -24,27 +24,7 @@ class _swaphistorylistState extends State<swaphistorylist> {
 
     final keywordIncludedSwaps = swapHistoryList
         .where((sentSwap) =>
-            sentSwap.ownerItemDescription
-                .contains(widget.searchQuery.toLowerCase()) ||
-            sentSwap.ownerItemName
-                .toLowerCase()
-                .contains(widget.searchQuery.toLowerCase()) ||
             sentSwap.ownerName
-                .toLowerCase()
-                .contains(widget.searchQuery.toLowerCase()) ||
-            sentSwap.ownerPhone!
-                .toLowerCase()
-                .contains(widget.searchQuery.toLowerCase()) ||
-            sentSwap.ownerItemCategory
-                .toLowerCase()
-                .contains(widget.searchQuery.toLowerCase()) ||
-            sentSwap.requesterItemCategory
-                .toLowerCase()
-                .contains(widget.searchQuery.toLowerCase()) ||
-            sentSwap.requesterItemDescription
-                .toLowerCase()
-                .contains(widget.searchQuery.toLowerCase()) ||
-            sentSwap.requesterItemName
                 .toLowerCase()
                 .contains(widget.searchQuery.toLowerCase()) ||
             sentSwap.requesterName

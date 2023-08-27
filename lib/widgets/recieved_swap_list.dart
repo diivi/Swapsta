@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import 'package:swapsta/models/swap.dart';
+import 'package:swapsta/models/swappable.dart';
 import 'package:swapsta/providers/bottom_nav_visibility_provider.dart';
-import 'package:swapsta/providers/recieved_swap_provider.dart';
 import 'package:swapsta/widgets/swap_swappable_row.dart';
 
 class recievedswapslist extends StatefulWidget {
@@ -21,32 +20,12 @@ class recievedswapslist extends StatefulWidget {
 class _recievedswapslistState extends State<recievedswapslist> {
   @override
   Widget build(BuildContext context) {
-    final List<Swap> recievedSwapList =
-        Provider.of<RecievedSwap>(context).recievedSwaps;
+    final swappableProvider = Provider.of<SwappableProvider>(context);
+    final rSwaps = swappableProvider.recievedSwaps;
 
-    final keywordIncludedSwaps = recievedSwapList
+    final keywordIncludedSwaps = rSwaps
         .where((recievedSwap) =>
-            recievedSwap.ownerItemDescription
-                .contains(widget.searchQuery.toLowerCase()) ||
-            recievedSwap.ownerItemName
-                .toLowerCase()
-                .contains(widget.searchQuery.toLowerCase()) ||
             recievedSwap.ownerName
-                .toLowerCase()
-                .contains(widget.searchQuery.toLowerCase()) ||
-            recievedSwap.ownerPhone!
-                .toLowerCase()
-                .contains(widget.searchQuery.toLowerCase()) ||
-            recievedSwap.ownerItemCategory
-                .toLowerCase()
-                .contains(widget.searchQuery.toLowerCase()) ||
-            recievedSwap.requesterItemCategory
-                .toLowerCase()
-                .contains(widget.searchQuery.toLowerCase()) ||
-            recievedSwap.requesterItemDescription
-                .toLowerCase()
-                .contains(widget.searchQuery.toLowerCase()) ||
-            recievedSwap.requesterItemName
                 .toLowerCase()
                 .contains(widget.searchQuery.toLowerCase()) ||
             recievedSwap.requesterName

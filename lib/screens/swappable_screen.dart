@@ -252,9 +252,11 @@ class SwappableScreen extends StatelessWidget {
                                         highlightColor: Colors.transparent,
                                         onTap: () {
                                           showDialog(
-                                              context: context,
-                                              builder: (context) =>
-                                                  SwapDialog());
+                                            context: context,
+                                            builder: (context) => SwapDialog(
+                                              swappableItem: swappable,
+                                            ),
+                                          );
                                         },
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(

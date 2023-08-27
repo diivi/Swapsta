@@ -8,7 +8,6 @@ class Swap {
   String ownerId;
   String ownerName;
   String ownerImage;
-  String? ownerPhone;
   //item details
   String requesterItemId;
   String requesterItemName;
@@ -18,7 +17,6 @@ class Swap {
   DateTime requesterItemCreatedAt;
   DateTime requesterItemUpdatedAt;
   double requesterItemCondition;
-  String requesterItemCategoryEmoji;
   String ownerItemId;
   String ownerItemName;
   List<String> ownerItemImages;
@@ -27,7 +25,6 @@ class Swap {
   DateTime ownerItemCreatedAt;
   DateTime ownerItemUpdatedAt;
   double ownerItemCondition;
-  String ownerItemCategoryEmoji;
   //swap details
   bool? isAccepted = false;
   DateTime? createdAt = DateTime.now();
@@ -43,7 +40,6 @@ class Swap {
     required this.ownerId,
     required this.ownerName,
     required this.ownerImage,
-    this.ownerPhone,
     required this.requesterItemId,
     required this.requesterItemName,
     required this.requesterItemImages,
@@ -52,7 +48,6 @@ class Swap {
     required this.requesterItemCreatedAt,
     required this.requesterItemUpdatedAt,
     required this.requesterItemCondition,
-    required this.requesterItemCategoryEmoji,
     required this.ownerItemId,
     required this.ownerItemName,
     required this.ownerItemImages,
@@ -61,7 +56,6 @@ class Swap {
     required this.ownerItemCreatedAt,
     required this.ownerItemUpdatedAt,
     required this.ownerItemCondition,
-    required this.ownerItemCategoryEmoji,
     this.isAccepted,
     this.createdAt,
     this.interactedAt,
