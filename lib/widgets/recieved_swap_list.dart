@@ -47,6 +47,26 @@ class _recievedswapslistState extends State<recievedswapslist> {
       }
     }
 
+    Future<void> rejectSwap(String item_id, Swap item) async {
+      final firestore = FirebaseFirestore.instance;
+      final swapDocument = firestore.collection('swaps').doc(item_id);
+      final ownerItemDocument =
+          firestore.collection('items').doc(item.ownerItemId);
+      final requesterItemDocument =
+          firestore.collection('items').doc(item.requesterItemId);
+      try {
+        await ownerItemDocument.update({
+          'swapRequests': FieldValue.increment(-1),
+        });
+        await requesterItemDocument.update({
+          'swapRequests': FieldValue.increment(-1),
+        });
+        await swapDocument.delete();
+      } on Exception catch (e) {
+        print(e);
+      }
+    }
+
     final keywordIncludedSwaps = rSwaps
         .where((recievedSwap) =>
             recievedSwap.ownerName
@@ -105,7 +125,76 @@ class _recievedswapslistState extends State<recievedswapslist> {
                                   backgroundColor: Colors.red[400],
                                   child: IconButton(
                                       splashRadius: 24,
-                                      onPressed: () {},
+                                      onPressed: () async {
+                                        showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title:
+                                                    const Text('Are you Sure?'),
+                                                content: Text(
+                                                  'Are you sure you want to reject swap request from ${keywordIncludedSwaps[i].ownerName}',
+                                                ),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () async {
+                                                      try {
+                                                        showDialog(
+                                                          context: context,
+                                                          barrierDismissible:
+                                                              false, // Prevent dismissing the dialog by tapping outside
+                                                          builder: (context) {
+                                                            return AlertDialog(
+                                                              content: Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .min,
+                                                                children: [
+                                                                  CircularProgressIndicator(), // Show the circular progress indicator
+                                                                  SizedBox(
+                                                                      height:
+                                                                          16),
+                                                                  Text(
+                                                                    "Storing data...",
+                                                                  ), // Optional: Add a message
+                                                                ],
+                                                              ),
+                                                            );
+                                                          },
+                                                        );
+                                                        await rejectSwap(
+                                                          keywordIncludedSwaps[
+                                                                  i]
+                                                              .id,
+                                                          keywordIncludedSwaps[
+                                                              i],
+                                                        );
+                                                        final swappableProvider =
+                                                            Provider.of<
+                                                                SwappableProvider>(
+                                                          context,
+                                                          listen: false,
+                                                        );
+                                                        await swappableProvider
+                                                            .fetchSwappables();
+                                                        await swappableProvider
+                                                            .fetchSwaps();
+                                                      } on Exception catch (e) {
+                                                        print(e);
+                                                        Navigator.pop(context);
+                                                      }
+                                                      Navigator.pop(context);
+                                                      Navigator.pushNamed(
+                                                        context,
+                                                        '/home',
+                                                      );
+                                                    },
+                                                    child: const Text('OK'),
+                                                  )
+                                                ],
+                                              );
+                                            });
+                                      },
                                       icon: const Icon(
                                         Icons.close,
                                         color: Colors.white,
@@ -143,7 +232,7 @@ class _recievedswapslistState extends State<recievedswapslist> {
                                                 title:
                                                     const Text('Are you Sure?'),
                                                 content: Text(
-                                                    'Are you sure you want to asccept swap request from ${keywordIncludedSwaps[i].ownerName}'),
+                                                    'Are you sure you want to accept swap request from ${keywordIncludedSwaps[i].ownerName}'),
                                                 actions: [
                                                   TextButton(
                                                     child: const Text('OK'),
