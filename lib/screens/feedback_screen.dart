@@ -47,7 +47,6 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     _descriptionController.addListener(onValueChange);
     super.initState();
   }

@@ -116,11 +116,8 @@ class _AddItemScreenState extends State<AddItemScreen> {
 
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
-    var initialValue;
     if (arguments['title'] == null) {
-      initialValue = '';
     } else {
-      initialValue = arguments['title'];
     }
     bool isLoading = true;
     Future<void> uploadFile(imagePath) async {

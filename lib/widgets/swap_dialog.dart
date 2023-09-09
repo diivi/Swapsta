@@ -186,7 +186,7 @@ class _SwapDialog extends State<SwapDialog> {
                                       CircularProgressIndicator(), // Show the circular progress indicator
                                       SizedBox(height: 16),
                                       Text(
-                                        "Storing data...",
+                                        "Please wait...",
                                       ), // Optional: Add a message
                                     ],
                                   ),

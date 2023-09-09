@@ -86,12 +86,37 @@ class _SettingsDrawerState extends State<SettingsDrawer>
                     color: Colors.orange,
                   ),
                   title: const Text('Logout'),
-                  onTap: () {
-                    final provider = Provider.of<GoogleSignInProvider>(
-                      context,
-                      listen: false,
-                    );
-                    provider.logout();
+                  onTap: () async {
+                    try {
+                      final provider = Provider.of<GoogleSignInProvider>(
+                        context,
+                        listen: false,
+                      );
+                      showDialog(
+                        context: context,
+                        barrierDismissible:
+                            false, // Prevent dismissing the dialog by tapping outside
+                        builder: (context) {
+                          return AlertDialog(
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                CircularProgressIndicator(), // Show the circular progress indicator
+                                SizedBox(height: 16),
+                                Text(
+                                  "Logging Out...",
+                                ), // Optional: Add a message
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                      await provider.logout();
+                    } catch (e) {
+                      print(e);
+                      Navigator.pop(context);
+                    }
+                    Navigator.pop(context);
                   },
                 ),
               ),

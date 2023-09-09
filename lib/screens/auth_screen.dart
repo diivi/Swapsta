@@ -96,14 +96,37 @@ class _AuthScreenState extends State<AuthScreen> {
                 SizedBox(
                   width: MediaQuery.of(context).size.width * .57,
                   child: ElevatedButton(
-                    onPressed: () {
-                      final provider = Provider.of<GoogleSignInProvider>(
-                        context,
-                        listen: false,
-                      );
-                      provider.GoogleLogin();
-                      // user.toggleAuthState(true);
-                      // Navigator.pushNamed(context, '/home');
+                    onPressed: () async {
+                      try {
+                        showDialog(
+                          context: context,
+                          barrierDismissible:
+                              false, // Prevent dismissing the dialog by tapping outside
+                          builder: (context) {
+                            return AlertDialog(
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  CircularProgressIndicator(), // Show the circular progress indicator
+                                  SizedBox(height: 16),
+                                  Text(
+                                    "Logging In...",
+                                  ), // Optional: Add a message
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                        final provider = Provider.of<GoogleSignInProvider>(
+                          context,
+                          listen: false,
+                        );
+                        await provider.GoogleLogin();
+                      } catch (e) {
+                        print(e);
+                        Navigator.pop(context);
+                      }
+                      Navigator.pop(context);
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,

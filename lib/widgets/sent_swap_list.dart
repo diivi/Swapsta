@@ -25,7 +25,7 @@ class _sentswapslistState extends State<sentswapslist> {
 
     final keywordIncludedSwaps = sentSwaps
         .where((sentSwap) =>
-            sentSwap!.ownerName
+            sentSwap.ownerName
                 .toLowerCase()
                 .contains(widget.searchQuery.toLowerCase()) ||
             sentSwap.requesterName
@@ -99,7 +99,7 @@ class _sentswapslistState extends State<sentswapslist> {
                     });
                   },
                   direction: DismissDirection.endToStart,
-                  key: Key(keywordIncludedSwaps[i]!.id),
+                  key: Key(keywordIncludedSwaps[i].id),
                   child: SizedBox(
                     height: MediaQuery.of(context).size.height * .315,
                     child: Stack(
