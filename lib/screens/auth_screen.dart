@@ -13,12 +13,11 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 0, 0, 0),
       body: Padding(
         padding: EdgeInsets.only(
           left: MediaQuery.of(context).size.width * .1,
           right: MediaQuery.of(context).size.width * .1,
-          top: MediaQuery.of(context).size.height * 0,
-          bottom: MediaQuery.of(context).size.height * 0.08,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -27,20 +26,21 @@ class _AuthScreenState extends State<AuthScreen> {
               children: [
                 //Container#1: Image
                 Container(
-                  width: 375,
-                  height: 473,
+                  width: MediaQuery.of(context).size.width * .7,
+                  height: MediaQuery.of(context).size.height * .5,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(
-                          'assets/img/login_screen.png'), // Corrected this line
+                        'assets/img/login_screen.png',
+                      ), // Corrected this line
                       fit: BoxFit.fitWidth,
                     ),
                   ),
                 ),
                 //Container#2: Text and Button
                 Container(
-                  width: 321,
-                  height: 277.34,
+                  width: MediaQuery.of(context).size.width * .8,
+                  height: MediaQuery.of(context).size.height * .5,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -132,51 +132,90 @@ class _AuthScreenState extends State<AuthScreen> {
                           children: [
                             Container(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 68, vertical: 18),
+                                horizontal: 68,
+                                vertical: 18,
+                              ),
                               decoration: BoxDecoration(
                                 color: Color(0xFF222222),
                                 borderRadius: BorderRadius.circular(46.75),
                               ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    width: 18.34,
-                                    height: 18.34,
-                                    child: Stack(
-                                      children: [
-                                        Positioned(
-                                          left: 0.38,
-                                          top: 0.38,
-                                          child: Container(
-                                            width: 17.58,
-                                            height: 17.58,
-                                            child: Stack(children: []),
+                              child: InkWell(
+                                onTap: () async {
+                                  try {
+                                    showDialog(
+                                      context: context,
+                                      barrierDismissible:
+                                          false, // Prevent dismissing the dialog by tapping outside
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          content: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              CircularProgressIndicator(), // Show the circular progress indicator
+                                              SizedBox(height: 16),
+                                              Text(
+                                                "Logging In...",
+                                              ), // Optional: Add a message
+                                            ],
                                           ),
-                                        ),
-                                      ],
+                                        );
+                                      },
+                                    );
+                                    final provider =
+                                        Provider.of<GoogleSignInProvider>(
+                                      context,
+                                      listen: false,
+                                    );
+                                    await provider.GoogleLogin();
+                                    Navigator.pop(context);
+                                  } catch (e) {
+                                    print(e);
+                                    Navigator.pop(context);
+                                  }
+                                  Navigator.pop(context);
+                                },
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 18.34,
+                                      height: 18.34,
+                                      child: Stack(
+                                        children: [
+                                          Positioned(
+                                            left: 0.38,
+                                            top: 0.38,
+                                            child: Container(
+                                              width: 17.58,
+                                              height: 17.58,
+                                              child: Stack(children: []),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  Image.asset(
-                                    'assets/img/google_icon.png',
-                                    height: MediaQuery.of(context).size.height *
-                                        0.023,
-                                  ),
-                                  SizedBox(width: 9.52),
-                                  Text(
-                                    'Continue with Google',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14.08,
-                                      fontFamily: 'Inter',
-                                      fontWeight: FontWeight.w400,
-                                      height: 0,
-                                      letterSpacing: -0.14,
+                                    Image.asset(
+                                      'assets/img/google_icon.png',
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.023,
                                     ),
-                                  ),
-                                ],
+                                    SizedBox(width: 9.52),
+                                    Text(
+                                      'Continue with Google',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 14.08,
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w400,
+                                        height: 0,
+                                        letterSpacing: -0.14,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                             SizedBox(height: 9),
