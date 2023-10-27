@@ -64,11 +64,12 @@ class MyItemsCard extends StatelessWidget {
                           color: Colors.white,
                         ),
                         onPressed: () {
-                          Navigator.pushNamed(context, '/add-item', arguments: {
+                          Navigator.pushNamed(context, '/edit-item', arguments: {
                             'title': swappable.name,
                             'description': swappable.description,
                             'header': 'Edit Item',
                             'condition': swappable.condition,
+                            'images' : swappable.imageUrls,
                           });
                         },
                       ),
