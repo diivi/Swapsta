@@ -122,6 +122,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           listen: false,
                         );
                         await provider.GoogleLogin();
+                        Navigator.pop(context);
                       } catch (e) {
                         print(e);
                         Navigator.pop(context);

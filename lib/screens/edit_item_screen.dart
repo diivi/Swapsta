@@ -11,16 +11,16 @@ import 'package:swapsta/models/swappable.dart';
 import 'package:uuid/uuid.dart';
 import '../../globals.dart' as globals;
 
-class AddItemScreen extends StatefulWidget {
-  const AddItemScreen({Key? key}) : super(key: key);
+class EditItemScreen extends StatefulWidget {
+  const EditItemScreen({Key? key}) : super(key: key);
 
-  static const routeName = '/add-item';
+  static const routeName = '/edit-item';
 
   @override
-  State<AddItemScreen> createState() => _AddItemScreenState();
+  State<EditItemScreen> createState() => _EditItemScreenState();
 }
 
-class _AddItemScreenState extends State<AddItemScreen> {
+class _EditItemScreenState extends State<EditItemScreen> {
   final categories = globals.categories;
   late List<Map<String, dynamic>> dropdownItems = [];
   String selectedValue = "Stationery";
@@ -51,29 +51,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
   }
 
   List<String> imageUrls = [];
-  List<File> imageFile = [];
   final picker = ImagePicker();
-  Future selectImageCamera() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.camera);
-    setState(() {
-      if (pickedFile != null) {
-        imageFile.add(File(pickedFile.path));
-      } else {
-        return;
-      }
-    });
-  }
-
-  Future selectImageGallery() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      if (pickedFile != null) {
-        imageFile.add(File(pickedFile.path));
-      } else {
-        return;
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +74,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
           'updatedAt': DateTime.now(),
           'swapRequests': 0,
           'description': _descriptionController.text,
-          'swapped' : false
+          'swapped': false
         };
         // Update the 'items' array in the user document
         try {
@@ -111,9 +89,31 @@ class _AddItemScreenState extends State<AddItemScreen> {
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
     if (arguments['title'] == null) {
-    } else {
-    }
+    } else {}
+    List<String> imageFile = arguments["images"];
     bool isLoading = true;
+    Future selectImageCamera() async {
+      final pickedFile = await picker.pickImage(source: ImageSource.camera);
+      setState(() {
+        if (pickedFile != null) {
+          imageFile.add(pickedFile.path);
+        } else {
+          return;
+        }
+      });
+    }
+
+    Future selectImageGallery() async {
+      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+      setState(() {
+        if (pickedFile != null) {
+          imageFile.add(pickedFile.path);
+        } else {
+          return;
+        }
+      });
+    }
+
     Future<void> uploadFile(imagePath) async {
       File file = imagePath;
       if (isLoading) {
@@ -150,7 +150,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
         downloadUrl =
             await FirebaseStorage.instance.ref(imageName).getDownloadURL();
         setState(() {
-          imageUrls.add(downloadUrl);
+          arguments["images"].add(downloadUrl);
         });
       } catch (e) {
         print(e);
@@ -339,7 +339,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                     itemBuilder: (context, index) {
                                       return Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: Image.file(
+                                        child: Image.network(
                                           imageFile[index],
                                           fit: BoxFit.cover,
                                         ),
@@ -502,7 +502,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                       isLoading = true;
                     });
                     try {
-                      for (File item in imageFile) {
+                      for (String item in imageFile) {
                         await uploadFile(item);
                       }
                       await addItemToDatabase();
