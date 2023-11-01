@@ -10,7 +10,6 @@ import 'package:swapsta/screens/profile_screen.dart';
 import 'package:swapsta/screens/swap_screen.dart';
 import 'package:swapsta/widgets/settings_sidebar.dart';
 
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
   static const routeName = '/home';
@@ -29,32 +28,16 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     int screenIndex = Provider.of<ScreenProvider>(context).screenIndex;
-    
+
     return Scaffold(
-      body: Stack(children: [
-        Positioned(
-          top: 20,
-          left: 0,
-          child: Container(
-            height: 150,
-            width: 150,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: const AssetImage('assets/img/swap_straight.png'),
-                fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(
-                  Colors.white.withOpacity(0.3),
-                  BlendMode.modulate,
-                ),
-              ),
-            ),
-          ),
-        ),
-        SafeArea(
-          child: _screens[screenIndex],
-          bottom: false,
-        )
-      ]),
+      body: Stack(
+        children: [
+          SafeArea(
+            child: _screens[screenIndex],
+            bottom: false,
+          )
+        ],
+      ),
       extendBody: true,
       bottomNavigationBar: Consumer<BottomBarVisibilityProvider>(
         builder: (context, bottomBarVisibilityProvider, _) => AnimatedOpacity(

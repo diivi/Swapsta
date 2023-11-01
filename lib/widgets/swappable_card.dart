@@ -25,10 +25,12 @@ class SwappableCard extends StatelessWidget {
       ),
       child: InkWell(
         splashColor: const Color.fromRGBO(255, 152, 0, 0.2),
-        highlightColor: const Color(0x00ffffff),
+        // highlightColor: const Color(0x00ffffff),
         onTap: () {
-          Navigator.of(context)
-              .pushNamed(SwappableScreen.routeName, arguments: swappable);
+          Navigator.of(context).pushNamed(
+            SwappableScreen.routeName,
+            arguments: swappable,
+          );
         },
         child: Column(
           children: [

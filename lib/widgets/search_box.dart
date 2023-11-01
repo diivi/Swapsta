@@ -11,7 +11,7 @@ class SearchBox extends StatelessWidget {
       margin: const EdgeInsets.only(right: 0),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Color(0xFFF4F6FB),
         borderRadius: BorderRadius.circular(30),
       ),
       child: Row(
@@ -19,7 +19,7 @@ class SearchBox extends StatelessWidget {
           Icon(
             Icons.search,
             size: 24,
-            color: Colors.orange[700],
+            color: Colors.black,
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -32,7 +32,7 @@ class SearchBox extends StatelessWidget {
                 hintText: 'What are you looking for?',
                 hintStyle: TextStyle(
                   fontSize: 18,
-                  color: Colors.orange[700],
+                  color: Colors.black,
                   fontWeight: FontWeight.w400,
                 ),
               ),

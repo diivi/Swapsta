@@ -20,7 +20,7 @@ class Pill extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         borderRadius: BorderRadius.circular(30),
-        splashColor: const Color.fromRGBO(255, 152, 0, 0.5),
+        splashColor: Color.fromARGB(126, 29, 29, 28),
         onTap: () {
           handleTap();
         },
@@ -29,7 +29,7 @@ class Pill extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: active ? Colors.orange : Colors.white,
+            color: active ? Colors.black : Color(0xFFF4F6FB),
           ),
           width: 124,
           alignment: Alignment.center,
@@ -38,12 +38,6 @@ class Pill extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.baseline,
             textBaseline: TextBaseline.alphabetic,
             children: [
-              Text(
-                emoji,
-                style: const TextStyle(
-                  fontSize: 18,
-                ),
-              ),
               Flexible(
                 child: Text(
                   name,
