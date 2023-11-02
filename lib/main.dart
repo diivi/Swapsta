@@ -8,6 +8,7 @@ import 'package:swapsta/providers/auth_provider.dart';
 import 'package:swapsta/providers/bottom_nav_visibility_provider.dart';
 import 'package:swapsta/providers/screen_provider.dart';
 import 'package:swapsta/screens/auth_screen.dart';
+import 'package:swapsta/screens/edit_item_screen.dart';
 // import 'package:swapsta/screens/explore_screen.dart';
 import 'package:swapsta/screens/home_screen.dart';
 import 'package:swapsta/screens/feedback_screen.dart';
@@ -86,7 +87,7 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.orange,
-          scaffoldBackgroundColor: const Color(0xFFF9F6F2),
+          scaffoldBackgroundColor: Colors.white,
           fontFamily: 'RedHatDisplay',
         ),
         home: const Home(),
@@ -96,6 +97,7 @@ class MyApp extends StatelessWidget {
           SwapScreen.routeName: (context) => const SwapScreen(),
           HomeScreen.routeName: (context) => const HomeScreen(),
           FeedbackScreen.routeName: (context) => const FeedbackScreen(),
+          EditItemScreen.routeName: (context) => const EditItemScreen(),
         },
       ),
     );
@@ -110,12 +112,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  // final _screens = [
-  //   const ExploreScreen(),
-  //   const SwapScreen(),
-  //   const ProfileScreen(),
-  //   const AddItemScreen(),
-  // ];
 
   @override
   Widget build(BuildContext context) {

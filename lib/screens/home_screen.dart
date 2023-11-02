@@ -6,10 +6,10 @@ import 'package:swapsta/providers/bottom_nav_visibility_provider.dart';
 import 'package:swapsta/providers/screen_provider.dart';
 import 'package:swapsta/screens/add_item_screen.dart';
 import 'package:swapsta/screens/explore_screen.dart';
+import 'package:swapsta/screens/listing_screen.dart';
 import 'package:swapsta/screens/profile_screen.dart';
 import 'package:swapsta/screens/swap_screen.dart';
 import 'package:swapsta/widgets/settings_sidebar.dart';
-
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -24,37 +24,21 @@ class _HomeScreenState extends State<HomeScreen> {
     const ExploreScreen(),
     const SwapScreen(),
     const ProfileScreen(),
-    const AddItemScreen(),
+    const ListingScreen(),
   ];
   @override
   Widget build(BuildContext context) {
     int screenIndex = Provider.of<ScreenProvider>(context).screenIndex;
-    
+
     return Scaffold(
-      body: Stack(children: [
-        Positioned(
-          top: 20,
-          left: 0,
-          child: Container(
-            height: 150,
-            width: 150,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: const AssetImage('assets/img/swap_straight.png'),
-                fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(
-                  Colors.white.withOpacity(0.3),
-                  BlendMode.modulate,
-                ),
-              ),
-            ),
-          ),
-        ),
-        SafeArea(
-          child: _screens[screenIndex],
-          bottom: false,
-        )
-      ]),
+      body: Stack(
+        children: [
+          SafeArea(
+            child: _screens[screenIndex],
+            bottom: false,
+          )
+        ],
+      ),
       extendBody: true,
       bottomNavigationBar: Consumer<BottomBarVisibilityProvider>(
         builder: (context, bottomBarVisibilityProvider, _) => AnimatedOpacity(
@@ -63,7 +47,8 @@ class _HomeScreenState extends State<HomeScreen> {
           child: IgnorePointer(
             ignoring: !bottomBarVisibilityProvider.isVisible,
             child: DotNavigationBar(
-              dotIndicatorColor: Colors.orange,
+              backgroundColor: Colors.black,
+              dotIndicatorColor: Colors.white,
               currentIndex: screenIndex,
               boxShadow: [
                 BoxShadow(
@@ -80,15 +65,23 @@ class _HomeScreenState extends State<HomeScreen> {
               items: [
                 DotNavigationBarItem(
                   icon: const Icon(Icons.explore),
-                  selectedColor: Colors.orange,
+                  selectedColor: Colors.white,
+                  unselectedColor: Colors.grey
                 ),
                 DotNavigationBarItem(
                   icon: const Icon(Swapcons.swap),
-                  selectedColor: Colors.orange,
+                  selectedColor: Colors.white,
+                  unselectedColor: Colors.grey
                 ),
                 DotNavigationBarItem(
                   icon: const Icon(Icons.account_circle_outlined),
-                  selectedColor: Colors.orange,
+                  selectedColor: Colors.white,
+                  unselectedColor: Colors.grey
+                ),
+                DotNavigationBarItem(
+                  icon: const Icon(Icons.list_alt_rounded),
+                  selectedColor: Colors.white,
+                  unselectedColor: Colors.grey
                 ),
               ],
             ),

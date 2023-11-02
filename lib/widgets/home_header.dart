@@ -16,7 +16,7 @@ class HomeHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Hi ${authUser.displayName?.split(" ")[0]},',
+                'Hello ${authUser.displayName?.split(" ")[0]}, 🖐️',
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w400,
@@ -38,7 +38,7 @@ class HomeHeader extends StatelessWidget {
             },
             icon: const Icon(
               Icons.settings_outlined,
-              color: Colors.orange,
+              color: Colors.black,
               size: 32,
             ),
           ),

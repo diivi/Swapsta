@@ -115,6 +115,11 @@ flutter:
     - family: Swapcons
       fonts:
         - asset: assets/fonts/Swapcons.ttf
+      
+    - family: Fraunces    
+      fonts:
+        - asset: assets/fonts/Fraunces_9pt_SuperSoft-Italic.ttf
+          weight: 400
 
   #   - family: Trajan Pro
   #     fonts:

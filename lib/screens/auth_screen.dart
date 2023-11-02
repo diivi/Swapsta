@@ -13,143 +13,270 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 0, 0, 0),
       body: Padding(
         padding: EdgeInsets.only(
           left: MediaQuery.of(context).size.width * .1,
           right: MediaQuery.of(context).size.width * .1,
-          top: MediaQuery.of(context).size.height * .05,
-          bottom: MediaQuery.of(context).size.height * .03,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Image.asset(
-                      'assets/img/swap_straight.png',
-                      height: MediaQuery.of(context).size.width * .11,
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * .02,
-                    ),
-                    Text(
-                      'swapsta',
-                      style: TextStyle(
-                        color: Colors.orange,
-                        fontSize: 35,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
-                Image.asset(
-                  'assets/img/login_screen.png',
+                //Container#1: Image
+                Container(
+                  width: MediaQuery.of(context).size.width * .7,
                   height: MediaQuery.of(context).size.height * .5,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(
+                        'assets/img/login_screen.png',
+                      ), // Corrected this line
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
                 ),
-                Row(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'swap, don\'t shop',
+                //Container#2: Text and Button
+                Container(
+                  width: MediaQuery.of(context).size.width * .8,
+                  height: MediaQuery.of(context).size.height * .5,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 321,
+                        child: Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'Swap Without ',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 24.80,
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w400,
+                                  height: 0,
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'Interruption',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 24.80,
+                                  fontStyle: FontStyle.italic,
+                                  fontFamily: 'Fraunces',
+                                  fontWeight: FontWeight.w400,
+                                  height: 0,
+                                ),
+                              ),
+                              TextSpan(
+                                text: ', Unleash the Fun, Let the ',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 24.80,
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w400,
+                                  height: 0,
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'Energy Flow',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 24.80,
+                                  fontStyle: FontStyle.italic,
+                                  fontFamily: 'Fraunces',
+                                  fontWeight: FontWeight.w400,
+                                  height: 0,
+                                ),
+                              ),
+                              TextSpan(
+                                text: '!',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 24.80,
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w400,
+                                  height: 0,
+                                ),
+                              ),
+                            ],
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      SizedBox(
+                        width: 270,
+                        child: Text(
+                          'Trade your unused belongings with fellow students and discover new treasures while decluttering your space',
+                          textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontFamily: 'AbhayaLibre',
-                            fontSize: 36,
+                            color: Colors.white.withOpacity(0.7),
+                            fontSize: 13.22,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.w400,
-                            color: Colors.orange,
+                            height: 1.10,
                           ),
                         ),
-                      ],
-                    )
-                  ],
-                ),
-              ],
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * .03,
-            ),
-            Stack(
-              clipBehavior: Clip.none,
-              children: [
-                Positioned(
-                  top: -150,
-                  left: 100,
-                  child: Container(
-                    height: 200,
-                    width: 200,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: const AssetImage('assets/img/swap_straight.png'),
-                        fit: BoxFit.cover,
-                        colorFilter: ColorFilter.mode(
-                          Colors.white.withOpacity(0.15),
-                          BlendMode.modulate,
+                      ),
+                      SizedBox(height: 20),
+                      Container(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 68,
+                                vertical: 18,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Color(0xFF222222),
+                                borderRadius: BorderRadius.circular(46.75),
+                              ),
+                              child: InkWell(
+                                onTap: () async {
+                                  try {
+                                    showDialog(
+                                      context: context,
+                                      barrierDismissible:
+                                          false, // Prevent dismissing the dialog by tapping outside
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          content: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              CircularProgressIndicator(), // Show the circular progress indicator
+                                              SizedBox(height: 16),
+                                              Text(
+                                                "Logging In...",
+                                              ), // Optional: Add a message
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                    final provider =
+                                        Provider.of<GoogleSignInProvider>(
+                                      context,
+                                      listen: false,
+                                    );
+                                    await provider.GoogleLogin();
+                                    Navigator.pop(context);
+                                  } catch (e) {
+                                    print(e);
+                                    Navigator.pop(context);
+                                  }
+                                  Navigator.pop(context);
+                                },
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 18.34,
+                                      height: 18.34,
+                                      child: Stack(
+                                        children: [
+                                          Positioned(
+                                            left: 0.38,
+                                            top: 0.38,
+                                            child: Container(
+                                              width: 17.58,
+                                              height: 17.58,
+                                              child: Stack(children: []),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Image.asset(
+                                      'assets/img/google_icon.png',
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.023,
+                                    ),
+                                    SizedBox(width: 9.52),
+                                    Text(
+                                      'Continue with Google',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 14.08,
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w400,
+                                        height: 0,
+                                        letterSpacing: -0.14,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 9),
+                            SizedBox(
+                              width: 287,
+                              child: Text.rich(
+                                TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: 'By continuing you agree to our',
+                                      style: TextStyle(
+                                        color: Colors.white.withOpacity(0.5),
+                                        fontSize: 11.92,
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w400,
+                                        height: 0,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: ' terms of service',
+                                      style: TextStyle(
+                                        color: Colors.white.withOpacity(0.5),
+                                        fontSize: 11.92,
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w700,
+                                        height: 0,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: ' and',
+                                      style: TextStyle(
+                                        color: Colors.white.withOpacity(0.5),
+                                        fontSize: 11.92,
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w400,
+                                        height: 0,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: ' privacy policy',
+                                      style: TextStyle(
+                                        color: Colors.white.withOpacity(0.5),
+                                        fontSize: 11.92,
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w700,
+                                        height: 0,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * .57,
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      try {
-                        showDialog(
-                          context: context,
-                          barrierDismissible:
-                              false, // Prevent dismissing the dialog by tapping outside
-                          builder: (context) {
-                            return AlertDialog(
-                              content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  CircularProgressIndicator(), // Show the circular progress indicator
-                                  SizedBox(height: 16),
-                                  Text(
-                                    "Logging In...",
-                                  ), // Optional: Add a message
-                                ],
-                              ),
-                            );
-                          },
-                        );
-                        final provider = Provider.of<GoogleSignInProvider>(
-                          context,
-                          listen: false,
-                        );
-                        await provider.GoogleLogin();
-                      } catch (e) {
-                        print(e);
-                        Navigator.pop(context);
-                      }
-                      Navigator.pop(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        elevation: 2.0,
-                        padding: EdgeInsets.all(7)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Image.asset(
-                          'assets/img/google_icon.png',
-                          height: MediaQuery.of(context).size.height * .04,
-                        ),
-                        Text(
-                          'Continue with Google',
-                          style: TextStyle(
-                              color: Colors.grey.shade600, fontSize: 16),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                )
               ],
-            )
+            ),
           ],
         ),
       ),

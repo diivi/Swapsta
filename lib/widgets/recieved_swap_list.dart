@@ -152,10 +152,10 @@ class _recievedswapslistState extends State<recievedswapslist> {
                                                                 children: [
                                                                   CircularProgressIndicator(), // Show the circular progress indicator
                                                                   SizedBox(
-                                                                      height:
-                                                                          16),
+                                                                    height: 16,
+                                                                  ),
                                                                   Text(
-                                                                    "Storing data...",
+                                                                    "Please wait...",
                                                                   ), // Optional: Add a message
                                                                 ],
                                                               ),
@@ -232,7 +232,7 @@ class _recievedswapslistState extends State<recievedswapslist> {
                                                 title:
                                                     const Text('Are you Sure?'),
                                                 content: Text(
-                                                    'Are you sure you want to accept swap request from ${keywordIncludedSwaps[i].ownerName}'),
+                                                    'Are you sure you want to accept swap request from ${keywordIncludedSwaps[i].requesterName}'),
                                                 actions: [
                                                   TextButton(
                                                     child: const Text('OK'),
@@ -251,10 +251,10 @@ class _recievedswapslistState extends State<recievedswapslist> {
                                                                 children: [
                                                                   CircularProgressIndicator(), // Show the circular progress indicator
                                                                   SizedBox(
-                                                                      height:
-                                                                          16),
+                                                                    height: 16,
+                                                                  ),
                                                                   Text(
-                                                                    "Storing data...",
+                                                                    "Please wait...",
                                                                   ), // Optional: Add a message
                                                                 ],
                                                               ),

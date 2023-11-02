@@ -27,12 +27,6 @@ class _AddItemScreenState extends State<AddItemScreen> {
   double rating = 0;
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  // void onValueChange() {
-  //   setState(() {
-  //     _titleController.text;
-  //     _descriptionController.text;
-  //   });
-  // }
 
   @override
   void initState() {
