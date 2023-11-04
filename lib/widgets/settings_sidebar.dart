@@ -38,7 +38,7 @@ class _SettingsDrawerState extends State<SettingsDrawer>
                         authUser.displayName!,
                         style: const TextStyle(
                           fontSize: 20,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                       Text(
@@ -57,21 +57,21 @@ class _SettingsDrawerState extends State<SettingsDrawer>
               title: Text('About'),
               leading: Icon(
                 Icons.info_outline_rounded,
-                color: Colors.orange,
+                color: Colors.black,
               ),
             ),
             const ListTile(
               title: Text('Settings'),
               leading: Icon(
                 Icons.settings,
-                color: Colors.orange,
+                color: Colors.black,
               ),
             ),
             ListTile(
               title: Text('Feedback'),
               leading: Icon(
                 Icons.feedback_rounded,
-                color: Colors.orange,
+                color: Colors.black,
               ),
               onTap: () {
                 Navigator.pushNamed(context, '/feedback_screen');
@@ -83,7 +83,7 @@ class _SettingsDrawerState extends State<SettingsDrawer>
                 child: ListTile(
                   leading: const Icon(
                     Icons.logout,
-                    color: Colors.orange,
+                    color: Colors.black,
                   ),
                   title: const Text('Logout'),
                   onTap: () async {
