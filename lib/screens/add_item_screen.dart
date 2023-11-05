@@ -96,7 +96,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
           'updatedAt': DateTime.now(),
           'swapRequests': 0,
           'description': _descriptionController.text,
-          'swapped' : false
+          'swapped': false
         };
         // Update the 'items' array in the user document
         try {
@@ -111,8 +111,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
     if (arguments['title'] == null) {
-    } else {
-    }
+    } else {}
     bool isLoading = true;
     Future<void> uploadFile(imagePath) async {
       File file = imagePath;
@@ -161,7 +160,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
       appBar: AppBar(
         centerTitle: false,
         title: _buildAppBar(arguments['header']),
-        backgroundColor: const Color(0xFFF9F6F2),
+        backgroundColor: Color.fromARGB(255, 251, 249, 246),
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -176,31 +175,91 @@ class _AddItemScreenState extends State<AddItemScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                      const Text(
+                        'Product Name*',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                     const SizedBox(
-                      height: 10,
+                      height: 7,
                     ),
+
                     TextField(
                       maxLength: 50,
                       controller: _titleController,
                       decoration: InputDecoration(
                         counterText: "${_titleController.text.length} / 50",
-                        labelText: 'Title',
+                        labelText: 'Enter Product Name*',
+                        labelStyle: TextStyle(color: Colors.black),
+                       hintStyle: TextStyle(color: Colors.black),
                         contentPadding: const EdgeInsets.all(8),
                         filled: true,
-                        fillColor: Colors.white,
+                        fillColor: Color.fromARGB(245, 249, 249, 249),
                         enabledBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          borderSide: BorderSide.none,
-                        ),
-                        focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.orange),
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        ),
+                           borderRadius: BorderRadius.all(Radius.circular(10)),
+                           borderSide: BorderSide.none,
+                         ),
+
+
                       ),
                     ),
                   ],
                 ),
               ),
+
+              //input for desc 
+              Column(               //describe your product
+                crossAxisAlignment: CrossAxisAlignment.start, // Align children to the left
+
+                children: [
+                      const Text(
+                        'Description*',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                        ),
+
+                      ),     
+  
+
+                  TextField(
+                    keyboardType: TextInputType.multiline,
+                    maxLines: null,
+                    maxLength: 200,
+                    controller: _descriptionController,
+                    textAlign: TextAlign.start,
+                    decoration: InputDecoration(
+                        counterText:
+                            "${_descriptionController.text.length} / 200",
+                        labelText: 'Describe your product',
+                            alignLabelWithHint: true, // Move the label to the top
+
+                        labelStyle: TextStyle(color: Colors.black),
+                        hintStyle: TextStyle(color: Colors.black),
+                        filled: true,
+                        fillColor: Color.fromARGB(245, 249, 249, 249),
+                        enabledBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          borderSide: BorderSide.none,
+                        ),
+                        
+
+                        focusedBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        )
+                        ),
+                        
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  )
+                ],
+              ),
+
+
               Padding(
                 padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).size.height * .03),
@@ -210,10 +269,10 @@ class _AddItemScreenState extends State<AddItemScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Images',
+                        'Upload Image',
                         style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                       const SizedBox(
@@ -224,17 +283,17 @@ class _AddItemScreenState extends State<AddItemScreen> {
                           Container(
                             padding: const EdgeInsets.all(40),
                             decoration: const BoxDecoration(
-                              color: Color(0XFFFFDDC3),
+                              color: Color.fromARGB(245, 249, 249, 249),
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
+                                  BorderRadius.all(Radius.circular(11)),
                             ),
                             child: ElevatedButton(
                               child: const Icon(
                                 Icons.add_rounded,
-                                color: Colors.orange,
+                                color: Colors.white,
                               ),
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.white,
+                                  backgroundColor: Colors.black,
                                   shape: const CircleBorder()),
                               onPressed: () => showModalBottomSheet(
                                   context: context,
@@ -255,7 +314,10 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                             children: [
                                               const Text(
                                                 'Select One Option',
-                                                style: TextStyle(fontSize: 22),
+                                                style: TextStyle(
+                                                  fontSize: 22,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
                                               ),
                                               const SizedBox(height: 20),
                                               Column(
@@ -269,7 +331,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                                         Icon(
                                                           Icons
                                                               .camera_alt_outlined,
-                                                          color: Colors.orange,
+                                                          color: Colors.black,
                                                         ),
                                                         Padding(
                                                           padding:
@@ -297,7 +359,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                                       children: [
                                                         Icon(
                                                           Icons.image_outlined,
-                                                          color: Colors.orange,
+                                                          color: Colors.black,
                                                         ),
                                                         Padding(
                                                           padding:
@@ -354,34 +416,6 @@ class _AddItemScreenState extends State<AddItemScreen> {
                   ),
                 ),
               ),
-              Column(
-                children: [
-                  TextField(
-                    keyboardType: TextInputType.multiline,
-                    maxLines: null,
-                    maxLength: 200,
-                    controller: _descriptionController,
-                    textAlign: TextAlign.start,
-                    decoration: InputDecoration(
-                        counterText:
-                            "${_descriptionController.text.length} / 200",
-                        labelText: 'Description',
-                        filled: true,
-                        fillColor: Colors.white,
-                        enabledBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          borderSide: BorderSide.none,
-                        ),
-                        focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.orange),
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        )),
-                  ),
-                  const SizedBox(
-                    height: 25,
-                  )
-                ],
-              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -411,7 +445,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                   BorderRadius.all(Radius.circular(10)),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.orange),
+                              borderSide: BorderSide(color: Colors.black),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)),
                             ),
@@ -420,7 +454,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                           ),
                           icon: const Icon(
                             Icons.arrow_drop_down_rounded,
-                            color: Colors.orange,
+                            color: Colors.black,
                           ),
                           items: dropdownItems.map((e) {
                             return DropdownMenuItem<String>(
@@ -454,12 +488,21 @@ class _AddItemScreenState extends State<AddItemScreen> {
                         style: TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.w600,
+                          
                         ),
                       ),
                       const SizedBox(
                         height: 22,
                       ),
+
+                        // labelStyle: TextStyle(color: Colors.black),
+                        // hintStyle: TextStyle(color: Colors.black),
+                        // contentPadding: const EdgeInsets.all(8),
+                        // filled: true,
+                        // fillColor: Color.fromARGB(245, 249, 249, 249),
+
                       RatingBar.builder(
+                      
                         minRating: 1,
                         itemSize: 22,
                         allowHalfRating: true,
@@ -481,12 +524,13 @@ class _AddItemScreenState extends State<AddItemScreen> {
               const SizedBox(height: 40),
               Ink(
                 width: MediaQuery.of(context).size.width * 0.45,
+                
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
                   border: Border.all(
-                    color: Colors.orange,
+                    color: Colors.black,
                   ),
-                  color: Colors.orange,
+                  color: Colors.black,
                 ),
                 child: InkWell(
                   splashColor: const Color.fromRGBO(
@@ -532,7 +576,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
+                      horizontal: 0,
                       vertical: 10,
                     ),
                     child: Row(
@@ -543,10 +587,10 @@ class _AddItemScreenState extends State<AddItemScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: const [
                               Text(
-                                'Submit',
+                                'Create Product',
                                 overflow: TextOverflow.fade,
                                 style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.white,
                                 ),

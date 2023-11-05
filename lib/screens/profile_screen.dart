@@ -43,7 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen>
           child: TabBar(
             overlayColor: MaterialStateProperty.all(Colors.transparent),
             splashFactory: NoSplash.splashFactory,
-            labelColor: Colors.orange,
+            labelColor: Colors.black,
             unselectedLabelColor: const Color.fromRGBO(158, 158, 158, .35),
             indicator: const CustomTabIndicator(),
             indicatorPadding: EdgeInsets.symmetric(

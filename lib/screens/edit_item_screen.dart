@@ -157,6 +157,7 @@ class _EditItemScreenState extends State<EditItemScreen> {
       }
     }
 
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
